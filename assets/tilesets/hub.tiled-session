@@ -1,0 +1,42 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "",
+    "expandedProjectPaths": [
+    ],
+    "file.lastUsedOpenFilter": "All Files (*)",
+    "fileStates": {
+        "": {
+            "scaleInDock": 1
+        },
+        "#base": {
+            "scaleInEditor": 1
+        },
+        "#monochrome_tilemap_transparent_packed": {
+            "scaleInEditor": 1
+        }
+    },
+    "frame.defaultDuration": 300,
+    "last.exportedFilePath": "D:/Github Repos/game4_final/assets/tilesets",
+    "last.imagePath": "D:/Github Repos/game4_final/assets/kenney_1-bit-platformer-pack/Tilemap",
+    "map.height": 40,
+    "map.lastUsedExportFilter": "JSON map files (*.tmj *.json)",
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "map.width": 50,
+    "openFiles": [
+    ],
+    "project": "hub.tiled-project",
+    "recentFiles": [
+    ],
+    "tileset.embedInMap": true,
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    },
+    "tileset.transparentColor": "#000000",
+    "tileset.useTransparentColor": false
+}

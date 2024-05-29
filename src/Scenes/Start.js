@@ -32,7 +32,7 @@ class Start extends Phaser.Scene {
     update(delta) {
 
         if (this.enter.isDown) {
-            this.scene.start("LevelOne")
+            this.scene.start("Hub")
         }
 
         if (this.credits.isDown) {
