@@ -3,19 +3,34 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "D:/Github Repos/game4_final/assets/hub.tmx",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
         "": {
-            "scaleInDock": 1
+            "scaleInDock": 1,
+            "scaleInEditor": 4
         },
         "#base": {
             "scaleInEditor": 1
         },
         "#monochrome_tilemap_transparent_packed": {
             "scaleInEditor": 1
+        },
+        "D:/Github Repos/game4_final/assets/hub.tmx": {
+            "scale": 2,
+            "selectedLayer": 8,
+            "viewCenter": {
+                "x": 410.5,
+                "y": 275.5
+            }
+        },
+        "D:/Github Repos/game4_final/assets/hub.tmx#base_black": {
+            "scaleInDock": 1.5
+        },
+        "D:/Github Repos/game4_final/assets/hub.tmx#base_transparent": {
+            "scaleInDock": 1.5
         }
     },
     "frame.defaultDuration": 300,
@@ -28,9 +43,11 @@
     "map.tileWidth": 16,
     "map.width": 50,
     "openFiles": [
+        "D:/Github Repos/game4_final/assets/hub.tmx"
     ],
     "project": "hub.tiled-project",
     "recentFiles": [
+        "D:/Github Repos/game4_final/assets/hub.tmx"
     ],
     "tileset.embedInMap": true,
     "tileset.tileSize": {

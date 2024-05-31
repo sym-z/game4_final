@@ -11,6 +11,7 @@ class Load extends Phaser.Scene {
         this.load.image("tilemap_tiles_alpha", "kenney_1-bit-platformer-pack/Tilemap/monochrome_tilemap_transparent_packed.png");                         // Packed tilemap
         this.load.tilemapTiledJSON("rough-draft", "rough-draft.tmj");   // Tilemap in JSON
         this.load.tilemapTiledJSON("hub", "/tilesets/hub.tmj");   // Tilemap in JSON
+        this.load.tilemapTiledJSON("level1", "/tilesets/level1.tmj");   // Tilemap in JSON
 
         // Load in font
         this.load.bitmapFont('pi', 'fonts/pi_0.png', 'fonts/pi.fnt');
