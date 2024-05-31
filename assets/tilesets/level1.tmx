@@ -18,6 +18,11 @@
     <property name="value" type="int" value="25"/>
    </properties>
   </tile>
+  <tile id="7">
+   <properties>
+    <property name="isCheckpoint" type="bool" value="true"/>
+   </properties>
+  </tile>
   <tile id="20">
    <properties>
     <property name="collides" type="bool" value="true"/>
@@ -51,11 +56,23 @@
   <tile id="56">
    <properties>
     <property name="collides" type="bool" value="true"/>
+    <property name="isDoor" type="bool" value="true"/>
    </properties>
   </tile>
   <tile id="57">
    <properties>
     <property name="collides" type="bool" value="true"/>
+    <property name="isDoor" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="58">
+   <properties>
+    <property name="isDoor" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="59">
+   <properties>
+    <property name="isDoor" type="bool" value="true"/>
    </properties>
   </tile>
   <tile id="62">
@@ -83,6 +100,16 @@
     <property name="collides" type="bool" value="true"/>
    </properties>
   </tile>
+  <tile id="78">
+   <properties>
+    <property name="isDoor" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="79">
+   <properties>
+    <property name="isDoor" type="bool" value="true"/>
+   </properties>
+  </tile>
   <tile id="82">
    <properties>
     <property name="collides" type="bool" value="true"/>
@@ -102,6 +129,22 @@
   <tile id="89">
    <properties>
     <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="96">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+    <property name="isKey" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="98">
+   <properties>
+    <property name="isDoor" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="99">
+   <properties>
+    <property name="isDoor" type="bool" value="true"/>
    </properties>
   </tile>
   <tile id="102">
@@ -124,6 +167,11 @@
     <property name="collides" type="bool" value="true"/>
    </properties>
   </tile>
+  <tile id="122">
+   <properties>
+    <property name="isKill" type="bool" value="true"/>
+   </properties>
+  </tile>
   <tile id="127">
    <properties>
     <property name="collides" type="bool" value="true"/>
@@ -142,16 +190,19 @@
   <tile id="166">
    <properties>
     <property name="collides" type="bool" value="true"/>
+    <property name="isKill" type="bool" value="true"/>
    </properties>
   </tile>
   <tile id="183">
    <properties>
     <property name="collides" type="bool" value="true"/>
+    <property name="isKill" type="bool" value="true"/>
    </properties>
   </tile>
   <tile id="203">
    <properties>
     <property name="collides" type="bool" value="true"/>
+    <property name="isKill" type="bool" value="true"/>
    </properties>
   </tile>
   <tile id="259" probability="0.05"/>
@@ -159,6 +210,31 @@
   <tile id="296" probability="0.005"/>
   <tile id="299" probability="0.005"/>
   <tile id="319" probability="0.005"/>
+  <tile id="320">
+   <properties>
+    <property name="isKill" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="321">
+   <properties>
+    <property name="isKill" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="322">
+   <properties>
+    <property name="isKill" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="323">
+   <properties>
+    <property name="isKill" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="324">
+   <properties>
+    <property name="isKill" type="bool" value="true"/>
+   </properties>
+  </tile>
   <tile id="326" probability="0.005">
    <animation>
     <frame tileid="326" duration="300"/>
@@ -166,9 +242,35 @@
    </animation>
   </tile>
   <tile id="339" probability="0.005"/>
+  <tile id="340">
+   <properties>
+    <property name="isKill" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="341">
+   <properties>
+    <property name="isKill" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="342">
+   <properties>
+    <property name="isKill" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="343">
+   <properties>
+    <property name="isKill" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="344">
+   <properties>
+    <property name="isKill" type="bool" value="true"/>
+   </properties>
+  </tile>
   <tile id="345">
    <properties>
     <property name="collides" type="bool" value="true"/>
+    <property name="isKill" type="bool" value="true"/>
    </properties>
   </tile>
   <tile id="346" probability="0.005">
@@ -176,6 +278,76 @@
     <frame tileid="346" duration="300"/>
     <frame tileid="326" duration="300"/>
    </animation>
+  </tile>
+  <tile id="360">
+   <properties>
+    <property name="isKill" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="361">
+   <properties>
+    <property name="isKill" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="362">
+   <properties>
+    <property name="isKill" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="363">
+   <properties>
+    <property name="isKill" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="364">
+   <properties>
+    <property name="isKill" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="365">
+   <properties>
+    <property name="isKill" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="366">
+   <properties>
+    <property name="isKill" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="380">
+   <properties>
+    <property name="isKill" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="381">
+   <properties>
+    <property name="isKill" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="382">
+   <properties>
+    <property name="isKill" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="383">
+   <properties>
+    <property name="isKill" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="384">
+   <properties>
+    <property name="isKill" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="385">
+   <properties>
+    <property name="isKill" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="386">
+   <properties>
+    <property name="isKill" type="bool" value="true"/>
+   </properties>
   </tile>
  </tileset>
  <layer id="1" name="Backdrop" width="50" height="40" locked="1">
@@ -442,7 +614,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="5" name="Key" width="50" height="40" locked="1">
+ <layer id="5" name="Key" width="50" height="40">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -524,7 +696,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,2,0,0,0,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,2,2,0,0,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -574,7 +746,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="6" name="Doors" width="50" height="40" locked="1">
+ <layer id="6" name="Doors" width="50" height="40">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,

@@ -7,21 +7,66 @@
     "expandedProjectPaths": [
         "."
     ],
+    "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
         "": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "D:/Github Repos/Pathfinder/assets/tiny-town-tileset.tmx": {
+            "scale": 2.12265625,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 320.3533308796467,
+                "y": 200.22083179977918
+            }
+        },
+        "D:/Github Repos/Pathfinder/assets/tiny-town-tileset.tmx#kenney-tiny-town": {
             "scaleInDock": 1
         },
         "base_black.tsx": {
             "scaleInDock": 3,
             "scaleInEditor": 4
         },
-        "level1.tmx": {
+        "hub.tmj": {
             "scale": 1.698125,
-            "selectedLayer": 7,
+            "selectedLayer": 4,
             "viewCenter": {
-                "x": 398.0861244019139,
-                "y": 317.9977916820022
+                "x": 396.3194700036805,
+                "y": 315.64225248435775
             }
+        },
+        "hub.tmj#base_black": {
+            "scaleInDock": 1
+        },
+        "hub.tmj#base_transparent": {
+            "scaleInDock": 1
+        },
+        "hub.tmx": {
+            "scale": 1.4487499999999998,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 398.2743744607421,
+                "y": 287.8343399482313
+            }
+        },
+        "hub.tmx#base_black": {
+            "scaleInDock": 1
+        },
+        "hub.tmx#base_transparent": {
+            "scaleInDock": 1
+        },
+        "level1.tmx": {
+            "scale": 1.5,
+            "selectedLayer": 10,
+            "viewCenter": {
+                "x": 424,
+                "y": 414.66666666666663
+            }
+        },
+        "level1.tmx#base_black": {
+            "scaleInDock": 3,
+            "scaleInEditor": 4
         }
     },
     "frame.defaultDuration": 300,
@@ -34,14 +79,16 @@
     "map.tileWidth": 16,
     "map.width": 50,
     "openFiles": [
-        "level1.tmx",
-        "base_black.tsx"
+        "level1.tmx"
     ],
     "project": "level1.tiled-project",
     "property.type": "bool",
     "recentFiles": [
-        "base_black.tsx",
-        "level1.tmx"
+        "hub.tmj",
+        "level1.tmx",
+        "hub.tmx",
+        "D:/Github Repos/Pathfinder/assets/tiny-town-tileset.tmx",
+        "base_black.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {

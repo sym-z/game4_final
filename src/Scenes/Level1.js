@@ -3,12 +3,13 @@ class Level1 extends Phaser.Scene {
         super("Level1");
     }
     init() {
-        this.ACCELERATION = 4000;
-        this.MAX_SPEED = 350;
-        this.DRAG = 3000;
-        this.JUMP_VELOCITY = -700;
-        this.physics.world.gravity.y = 2000;
-        this.physics.world.TILE_BIAS = 36;
+        this.globals = this.scene.get("Globals");
+        this.ACCELERATION = this.globals.ACCELERATION;
+        this.MAX_SPEED = this.globals.MAX_SPEED;
+        this.DRAG = this.globals.DRAG;
+        this.JUMP_VELOCITY = this.globals.JUMP_VELOCITY;
+        this.physics.world.gravity.y = this.globals.GRAVITY;
+        this.physics.world.TILE_BIAS = this.globals.TILE_BIAS;
     }
     preload() {
         this.load.scenePlugin('AnimatedTiles', './lib/AnimatedTiles.js', 'animatedTiles', 'animatedTiles');
@@ -28,7 +29,6 @@ class Level1 extends Phaser.Scene {
 
 
      
-        console.log("hey")
 
     }
     update(delta)
@@ -56,27 +56,27 @@ class Level1 extends Phaser.Scene {
 
         scene.walkableLayer.setCollisionByProperty({ collides: true });
         scene.platformLayer.setCollisionByProperty({ collides: true });
-        scene.doorsLayer.setCollisionByProperty({ collides: true });
-        scene.killLayer.setCollisionByProperty({ collides: true });
-        scene.checkpointLayer.setCollisionByProperty({ collides: true });
-        scene.keyLayer.setCollisionByProperty({ collides: true });
 
         scene.player = new Player(this, 16, 0, 'idle1');
         scene.player.setCollideWorldBounds(true);
 
         // Setup overlap detection for coin tiles
         scene.physics.add.overlap(scene.player, scene.coinLayer, handleItemOverlap, checkIsCoin, this);
+        scene.physics.add.overlap(scene.player, scene.doorsLayer, handleItemOverlap, checkIsDoor, this);
+        scene.physics.add.overlap(scene.player, scene.killLayer, handleItemOverlap, checkIsKill, this);
+        scene.physics.add.overlap(scene.player, scene.checkpointLayer, handleItemOverlap, checkIsCheckpoint, this);
+        scene.physics.add.overlap(scene.player, scene.keyLayer, handleItemOverlap, checkIsKey, this);
+
+        // Set up unique collision properties of platform tiles
 
         scene.platformLayer.forEachTile((tile) => {
-            tile.setCollision(false, false, true, false);
+            if (tile.properties.collides) {
+                tile.setCollision(false, false, true, false);
+            }
         });
 
         scene.physics.add.collider(scene.player, scene.walkableLayer);
         scene.physics.add.collider(scene.player, scene.platformLayer);
-        scene.physics.add.collider(scene.player, scene.doorsLayer);
-        scene.physics.add.collider(scene.player, scene.killLayer);
-        scene.physics.add.collider(scene.player, scene.keyLayer);
-        scene.physics.add.collider(scene.player, scene.checkpointLayer);
     }
         
     init_cam(scene)
@@ -85,19 +85,46 @@ class Level1 extends Phaser.Scene {
         scene.cameras.main.useBounds = true;
         scene.cameras.main.setDeadzone(50, 20);
         scene.cameras.main.startFollow(scene.player)
-        scene.cameras.main.setZoom(4.0)
+        scene.cameras.main.setZoom(3.5)
 
     }
 }
 function checkIsCoin(player, tile) {
-    // Check if the tile has the 'isCoin' property
     return tile.properties.value;
+}
+function checkIsKill(player, tile) {
+    return tile.properties.isKill;
+}
+function checkIsCheckpoint(player, tile) {
+    return tile.properties.isCheckpoint;
+}
+function checkIsDoor(player, tile) {
+    return tile.properties.isDoor;
+}
+function checkIsKey(player, tile) {
+    return tile.properties.isKey;
 }
 
 function handleItemOverlap(player, tile) {
-    console.log('Picked up coin at:', tile.x, tile.y);
-    // Remove the coin tile
-    //itemLayer.removeTileAt(tile.x, tile.y);
-    // Additional logic for coin pickup, e.g., updating the score
+
+    switch(tile.layer.name)
+    {
+        case "Coins":
+            console.log('Picked up coin at:', tile.x, tile.y);
+            this.coinLayer.removeTileAt(tile.x, tile.y);
+            break;
+        case "Doors":
+            console.log("Door Touch")
+            break;
+        case "Checkpoint":
+            console.log("Checkpoint Touch")
+            break;
+        case "Kill":
+            console.log("Kill Touch")
+            break;
+        case "Key":
+            console.log("Key Touch")
+            break;
+    }
 }
 

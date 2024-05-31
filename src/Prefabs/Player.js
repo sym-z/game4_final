@@ -57,14 +57,3 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     }
     
 }
-function coin(tile)
-    {
-        console.log(tile.properties)
-        if(!tile) return
-        if(0)
-        {
-            this.money += tile.properties.value;
-            //this.parent.coinLayer.removeTileAt(tile.x, tile.y);
-            console.log("Coin Pickup")
-        }
-    }

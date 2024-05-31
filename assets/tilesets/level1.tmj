@@ -352,7 +352,6 @@
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":40,
          "id":5,
-         "locked":true,
          "name":"Key",
          "opacity":1,
          "type":"tilelayer",
@@ -398,7 +397,7 @@
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -506,7 +505,6 @@
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":40,
          "id":6,
-         "locked":true,
          "name":"Doors",
          "opacity":1,
          "type":"tilelayer",
@@ -587,7 +585,7 @@
          "tiles":[
                 {
                  "id":0,
-                 "probability":0.949999988079071
+                 "probability":0.95
                 }, 
                 {
                  "id":1,
@@ -615,6 +613,15 @@
                          "name":"value",
                          "type":"int",
                          "value":25
+                        }]
+                }, 
+                {
+                 "id":7,
+                 "properties":[
+                        {
+                         "name":"isCheckpoint",
+                         "type":"bool",
+                         "value":true
                         }]
                 }, 
                 {
@@ -678,6 +685,11 @@
                          "name":"collides",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"isDoor",
+                         "type":"bool",
+                         "value":true
                         }]
                 }, 
                 {
@@ -685,6 +697,29 @@
                  "properties":[
                         {
                          "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isDoor",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":58,
+                 "properties":[
+                        {
+                         "name":"isDoor",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":59,
+                 "properties":[
+                        {
+                         "name":"isDoor",
                          "type":"bool",
                          "value":true
                         }]
@@ -735,6 +770,24 @@
                         }]
                 }, 
                 {
+                 "id":78,
+                 "properties":[
+                        {
+                         "name":"isDoor",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":79,
+                 "properties":[
+                        {
+                         "name":"isDoor",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
                  "id":82,
                  "properties":[
                         {
@@ -776,6 +829,38 @@
                         }]
                 }, 
                 {
+                 "id":96,
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isKey",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":98,
+                 "properties":[
+                        {
+                         "name":"isDoor",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":99,
+                 "properties":[
+                        {
+                         "name":"isDoor",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
                  "id":102,
                  "properties":[
                         {
@@ -807,6 +892,15 @@
                  "properties":[
                         {
                          "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":122,
+                 "properties":[
+                        {
+                         "name":"isKill",
                          "type":"bool",
                          "value":true
                         }]
@@ -845,6 +939,11 @@
                          "name":"collides",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"isKill",
+                         "type":"bool",
+                         "value":true
                         }]
                 }, 
                 {
@@ -852,6 +951,11 @@
                  "properties":[
                         {
                          "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isKill",
                          "type":"bool",
                          "value":true
                         }]
@@ -863,27 +967,77 @@
                          "name":"collides",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"isKill",
+                         "type":"bool",
+                         "value":true
                         }]
                 }, 
                 {
                  "id":259,
-                 "probability":0.0500000007450581
+                 "probability":0.05
                 }, 
                 {
                  "id":279,
-                 "probability":0.00499999988824129
+                 "probability":0.005
                 }, 
                 {
                  "id":296,
-                 "probability":0.00499999988824129
+                 "probability":0.005
                 }, 
                 {
                  "id":299,
-                 "probability":0.00499999988824129
+                 "probability":0.005
                 }, 
                 {
                  "id":319,
-                 "probability":0.00499999988824129
+                 "probability":0.005
+                }, 
+                {
+                 "id":320,
+                 "properties":[
+                        {
+                         "name":"isKill",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":321,
+                 "properties":[
+                        {
+                         "name":"isKill",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":322,
+                 "properties":[
+                        {
+                         "name":"isKill",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":323,
+                 "properties":[
+                        {
+                         "name":"isKill",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":324,
+                 "properties":[
+                        {
+                         "name":"isKill",
+                         "type":"bool",
+                         "value":true
+                        }]
                 }, 
                 {
                  "animation":[
@@ -896,17 +1050,68 @@
                          "tileid":346
                         }],
                  "id":326,
-                 "probability":0.00499999988824129
-                }, 
+                 "probability":0.005
+                },
+            
                 {
                  "id":339,
-                 "probability":0.00499999988824129
+                 "probability":0.005
+                }, 
+                {
+                 "id":340,
+                 "properties":[
+                        {
+                         "name":"isKill",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":341,
+                 "properties":[
+                        {
+                         "name":"isKill",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":342,
+                 "properties":[
+                        {
+                         "name":"isKill",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":343,
+                 "properties":[
+                        {
+                         "name":"isKill",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":344,
+                 "properties":[
+                        {
+                         "name":"isKill",
+                         "type":"bool",
+                         "value":true
+                        }]
                 }, 
                 {
                  "id":345,
                  "properties":[
                         {
                          "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isKill",
                          "type":"bool",
                          "value":true
                         }]
@@ -922,7 +1127,133 @@
                          "tileid":326
                         }],
                  "id":346,
-                 "probability":0.00499999988824129
+                 "probability":0.005
+                }, 
+                {
+                 "id":360,
+                 "properties":[
+                        {
+                         "name":"isKill",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":361,
+                 "properties":[
+                        {
+                         "name":"isKill",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":362,
+                 "properties":[
+                        {
+                         "name":"isKill",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":363,
+                 "properties":[
+                        {
+                         "name":"isKill",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":364,
+                 "properties":[
+                        {
+                         "name":"isKill",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":365,
+                 "properties":[
+                        {
+                         "name":"isKill",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":366,
+                 "properties":[
+                        {
+                         "name":"isKill",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":380,
+                 "properties":[
+                        {
+                         "name":"isKill",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":381,
+                 "properties":[
+                        {
+                         "name":"isKill",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":382,
+                 "properties":[
+                        {
+                         "name":"isKill",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":383,
+                 "properties":[
+                        {
+                         "name":"isKill",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":384,
+                 "properties":[
+                        {
+                         "name":"isKill",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":385,
+                 "properties":[
+                        {
+                         "name":"isKill",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":386,
+                 "properties":[
+                        {
+                         "name":"isKill",
+                         "type":"bool",
+                         "value":true
+                        }]
                 }],
          "tilewidth":16
         }],
