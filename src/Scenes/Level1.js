@@ -27,6 +27,7 @@ class Level1 extends Phaser.Scene {
         this.init_cam(this.level_scene);
 
         game.sound.stopAll();
+        this.interact = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z);
     }
 
     update(delta) {
@@ -50,6 +51,8 @@ class Level1 extends Phaser.Scene {
         scene.keyLayer = scene.map.createLayer("Key", scene.black_tileset, 0, 0);
         scene.checkpointLayer = scene.map.createLayer("Checkpoint", scene.black_tileset, 0, 0);
         scene.doorsLayer = scene.map.createLayer("Doors", scene.black_tileset, 0, 0);
+        scene.inLayer = scene.map.createLayer("In", scene.black_tileset, 0, 0);
+        scene.outLayer = scene.map.createLayer("Out", scene.black_tileset, 0, 0);
 
         scene.walkableLayer.setCollisionByProperty({ collides: true });
         scene.platformLayer.setCollisionByProperty({ collides: true });
@@ -63,6 +66,8 @@ class Level1 extends Phaser.Scene {
         scene.physics.add.overlap(scene.player, scene.killLayer, this.handleItemOverlap, checkIsKill, this);
         scene.physics.add.overlap(scene.player, scene.checkpointLayer, this.handleItemOverlap, checkIsCheckpoint, this);
         scene.physics.add.overlap(scene.player, scene.keyLayer, this.handleItemOverlap, checkIsKey, this);
+        scene.physics.add.overlap(scene.player, scene.inLayer, this.handleItemOverlap, checkIsDoor, this);
+        scene.physics.add.overlap(scene.player, scene.outLayer, this.handleItemOverlap, checkIsDoor, this);
 
         // Set up unique collision properties of platform tiles
         scene.platformLayer.forEachTile((tile) => {
@@ -86,7 +91,8 @@ class Level1 extends Phaser.Scene {
         if (tile.index != -1) {
             switch (tile.layer.name) {
                 case "Coins":
-                    console.log('Picked up coin at:', tile.x, tile.y);
+                    this.globals.money += tile.properties.value;
+                    console.log('Picked up coin at:', tile.x, tile.y, " now holding ", this.globals.money);
                     this.coinLayer.removeTileAt(tile.x, tile.y);
                     break;
                 case "Doors":
@@ -97,9 +103,23 @@ class Level1 extends Phaser.Scene {
                     break;
                 case "Kill":
                     console.log("Kill Touch")
+                    this.scene.restart()
                     break;
                 case "Key":
                     console.log("Key Touch")
+                    this.keyLayer.removeTileAt(tile.x, tile.y);
+                    this.globals.level2Key = true;
+                    console.log("Key obtained: ", this.globals.level2Key)
+                    break;
+                case "In":
+                    console.log("In Touch")
+                    break;
+                case "Out":
+                    console.log("Out Touch")
+                    if(this.globals.level2Key && this.interact.isDown)
+                        {
+                            this.scene.start("Hub");
+                        } 
                     break;
             }
         }
