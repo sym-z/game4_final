@@ -2,6 +2,7 @@ class Level1 extends Phaser.Scene {
     constructor() {
         super("Level1");
     }
+
     init() {
         this.globals = this.scene.get("Globals");
         this.ACCELERATION = this.globals.ACCELERATION;
@@ -11,32 +12,28 @@ class Level1 extends Phaser.Scene {
         this.physics.world.gravity.y = this.globals.GRAVITY;
         this.physics.world.TILE_BIAS = this.globals.TILE_BIAS;
     }
+
     preload() {
         this.load.scenePlugin('AnimatedTiles', './lib/AnimatedTiles.js', 'animatedTiles', 'animatedTiles');
     }
+
     create() {
         this.globals = this.scene.get("Globals");
         this.level_scene = this.scene.get("Level1");
         cursors = this.input.keyboard.createCursorKeys();
-        
-        this.init_map(this.level_scene)
-        
+
+        this.init_map(this.level_scene);
         this.animatedTiles.init(this.map);
-        
-        this.init_cam(this.level_scene)
-        
+        this.init_cam(this.level_scene);
+
         game.sound.stopAll();
-
-
-     
-
     }
-    update(delta)
-    {
-        this.player.update()
+
+    update(delta) {
+        this.player.update();
     }
-    init_map(scene)
-    {
+
+    init_map(scene) {
         scene.map = scene.make.tilemap({ key: 'level1' });
         this.physics.world.setBounds(0, 0, scene.map.widthInPixels, scene.map.heightInPixels);
 
@@ -61,14 +58,13 @@ class Level1 extends Phaser.Scene {
         scene.player.setCollideWorldBounds(true);
 
         // Setup overlap detection for coin tiles
-        scene.physics.add.overlap(scene.player, scene.coinLayer, handleItemOverlap, checkIsCoin, this);
-        scene.physics.add.overlap(scene.player, scene.doorsLayer, handleItemOverlap, checkIsDoor, this);
-        scene.physics.add.overlap(scene.player, scene.killLayer, handleItemOverlap, checkIsKill, this);
-        scene.physics.add.overlap(scene.player, scene.checkpointLayer, handleItemOverlap, checkIsCheckpoint, this);
-        scene.physics.add.overlap(scene.player, scene.keyLayer, handleItemOverlap, checkIsKey, this);
+        scene.physics.add.overlap(scene.player, scene.coinLayer, this.handleItemOverlap, checkIsCoin, this);
+        scene.physics.add.overlap(scene.player, scene.doorsLayer, this.handleItemOverlap, checkIsDoor, this);
+        scene.physics.add.overlap(scene.player, scene.killLayer, this.handleItemOverlap, checkIsKill, this);
+        scene.physics.add.overlap(scene.player, scene.checkpointLayer, this.handleItemOverlap, checkIsCheckpoint, this);
+        scene.physics.add.overlap(scene.player, scene.keyLayer, this.handleItemOverlap, checkIsKey, this);
 
         // Set up unique collision properties of platform tiles
-
         scene.platformLayer.forEachTile((tile) => {
             if (tile.properties.collides) {
                 tile.setCollision(false, false, true, false);
@@ -78,53 +74,50 @@ class Level1 extends Phaser.Scene {
         scene.physics.add.collider(scene.player, scene.walkableLayer);
         scene.physics.add.collider(scene.player, scene.platformLayer);
     }
-        
-    init_cam(scene)
-    {
+
+    init_cam(scene) {
         this.cameras.main.setBounds(0, 0, scene.map.widthInPixels, scene.map.heightInPixels);
         scene.cameras.main.useBounds = true;
         scene.cameras.main.setDeadzone(50, 20);
-        scene.cameras.main.startFollow(scene.player)
-        scene.cameras.main.setZoom(3.5)
-
+        scene.cameras.main.startFollow(scene.player);
+        scene.cameras.main.setZoom(3.5);
+    }
+    handleItemOverlap(player, tile) {
+        if (tile.index != -1) {
+            switch (tile.layer.name) {
+                case "Coins":
+                    console.log('Picked up coin at:', tile.x, tile.y);
+                    this.coinLayer.removeTileAt(tile.x, tile.y);
+                    break;
+                case "Doors":
+                    console.log("Door Touch")
+                    break;
+                case "Checkpoint":
+                    console.log("Checkpoint Touch")
+                    break;
+                case "Kill":
+                    console.log("Kill Touch")
+                    break;
+                case "Key":
+                    console.log("Key Touch")
+                    break;
+            }
+        }
     }
 }
 function checkIsCoin(player, tile) {
-    return tile.properties.value;
+    return tile.properties.value !== undefined;
 }
+
 function checkIsKill(player, tile) {
-    return tile.properties.isKill;
+    return tile.properties.isKill !== undefined;
 }
 function checkIsCheckpoint(player, tile) {
-    return tile.properties.isCheckpoint;
+    return tile.properties.isCheckpoint !== undefined;
 }
 function checkIsDoor(player, tile) {
-    return tile.properties.isDoor;
+    return tile.properties.isDoor !== undefined;
 }
 function checkIsKey(player, tile) {
-    return tile.properties.isKey;
+    return tile.properties.isKey !== undefined;
 }
-
-function handleItemOverlap(player, tile) {
-
-    switch(tile.layer.name)
-    {
-        case "Coins":
-            console.log('Picked up coin at:', tile.x, tile.y);
-            this.coinLayer.removeTileAt(tile.x, tile.y);
-            break;
-        case "Doors":
-            console.log("Door Touch")
-            break;
-        case "Checkpoint":
-            console.log("Checkpoint Touch")
-            break;
-        case "Kill":
-            console.log("Kill Touch")
-            break;
-        case "Key":
-            console.log("Key Touch")
-            break;
-    }
-}
-

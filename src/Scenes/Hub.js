@@ -96,7 +96,6 @@ function handleItemOverlap(player, tile) {
             console.log('Door1', tile.x, tile.y);
             if(this.interact.isDown)
                 {
-                    console.log("GO TO LEVEL 1")
                     this.scene.start("Level1")
                 }
             break;

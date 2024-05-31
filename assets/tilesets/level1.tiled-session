@@ -32,8 +32,8 @@
             "scale": 2,
             "selectedLayer": 12,
             "viewCenter": {
-                "x": 599,
-                "y": 380
+                "x": 598,
+                "y": 379
             }
         },
         "hub.tmj#base_black": {
@@ -46,8 +46,8 @@
             "scale": 1.4487499999999998,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 398.2743744607421,
-                "y": 287.8343399482313
+                "x": 397.58412424503894,
+                "y": 287.1440897325281
             }
         },
         "hub.tmx#base_black": {
@@ -56,12 +56,23 @@
         "hub.tmx#base_transparent": {
             "scaleInDock": 1
         },
+        "level1.tmj": {
+            "scale": 1.698125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 400.44166359955835,
+                "y": 320.35333087964665
+            }
+        },
+        "level1.tmj#base_black": {
+            "scaleInDock": 1
+        },
         "level1.tmx": {
             "scale": 1.5,
             "selectedLayer": 10,
             "viewCenter": {
-                "x": 424,
-                "y": 414.66666666666663
+                "x": 422.66666666666663,
+                "y": 413.33333333333337
             }
         },
         "level1.tmx#base_black": {
@@ -84,9 +95,10 @@
     "project": "level1.tiled-project",
     "property.type": "bool",
     "recentFiles": [
+        "hub.tmx",
+        "level1.tmj",
         "hub.tmj",
         "level1.tmx",
-        "hub.tmx",
         "D:/Github Repos/Pathfinder/assets/tiny-town-tileset.tmx",
         "base_black.tsx"
     ],
