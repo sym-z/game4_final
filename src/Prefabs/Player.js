@@ -14,7 +14,6 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     }
     update() {
         this.isMoving = false;
-       // console.log(this.body.velocity)
         // Lookahead Camera, with lerping.
         // Clamp the player's movement speed.
         if (Math.abs(this.body.velocity.x) > this.parent.MAX_SPEED) {
@@ -55,5 +54,5 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             this.body.setVelocityY(this.parent.JUMP_VELOCITY);
         }
     }
-    
+
 }

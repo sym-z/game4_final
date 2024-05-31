@@ -11,7 +11,7 @@
     "fileStates": {
         "": {
             "scaleInDock": 1,
-            "scaleInEditor": 1
+            "scaleInEditor": 3
         },
         "D:/Github Repos/Pathfinder/assets/tiny-town-tileset.tmx": {
             "scale": 2.12265625,
@@ -29,15 +29,15 @@
             "scaleInEditor": 4
         },
         "hub.tmj": {
-            "scale": 1.698125,
-            "selectedLayer": 4,
+            "scale": 2,
+            "selectedLayer": 12,
             "viewCenter": {
-                "x": 396.3194700036805,
-                "y": 315.64225248435775
+                "x": 599,
+                "y": 380
             }
         },
         "hub.tmj#base_black": {
-            "scaleInDock": 1
+            "scaleInDock": 2
         },
         "hub.tmj#base_transparent": {
             "scaleInDock": 1

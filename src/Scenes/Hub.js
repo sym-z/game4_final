@@ -21,6 +21,7 @@ class Hub extends Phaser.Scene {
         this.animatedTiles.init(this.map);
         this.init_cam(this.hub_scene)
         game.sound.stopAll();
+        this.interact = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z);
     }
     update(delta)
     {
@@ -41,7 +42,10 @@ class Hub extends Phaser.Scene {
         scene.oneLayer = scene.map.createLayer("Level1", scene.black_tileset, 0, 0);
         scene.twoLayer = scene.map.createLayer("Level2", scene.black_tileset, 0, 0);
         scene.threeLayer = scene.map.createLayer("Level3", scene.black_tileset, 0, 0);
-        scene.doorsLayer = scene.map.createLayer("Doors", scene.black_tileset, 0, 0);
+        scene.door1Layer = scene.map.createLayer("Door1", scene.black_tileset, 0, 0);
+        scene.door2Layer = scene.map.createLayer("Door2", scene.black_tileset, 0, 0);
+        scene.door3Layer = scene.map.createLayer("Door3", scene.black_tileset, 0, 0);
+        scene.doorShopLayer = scene.map.createLayer("DoorShop", scene.black_tileset, 0, 0);
 
         scene.walkableLayer.setCollisionByProperty({ collides: true });
 
@@ -52,7 +56,17 @@ class Hub extends Phaser.Scene {
                 tile.setCollision(false, false, true, false);
             }
         });
+        scene.oneLayer.forEachTile((tile) => {
+            if (tile.properties.platform) {
+                tile.setCollision(false, false, true, false);
+            }
+        });
+        scene.physics.add.overlap(scene.player, scene.door1Layer, handleItemOverlap, checkIsDoor, this);
+        scene.physics.add.overlap(scene.player, scene.door2Layer, handleItemOverlap, checkIsDoor, this);
+        scene.physics.add.overlap(scene.player, scene.door3Layer, handleItemOverlap, checkIsDoor, this);
+        scene.physics.add.overlap(scene.player, scene.doorShopLayer, handleItemOverlap, checkIsDoor, this);
         scene.physics.add.collider(scene.player, scene.walkableLayer);
+        scene.physics.add.collider(scene.player, scene.oneLayer);
     }
     init_cam(scene)
     {
@@ -64,3 +78,38 @@ class Hub extends Phaser.Scene {
 
     }
 }
+function checkIsDoor(player, tile) {
+    return tile.properties.isDoor;
+}
+function checkIsKill(player, tile) {
+    return tile.properties.isKill;
+}
+function checkIsCheckpoint(player, tile) {
+    return tile.properties.isCheckpoint;
+}
+
+function handleItemOverlap(player, tile) {
+
+    switch(tile.layer.name)
+    {
+        case "Door1":
+            console.log('Door1', tile.x, tile.y);
+            if(this.interact.isDown)
+                {
+                    console.log("GO TO LEVEL 1")
+                    this.scene.start("Level1")
+                }
+            break;
+        case "Door2":
+            console.log('Door2', tile.x, tile.y);
+            break;
+        case "Door3":
+            console.log('Door3', tile.x, tile.y);
+            break;
+        case "DoorShop":
+            console.log('DoorShop', tile.x, tile.y);
+            break;
+
+    }
+}
+

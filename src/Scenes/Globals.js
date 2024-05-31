@@ -9,7 +9,7 @@ class Globals extends Phaser.Scene {
         this.DRAG = 5000;
         this.JUMP_VELOCITY = -550;
         this.GRAVITY = 1500;
-        this.TILE_BIAS = 64;
+        this.TILE_BIAS = 24;
         this.scene.start("Load")
     }
 }
