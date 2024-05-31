@@ -16,6 +16,7 @@ class Load extends Phaser.Scene {
         // Load in font
         this.load.bitmapFont('pi', 'fonts/pi_0.png', 'fonts/pi.fnt');
 
+        this.load.image("splash", "menus/title.png");
         //Load in animation frames
         this.load.image("death", "player-anims/death.png");
         this.load.image("idle1", "player-anims/idle1.png");
