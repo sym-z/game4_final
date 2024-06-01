@@ -30,9 +30,11 @@ class Level1 extends Phaser.Scene {
         this.interact = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z);
         this.showHUD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TAB);
         this.hud = this.add.sprite(0, 0, 'hud')
-        //this.hud.setOrigin(0,1)
-        //this.cameras.main.ignore(this.hud)
-        //this.scene.launch('HUD', {parent:this})
+        this.checkpointCleared = true;
+        // Location to spawn the player if they perish after capturing checkpoint
+        this.checkX = 216;
+        this.checkY = 344;
+        this.playerDeath = false;
     }
 
     update(delta) {
@@ -44,6 +46,8 @@ class Level1 extends Phaser.Scene {
             this.hud.visible = false
         }
         this.player.update();
+        console.log(this.playerDeath)
+        //console.log(this.player.x, this.player.y)
     }
     HUDPopUp() {
         this.hud.visible = true
@@ -75,7 +79,7 @@ class Level1 extends Phaser.Scene {
         scene.walkableLayer.setCollisionByProperty({ collides: true });
         scene.platformLayer.setCollisionByProperty({ collides: true });
 
-        scene.player = new Player(this, 16, 0, 'idle1');
+        scene.player = new Player(this, 56, 584, 'idle1');
         scene.player.setCollideWorldBounds(true);
 
         // Setup overlap detection for coin tiles
@@ -118,10 +122,33 @@ class Level1 extends Phaser.Scene {
                     break;
                 case "Checkpoint":
                     console.log("Checkpoint Touch")
+                    this.checkpointCleared = true;
                     break;
                 case "Kill":
-                    console.log("Kill Touch")
-                    //this.scene.restart()
+                    if (!this.playerDeath) {
+                        this.playerDeath = true;
+                        console.log("Kill Touch")
+                        //this.scene.restart()
+                        console.log('lives left: ', this.globals.lives)
+                        if (this.globals.lives <= 0) {
+                            this.globals.lives -= 1;
+                            this.scene.start("Hub");
+                        }
+                        else if (this.checkpointCleared) {
+                            this.globals.lives -= 1;
+                            this.player.x = this.checkX;
+                            this.player.y = this.checkY;
+                            this.time.delayedCall(1000, () => {
+                                this.playerDeath = false;
+                            }, [], this);
+
+                        }
+                        else {
+                            this.globals.lives -= 1;
+
+                            this.scene.restart();
+                        }
+                    }
                     break;
                 case "Key":
                     console.log("Key Touch")

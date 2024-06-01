@@ -13,11 +13,10 @@ class Load extends Phaser.Scene {
         this.load.tilemapTiledJSON("hub", "/tilesets/hub.tmj");   // Tilemap in JSON
         this.load.tilemapTiledJSON("level1", "/tilesets/level1.tmj");   // Tilemap in JSON
 
-        // Load in font
-        this.load.bitmapFont('pi', 'fonts/pi_0.png', 'fonts/pi.fnt');
 
         this.load.image("splash", "menus/title.png");
         this.load.image('hud', 'menus/hud.png')
+        this.load.image('credits', 'menus/credits.png')
         //Load in animation frames
         this.load.image("death", "player-anims/death.png");
         this.load.image("idle1", "player-anims/idle1.png");

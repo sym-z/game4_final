@@ -14,5 +14,6 @@ class Globals extends Phaser.Scene {
         this.level2Key = false;
         this.level3Key = false;
         this.money = 0;
+        this.lives = 10;
     }
 }

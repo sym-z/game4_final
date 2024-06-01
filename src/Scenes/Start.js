@@ -16,9 +16,9 @@ class Start extends Phaser.Scene {
 
         this.enter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
 
-        this.credits = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z);
+        this.credits = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.X);
 
-        this.controls = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.X);
+        this.controls = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z);
 
     }
     update(delta) {
@@ -28,7 +28,8 @@ class Start extends Phaser.Scene {
         }
 
         if (this.credits.isDown) {
-            this.scene.start("Credits")
+            this.scene.start("Cred")
+            console.log("hello")
         }
 
         if (this.controls.isDown) {
