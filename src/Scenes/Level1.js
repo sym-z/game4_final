@@ -28,12 +28,30 @@ class Level1 extends Phaser.Scene {
 
         game.sound.stopAll();
         this.interact = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z);
+        this.showHUD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TAB);
+        this.hud = this.add.sprite(0, 0, 'hud')
+        //this.hud.setOrigin(0,1)
+        //this.cameras.main.ignore(this.hud)
+        //this.scene.launch('HUD', {parent:this})
     }
 
     update(delta) {
+        if (this.showHUD.isDown) {
+            console.log("down")
+            this.HUDPopUp();
+        }
+        else {
+            this.hud.visible = false
+        }
         this.player.update();
     }
-
+    HUDPopUp() {
+        this.hud.visible = true
+        // Every 2 pixels you add or remove to the hud, you need to add or remove 1 pixel to the offset
+        this.hud.x = this.cameras.main.scrollX + this.cameras.main.displayWidth / 2 + 286;
+        this.hud.y = this.cameras.main.scrollY + this.cameras.main.displayHeight + 221
+        console.log(this.hud.x, this.hud.y)
+    }
     init_map(scene) {
         scene.map = scene.make.tilemap({ key: 'level1' });
         this.physics.world.setBounds(0, 0, scene.map.widthInPixels, scene.map.heightInPixels);
@@ -103,7 +121,7 @@ class Level1 extends Phaser.Scene {
                     break;
                 case "Kill":
                     console.log("Kill Touch")
-                    this.scene.restart()
+                    //this.scene.restart()
                     break;
                 case "Key":
                     console.log("Key Touch")
@@ -116,10 +134,9 @@ class Level1 extends Phaser.Scene {
                     break;
                 case "Out":
                     console.log("Out Touch")
-                    if(this.globals.level2Key && this.interact.isDown)
-                        {
-                            this.scene.start("Hub");
-                        } 
+                    if (this.globals.level2Key && this.interact.isDown) {
+                        this.scene.start("Hub");
+                    }
                     break;
             }
         }

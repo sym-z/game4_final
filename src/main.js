@@ -20,7 +20,7 @@ let config = {
     },
     width: 800,
     height: 640,
-    scene: [Globals, Load, Start, Controls, Credits, Hub,Level1, LevelOne, GameOver, Win]
+    scene: [Globals, Load, Start, Controls, Credits,, Hub,Level1, LevelOne, GameOver, Win]
 }
 
 var cursors;
