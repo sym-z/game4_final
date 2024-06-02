@@ -1,6 +1,6 @@
-class Level1 extends Phaser.Scene {
+class Level2 extends Phaser.Scene {
     constructor() {
-        super("Level1");
+        super("Level2");
     }
 
     init() {
@@ -20,7 +20,7 @@ class Level1 extends Phaser.Scene {
     create() {
         this.globals = this.scene.get("Globals");
         // UNIQUE TO LEVEL
-        this.level_scene = this.scene.get("Level1");
+        this.level_scene = this.scene.get("Level2");
         cursors = this.input.keyboard.createCursorKeys();
 
         this.init_map(this.level_scene);
@@ -61,7 +61,7 @@ class Level1 extends Phaser.Scene {
     }
     init_map(scene) {
         // UNIQUE TO LEVEL
-        scene.map = scene.make.tilemap({ key: 'level1' });
+        scene.map = scene.make.tilemap({ key: 'level2' });
         this.physics.world.setBounds(0, 0, scene.map.widthInPixels, scene.map.heightInPixels);
 
         scene.black_tileset = scene.map.addTilesetImage("base_black", "tilemap_tiles");
@@ -159,7 +159,7 @@ class Level1 extends Phaser.Scene {
                     console.log("Key Touch")
                     this.keyLayer.removeTileAt(tile.x, tile.y);
                     // UNIQUE TO LEVEL
-                    this.globals.level2Key = true;
+                    this.globals.level3Key = true;
                     console.log("Key obtained: ", this.globals.level2Key)
                     break;
                 case "In":
@@ -168,7 +168,7 @@ class Level1 extends Phaser.Scene {
                 case "Out":
                     console.log("Out Touch")
                     // UNIQUE TO LEVEL
-                    if (this.globals.level2Key && this.interact.isDown) {
+                    if (this.globals.level3Key && this.interact.isDown) {
                         this.scene.start("Hub");
                     }
                     break;

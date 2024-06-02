@@ -47,7 +47,7 @@
             "selectedLayer": 0,
             "viewCenter": {
                 "x": 397.58412424503894,
-                "y": 287.1440897325281
+                "y": 286.4538395168249
             }
         },
         "hub.tmx#base_black": {
@@ -69,18 +69,29 @@
         },
         "level1.tmx": {
             "scale": 1.5,
-            "selectedLayer": 10,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 422.66666666666663,
-                "y": 413.33333333333337
+                "x": 760.6666666666667,
+                "y": 636.6666666666666
             }
         },
         "level1.tmx#base_black": {
             "scaleInDock": 3,
             "scaleInEditor": 4
+        },
+        "level2.tmx": {
+            "scale": 1.698125,
+            "selectedLayer": 7,
+            "viewCenter": {
+                "x": 400.44166359955835,
+                "y": 320.35333087964665
+            }
+        },
+        "level2.tmx#base_black": {
+            "scaleInDock": 1
         }
     },
-    "frame.defaultDuration": 300,
+    "frame.defaultDuration": 150,
     "last.exportedFilePath": "D:/Github Repos/game4_final/assets/tilesets",
     "last.imagePath": "D:/Github Repos/game4_final/assets/kenney_1-bit-platformer-pack/Tilemap",
     "map.height": 40,
