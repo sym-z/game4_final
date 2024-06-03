@@ -8,20 +8,69 @@
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
+        "hub.tmx": {
+            "scale": 1.8703124999999998,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 400.20050125313287,
+                "y": 320.26733500417714
+            }
+        },
+        "hub.tmx#base_black": {
+            "scaleInDock": 1
+        },
+        "hub.tmx#base_transparent": {
+            "scaleInDock": 1
+        },
+        "level1.tmx": {
+            "scale": 1.8703124999999998,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 400.20050125313287,
+                "y": 320.26733500417714
+            }
+        },
+        "level1.tmx#base_black": {
+            "scaleInDock": 1
+        },
+        "level2.tmj": {
+            "scale": 1.8703124999999998,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 395.9231411862991,
+                "y": 315.45530492898916
+            }
+        },
+        "level2.tmj#base_black": {
+            "scaleInDock": 3
+        },
         "level2.tmx": {
             "scale": 1.698125,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 400.44166359955835,
-                "y": 320.35333087964665
+                "x": 400.1472211998527,
+                "y": 319.17556128082435
             }
         },
         "level2.tmx#base_black": {
             "scaleInDock": 1
+        },
+        "level3.tmx": {
+            "scale": 1.8703124999999998,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 400.20050125313287,
+                "y": 320.26733500417714
+            }
+        },
+        "level3.tmx#base_black": {
+            "scaleInDock": 1
         }
     },
+    "last.exportedFilePath": "D:/Github Repos/game4_final/assets/tilesets",
     "last.imagePath": "D:/Github Repos/game4_final/assets/kenney_1-bit-platformer-pack/Tilemap",
     "map.height": 40,
+    "map.lastUsedExportFilter": "JSON map files (*.tmj *.json)",
     "map.lastUsedFormat": "tmx",
     "map.tileHeight": 16,
     "map.tileWidth": 16,
@@ -30,6 +79,8 @@
     ],
     "project": "level2.tiled-project",
     "recentFiles": [
+        "hub.tmx",
+        "level2.tmj",
         "level2.tmx"
     ],
     "tileset.embedInMap": true,
