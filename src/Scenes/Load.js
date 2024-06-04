@@ -14,6 +14,7 @@ class Load extends Phaser.Scene {
         this.load.tilemapTiledJSON("level1", "/tilesets/level1.tmj");   // Tilemap in JSON
         this.load.tilemapTiledJSON("level2", "/tilesets/level2.tmj");   // Tilemap in JSON
         this.load.tilemapTiledJSON("level3", "/tilesets/level3.tmj");   // Tilemap in JSON
+        this.load.tilemapTiledJSON("shop", "/tilesets/shop.tmj");   // Tilemap in JSON
 
         // Load menu sprites
         this.load.image("splash", "menus/title.png");

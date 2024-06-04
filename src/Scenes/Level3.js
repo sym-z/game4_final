@@ -43,6 +43,8 @@ class Level3 extends Phaser.Scene {
         this.money_text.visible = false;
         this.life_text = this.add.bitmapText(0, 0, 'pi', 'You Win!', this.globals.HUD_FONT_SIZE).setOrigin(0.5);
         this.life_text.visible = false;
+        this.message_text = this.add.bitmapText(0, 0, 'pi', 'You Win!', this.globals.HUD_FONT_SIZE).setOrigin(0.5);
+        this.message_text.visible = false;
     }
 
     update(delta) {
@@ -65,16 +67,14 @@ class Level3 extends Phaser.Scene {
         this.hud.x = this.cameras.main.scrollX + this.cameras.main.displayWidth / 2 + this.globals.HUDX;
         this.hud.y = this.cameras.main.scrollY + this.cameras.main.displayHeight + this.globals.HUDY;
 
-        this.money_text.x = this.hud.x + this.globals.MONEY_OFFSET_X; 
+        this.money_text.x = this.hud.x + this.globals.MONEY_OFFSET_X;
         this.money_text.y = this.hud.y + this.globals.MONEY_OFFSET_Y;
-        this.money_text.text =  this.globals.money
+        this.money_text.text = this.globals.money
         this.money_text.visible = true;
-        this.life_text.x = this.hud.x + this.globals.LIFE_OFFSET_X; 
+        this.life_text.x = this.hud.x + this.globals.LIFE_OFFSET_X;
         this.life_text.y = this.hud.y + this.globals.LIFE_OFFSET_Y;
-        this.life_text.text =  this.globals.lives
+        this.life_text.text = this.globals.lives
         this.life_text.visible = true;
-        this.message_text = this.add.bitmapText(0, 0, 'pi', 'You Win!', this.globals.HUD_FONT_SIZE).setOrigin(0.5);
-        this.message_text.visible = false;
         // Align fonts from here using this.hud's coords
         // Align fonts from here using this.hud's coords
         console.log(this.player.x, this.player.y)
@@ -103,7 +103,7 @@ class Level3 extends Phaser.Scene {
         scene.walkableLayer.setCollisionByProperty({ collides: true });
         scene.platformLayer.setCollisionByProperty({ collides: true });
 
-        scene.player = new Player(this, this.startX,this.startY, 'idle1');
+        scene.player = new Player(this, this.startX, this.startY, 'idle1');
         scene.player.setCollideWorldBounds(true);
 
         // Setup overlap detection for coin tiles
@@ -141,13 +141,15 @@ class Level3 extends Phaser.Scene {
                     let value = tile.properties.value;
                     console.log('Picked up coin at:', tile.x, tile.y, " now holding ", this.globals.money);
                     this.coinLayer.removeTileAt(tile.x, tile.y);
-                    this.message_text.visible = true;
-                    this.message_text.text = "+ " + value
-                    this.message_text.x = this.player.x;
-                    this.message_text.y = this.player.y;
-                    this.time.delayedCall(1000, () => {
-                        this.message_text.visible = false;
-                    }, [], this);
+                    if (this.message_text !== undefined) {
+                        this.message_text.visible = true;
+                        this.message_text.text = "+ " + value
+                        this.message_text.x = this.player.x;
+                        this.message_text.y = this.player.y;
+                        this.time.delayedCall(1000, () => {
+                            this.message_text.visible = false;
+                        }, [], this);
+                    }
                     break;
                 case "Doors":
                     console.log("Door Touch")
@@ -168,7 +170,7 @@ class Level3 extends Phaser.Scene {
                 case "Kill":
 
                     if (!this.playerDeath) {
-                    this.cameras.main.shake(this.globals.SHAKE_DURATION, 0.01);
+                        this.cameras.main.shake(this.globals.SHAKE_DURATION, 0.01);
                         this.playerDeath = true;
                         console.log("Kill Touch")
                         //this.scene.restart()
@@ -176,8 +178,8 @@ class Level3 extends Phaser.Scene {
                         if (this.globals.lives <= 0) {
                             this.globals.lives = this.globals.STARTING_LIVES;
                             this.time.delayedCall(this.globals.SHAKE_DURATION, () => {
-                            this.globals.gameWinKey = false;
-                            this.scene.start("Hub");
+                                this.globals.gameWinKey = false;
+                                this.scene.start("Hub");
                             }, [], this);
                         }
                         else if (this.checkpointCleared) {

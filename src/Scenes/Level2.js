@@ -205,7 +205,7 @@ class Level2 extends Phaser.Scene {
                     console.log("Key Touch")
                     this.keyLayer.removeTileAt(tile.x, tile.y);
                     // UNIQUE TO LEVEL
-                    this.globals.level2Key = true;
+                    this.globals.level3Key = true;
                     console.log("Key obtained: ", this.globals.level3Key)
                     this.message_text.visible = true;
                     this.message_text.text = "Key Get!"

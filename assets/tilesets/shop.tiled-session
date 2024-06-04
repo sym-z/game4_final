@@ -6,11 +6,47 @@
     "activeFile": "",
     "expandedProjectPaths": [
     ],
+    "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
+        "level2.tmx": {
+            "scale": 1.5496875,
+            "selectedLayer": 6,
+            "viewCenter": {
+                "x": 400.40330711837066,
+                "y": 320.06452913893935
+            }
+        },
+        "level2.tmx#base_black": {
+            "scaleInDock": 1
+        },
+        "level3.tmx": {
+            "scale": 1.5496875,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 315.2248437184916,
+                "y": 346.52147610405325
+            }
+        },
+        "level3.tmx#base_black": {
+            "scaleInDock": 1
+        },
+        "shop.tmx": {
+            "scale": 3,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 304.1666666666667,
+                "y": 100.33333333333331
+            }
+        },
+        "shop.tmx#base_black": {
+            "scaleInDock": 2
+        }
     },
     "frame.defaultDuration": 500,
+    "last.exportedFilePath": "D:/Github Repos/game4_final/assets/tilesets",
     "last.imagePath": "D:/Github Repos/game4_final/assets/kenney_1-bit-platformer-pack/Tilemap",
     "map.height": 40,
+    "map.lastUsedExportFilter": "JSON map files (*.tmj *.json)",
     "map.lastUsedFormat": "tmx",
     "map.tileHeight": 16,
     "map.tileWidth": 16,
@@ -18,6 +54,7 @@
     "openFiles": [
     ],
     "project": "shop.tiled-project",
+    "property.type": "bool",
     "recentFiles": [
     ],
     "tileset.embedInMap": true,

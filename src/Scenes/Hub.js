@@ -18,8 +18,8 @@ class Hub extends Phaser.Scene {
         this.hub_scene = this.scene.get("Hub");
         cursors = this.input.keyboard.createCursorKeys();
         // UNIQUE TO LEVEL
-        this.startX = 100;
-        this.startY = 500
+        this.startX = 714;
+        this.startY = 504
         this.init_map(this.hub_scene)
         this.animatedTiles.init(this.map);
         this.init_cam(this.hub_scene)
@@ -148,16 +148,14 @@ function handleItemOverlap(player, tile) {
 
             if(this.interact.isDown && this.globals.level3Key)
                 {
-                    // Change this to Level3, when i am done
-                    this.scene.start("Level2")
+                    this.scene.start("Level3")
                 }
             break;
         case "DoorShop":
             console.log('DoorShop', tile.x, tile.y);
             if(this.interact.isDown)
                 {
-                    // Change this to Shop, when i am done
-                    this.scene.start("Level1")
+                    this.scene.start("Shop")
                 }
             break;
 
