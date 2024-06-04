@@ -34,11 +34,11 @@ class Level2 extends Phaser.Scene {
         this.checkpointCleared = true;
         // Location to spawn the player if they perish after capturing checkpoint
         // UNIQUE TO LEVEL
-        this.checkX = 216;
-        this.checkY = 344;
+        this.checkX = 415;
+        this.checkY = 72;
         this.playerDeath = false;
-        this.score_text = this.add.bitmapText(400, 150, 'pi', 'You Win!', 64).setOrigin(0.5);
-        this.score_text.visible = false;
+        this.money_text = this.add.bitmapText(400, 150, 'pi', 'You Win!', 16).setOrigin(0.5);
+        this.money_text.visible = false;
     }
 
     update(delta) {
@@ -48,7 +48,7 @@ class Level2 extends Phaser.Scene {
         }
         else {
             this.hud.visible = false
-            this.score_text.visible = false;
+            this.money_text.visible = false;
         }
         this.player.update();
         console.log(this.playerDeath)
@@ -57,14 +57,16 @@ class Level2 extends Phaser.Scene {
     HUDPopUp() {
         this.hud.visible = true
         // Every 2 pixels you add or remove to the hud, you need to add or remove 1 pixel to the offset
-        this.hud.x = this.cameras.main.scrollX + this.cameras.main.displayWidth / 2 + 286;
-        this.hud.y = this.cameras.main.scrollY + this.cameras.main.displayHeight + 221
+        this.hud.x = this.cameras.main.scrollX + this.cameras.main.displayWidth / 2 + this.globals.HUDX;
+        this.hud.y = this.cameras.main.scrollY + this.cameras.main.displayHeight + this.globals.HUDY;
 
-        this.score_text.x = this.hud.x 
-        this.score_text.y = this.hud.y 
-        this.score_text.visible = true;
+        this.money_text.x = this.hud.x - 66 
+        this.money_text.y = this.hud.y - 1 
+        this.money_text.text =  this.globals.money
+        this.money_text.visible = true;
         // Align fonts from here using this.hud's coords
-        console.log(this.hud.x, this.hud.y)
+        // Align fonts from here using this.hud's coords
+        console.log(this.player.x, this.player.y)
     }
     init_map(scene) {
         // UNIQUE TO LEVEL
@@ -91,7 +93,7 @@ class Level2 extends Phaser.Scene {
         scene.platformLayer.setCollisionByProperty({ collides: true });
 
         // UNIQUE TO LEVEL
-        scene.player = new Player(this, 56, 584, 'idle1');
+        scene.player = new Player(this, 415,72, 'idle1');
         scene.player.setCollideWorldBounds(true);
 
         // Setup overlap detection for coin tiles
@@ -119,7 +121,7 @@ class Level2 extends Phaser.Scene {
         scene.cameras.main.useBounds = true;
         scene.cameras.main.setDeadzone(50, 20);
         scene.cameras.main.startFollow(scene.player);
-        scene.cameras.main.setZoom(3.5);
+        scene.cameras.main.setZoom(this.globals.ZOOM);
     }
     handleItemOverlap(player, tile) {
         if (tile.index != -1) {

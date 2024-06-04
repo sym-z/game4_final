@@ -74,7 +74,7 @@ class Hub extends Phaser.Scene {
         scene.cameras.main.useBounds = true;
         scene.cameras.main.setDeadzone(50, 20);
         scene.cameras.main.startFollow(scene.player)
-        scene.cameras.main.setZoom(3.5)
+        scene.cameras.main.setZoom(this.globals.ZOOM)
 
     }
 }
