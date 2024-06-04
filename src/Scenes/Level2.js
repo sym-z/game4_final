@@ -37,6 +37,8 @@ class Level2 extends Phaser.Scene {
         this.checkX = 216;
         this.checkY = 344;
         this.playerDeath = false;
+        this.score_text = this.add.bitmapText(400, 150, 'pi', 'You Win!', 64).setOrigin(0.5);
+        this.score_text.visible = false;
     }
 
     update(delta) {
@@ -46,6 +48,7 @@ class Level2 extends Phaser.Scene {
         }
         else {
             this.hud.visible = false
+            this.score_text.visible = false;
         }
         this.player.update();
         console.log(this.playerDeath)
@@ -56,6 +59,10 @@ class Level2 extends Phaser.Scene {
         // Every 2 pixels you add or remove to the hud, you need to add or remove 1 pixel to the offset
         this.hud.x = this.cameras.main.scrollX + this.cameras.main.displayWidth / 2 + 286;
         this.hud.y = this.cameras.main.scrollY + this.cameras.main.displayHeight + 221
+
+        this.score_text.x = this.hud.x 
+        this.score_text.y = this.hud.y 
+        this.score_text.visible = true;
         // Align fonts from here using this.hud's coords
         console.log(this.hud.x, this.hud.y)
     }
