@@ -10,7 +10,6 @@ class Start extends Phaser.Scene {
         game.sound.stopAll();
 
         this.globals = this.scene.get("Globals");
-        this.globals.score = 0;
 
         this.splash = this.add.sprite(400,320, 'splash')
 

@@ -10,10 +10,12 @@ class Globals extends Phaser.Scene {
         this.JUMP_VELOCITY = -550;
         this.GRAVITY = 1500;
         this.TILE_BIAS = 32;
-        this.scene.start("Load")
         this.level2Key = false;
         this.level3Key = false;
         this.money = 0;
         this.lives = 10;
+        this.scene.start("Load")
     }
+    
+
 }

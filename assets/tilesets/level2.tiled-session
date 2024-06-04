@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "level3.tmx",
+    "activeFile": "hub.tmx",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
@@ -12,8 +12,8 @@
             "scale": 1.8703124999999998,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 400.20050125313287,
-                "y": 320.26733500417714
+                "x": 399.66583124477864,
+                "y": 319.732664995823
             }
         },
         "hub.tmx#base_black": {
@@ -26,8 +26,8 @@
             "scale": 1.8703124999999998,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 400.20050125313287,
-                "y": 320.26733500417714
+                "x": 733.8345864661655,
+                "y": 500.4511278195489
             }
         },
         "level1.tmx#base_black": {
@@ -48,8 +48,8 @@
             "scale": 1.698125,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 400.1472211998527,
-                "y": 319.17556128082435
+                "x": 787.6334192123666,
+                "y": 518.2186234817814
             }
         },
         "level2.tmx#base_black": {
@@ -59,8 +59,8 @@
             "scale": 1.5,
             "selectedLayer": 12,
             "viewCenter": {
-                "x": 449.6666666666667,
-                "y": 272.66666666666663
+                "x": 865,
+                "y": 496.66666666666663
             }
         },
         "level3.tmx#base_black": {
@@ -85,8 +85,8 @@
     "recentFiles": [
         "level2.tmx",
         "level1.tmx",
-        "hub.tmx",
         "level3.tmx",
+        "hub.tmx",
         "level2.tmj"
     ],
     "tileset.embedInMap": true,

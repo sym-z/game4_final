@@ -14,10 +14,10 @@ class Load extends Phaser.Scene {
         this.load.tilemapTiledJSON("level1", "/tilesets/level1.tmj");   // Tilemap in JSON
         this.load.tilemapTiledJSON("level2", "/tilesets/level2.tmj");   // Tilemap in JSON
 
-
         this.load.image("splash", "menus/title.png");
         this.load.image('hud', 'menus/hud.png')
         this.load.image('credits', 'menus/credits.png')
+
         //Load in animation frames
         this.load.image("death", "player-anims/death.png");
         this.load.image("idle1", "player-anims/idle1.png");
@@ -67,6 +67,10 @@ class Load extends Phaser.Scene {
                 frameRate: 10,
                 repeat: -1
             });
+            this.tileData = this.cache.xml.get('num_xml');
+            
         this.scene.start("Start")
+
     }
+
 }
