@@ -31,7 +31,7 @@ class Level1 extends Phaser.Scene {
         this.interact = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z);
         this.showHUD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TAB);
         this.hud = this.add.sprite(0, 0, 'hud')
-        this.checkpointCleared = true;
+        this.checkpointCleared = false;
         // Location to spawn the player if they perish after capturing checkpoint
         // UNIQUE TO LEVEL
         this.checkX = 216;
@@ -39,6 +39,8 @@ class Level1 extends Phaser.Scene {
         this.playerDeath = false;
         this.money_text = this.add.bitmapText(400, 150, 'pi', 'You Win!', 16).setOrigin(0.5);
         this.money_text.visible = false;
+        this.life_text = this.add.bitmapText(400, 150, 'pi', 'You Win!', 15).setOrigin(0.5);
+        this.life_text.visible = false;
     }
 
     update(delta) {
@@ -49,6 +51,8 @@ class Level1 extends Phaser.Scene {
         else {
             this.hud.visible = false
             this.money_text.visible = false;
+            this.life_text.visible = false;
+
         }
         this.player.update();
         console.log(this.playerDeath)
@@ -63,6 +67,10 @@ class Level1 extends Phaser.Scene {
         this.money_text.y = this.hud.y - 1 
         this.money_text.text =  this.globals.money
         this.money_text.visible = true;
+        this.life_text.x = this.hud.x + 92 
+        this.life_text.y = this.hud.y - 1
+        this.life_text.text =  this.globals.lives
+        this.life_text.visible = true;
         // Align fonts from here using this.hud's coords
         console.log(this.hud.x, this.hud.y)
     }
@@ -143,7 +151,7 @@ class Level1 extends Phaser.Scene {
                         //this.scene.restart()
                         console.log('lives left: ', this.globals.lives)
                         if (this.globals.lives <= 0) {
-                            this.globals.lives -= 1;
+                            this.globals.lives = this.globals.STARTING_LIVES;
                             this.scene.start("Hub");
                         }
                         else if (this.checkpointCleared) {

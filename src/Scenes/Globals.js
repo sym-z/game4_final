@@ -13,11 +13,13 @@ class Globals extends Phaser.Scene {
         this.level2Key = false;
         this.level3Key = false;
         this.money = 0;
-        this.lives = 10;
         this.ZOOM = 2.75
         this.HUDX = 250
         this.HUDY = 190
+        this.STARTING_LIVES = 3;
+        this.lives = this.STARTING_LIVES 
         this.scene.start("Load")
+
     }
     
 
