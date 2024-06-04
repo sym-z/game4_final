@@ -12,6 +12,7 @@ class Globals extends Phaser.Scene {
         this.TILE_BIAS = 24;
         this.level2Key = false;
         this.level3Key = false;
+        this.gameWinKey = false;
         this.money = 0;
         this.ZOOM = 2.75
         this.HUDX = 250
