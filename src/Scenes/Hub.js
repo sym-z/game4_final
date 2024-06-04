@@ -25,10 +25,44 @@ class Hub extends Phaser.Scene {
         this.init_cam(this.hub_scene)
         game.sound.stopAll();
         this.interact = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z);
+        this.showHUD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TAB);
+        this.hud = this.add.sprite(0, 0, 'hud')
+        this.money_text = this.add.bitmapText(0,0, 'pi', '', this.globals.HUD_FONT_SIZE).setOrigin(0.5);
+        this.money_text.visible = false;
+        this.life_text = this.add.bitmapText(0, 0, 'pi', '', this.globals.HUD_FONT_SIZE).setOrigin(0.5);
+        this.life_text.visible = false;
     }
     update(delta)
     {
+        if (this.showHUD.isDown) {
+            console.log("down")
+            this.HUDPopUp();
+        }
+        else {
+            this.hud.visible = false
+            this.money_text.visible = false;
+            this.life_text.visible = false;
+        }
+        //console.log(this.player.x, this.player.y)
         this.player.update()
+    }
+    HUDPopUp() {
+        this.hud.visible = true
+        // Every 2 pixels you add or remove to the hud, you need to add or remove 1 pixel to the offset
+        this.hud.x = this.cameras.main.scrollX + this.cameras.main.displayWidth / 2 + this.globals.HUDX;
+        this.hud.y = this.cameras.main.scrollY + this.cameras.main.displayHeight + this.globals.HUDY;
+
+        this.money_text.x = this.hud.x + this.globals.MONEY_OFFSET_X; 
+        this.money_text.y = this.hud.y + this.globals.MONEY_OFFSET_Y;
+        this.money_text.text =  this.globals.money
+        this.money_text.visible = true;
+        this.life_text.x = this.hud.x + this.globals.LIFE_OFFSET_X; 
+        this.life_text.y = this.hud.y + this.globals.LIFE_OFFSET_Y;
+        this.life_text.text =  this.globals.lives
+        this.life_text.visible = true;
+        // Align fonts from here using this.hud's coords
+        // Align fonts from here using this.hud's coords
+        console.log(this.player.x, this.player.y)
     }
     init_map(scene)
     {
@@ -104,12 +138,27 @@ function handleItemOverlap(player, tile) {
             break;
         case "Door2":
             console.log('Door2', tile.x, tile.y);
+            if(this.interact.isDown && this.globals.level2Key)
+                {
+                    this.scene.start("Level2")
+                }
             break;
         case "Door3":
             console.log('Door3', tile.x, tile.y);
+
+            if(this.interact.isDown && this.globals.level3Key)
+                {
+                    // Change this to Level3, when i am done
+                    this.scene.start("Level2")
+                }
             break;
         case "DoorShop":
             console.log('DoorShop', tile.x, tile.y);
+            if(this.interact.isDown)
+                {
+                    // Change this to Shop, when i am done
+                    this.scene.start("Level1")
+                }
             break;
 
     }
