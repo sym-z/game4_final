@@ -45,6 +45,8 @@ class Level1 extends Phaser.Scene {
         this.life_text.visible = false;
         this.message_text = this.add.bitmapText(0, 0, 'pi', 'You Win!', this.globals.HUD_FONT_SIZE).setOrigin(0.5);
         this.message_text.visible = false;
+        this.place_enemies();
+        this.coolDown = false;
     }
 
     update(delta) {
@@ -59,8 +61,62 @@ class Level1 extends Phaser.Scene {
 
         }
         this.player.update();
-        console.log(this.playerDeath)
+        console.log(this.coolDown)
         //console.log(this.player.x, this.player.y)
+    }
+    place_enemies() {
+        // Eventually this is going to loop through all tiles in an "enemy" layer, and place enemies on those tiles.
+        this.enemy = new Enemy(this, 10, 590, 'horn')
+        this.physics.add.collider(this.enemy, this.walkableLayer);
+        this.physics.add.collider(this.enemy, this.platformLayer);
+        this.physics.add.collider(this.player, this.enemy, this.battle_touch, null, this);
+        this.enemy.setCollideWorldBounds(true);
+    }
+    battle_touch(player, enemy) {
+        if (!this.coolDown) {
+            if (player.body.bottom <= enemy.body.top + 10) {
+                console.log('Enemy touched from the top');
+                player.body.velocity.y = this.globals.ENEMY_BOUNCE;
+                enemy.destroy();
+                this.coolDown = true;
+                this.time.delayedCall(1000, () => {
+                    this.coolDown = false;
+                }, [], this);
+            } else {
+                console.log('Enemy touched from the side or bottom');
+
+                if (!this.playerDeath) {
+                    this.cameras.main.shake(this.globals.SHAKE_DURATION, 0.01);
+                    this.playerDeath = true;
+                    console.log('lives left: ', this.globals.lives)
+                    if (this.globals.lives <= 0) {
+                        this.globals.lives = this.globals.STARTING_LIVES;
+                        this.time.delayedCall(this.globals.SHAKE_DURATION, () => {
+                            // UNIQUE TO LEVEL
+                            this.globals.level2Key = false;
+                            this.scene.start("Hub");
+                        }, [], this);
+                    }
+                    else if (this.checkpointCleared) {
+                        this.globals.lives -= 1;
+                        this.time.delayedCall(this.globals.SHAKE_DURATION, () => {
+                            this.player.x = this.checkX;
+                            this.player.y = this.checkY;
+                        }, [], this);
+                        this.time.delayedCall(1000, () => {
+                            this.playerDeath = false;
+                        }, [], this);
+
+                    }
+                    else {
+                        this.globals.lives -= 1;
+                        this.time.delayedCall(this.globals.SHAKE_DURATION, () => {
+                            this.scene.restart();
+                        }, [], this);
+                    }
+                }
+            }
+        }
     }
     HUDPopUp() {
         this.hud.visible = true
@@ -168,7 +224,7 @@ class Level1 extends Phaser.Scene {
                 case "Kill":
 
                     if (!this.playerDeath) {
-                    this.cameras.main.shake(this.globals.SHAKE_DURATION, 0.01);
+                        this.cameras.main.shake(this.globals.SHAKE_DURATION, 0.01);
                         this.playerDeath = true;
                         console.log("Kill Touch")
                         //this.scene.restart()
@@ -176,8 +232,8 @@ class Level1 extends Phaser.Scene {
                         if (this.globals.lives <= 0) {
                             this.globals.lives = this.globals.STARTING_LIVES;
                             this.time.delayedCall(this.globals.SHAKE_DURATION, () => {
-                            this.globals.level2Key = false;
-                            this.scene.start("Hub");
+                                this.globals.level2Key = false;
+                                this.scene.start("Hub");
                             }, [], this);
                         }
                         else if (this.checkpointCleared) {

@@ -26,6 +26,7 @@ class Globals extends Phaser.Scene {
         this.lives = this.STARTING_LIVES 
         this.scene.start("Load")
         this.SHAKE_DURATION = 250
+        this.ENEMY_BOUNCE = -500;
 
     }
     

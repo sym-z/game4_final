@@ -15,6 +15,7 @@ class Load extends Phaser.Scene {
         this.load.tilemapTiledJSON("level2", "/tilesets/level2.tmj");   // Tilemap in JSON
         this.load.tilemapTiledJSON("level3", "/tilesets/level3.tmj");   // Tilemap in JSON
 
+        // Load menu sprites
         this.load.image("splash", "menus/title.png");
         this.load.image("controls", "menus/controls.png");
         this.load.image('hud', 'menus/hud.png')
@@ -30,6 +31,14 @@ class Load extends Phaser.Scene {
         this.load.image("walk2", "player-anims/walk2.png");
         this.load.image("step", "player-anims/step.png");
         this.load.image("hop", "player-anims/hop.png");
+
+        // Load enemy sprites
+
+        this.load.image("wing", "enemy-anims/wing.png");
+        this.load.image("turt", "enemy-anims/turt.png");
+        this.load.image("round", "enemy-anims/round.png");
+        this.load.image("horn", "enemy-anims/horn_guy.png");
+        this.load.image("heli", "enemy-anims/heli.png");
 
         this.load.audio("jump", "audio/pop.mp3")
         this.load.audio("ui", "audio/choice.mp3")
