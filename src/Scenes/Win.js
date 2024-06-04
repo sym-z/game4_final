@@ -4,7 +4,6 @@ class Win extends Phaser.Scene {
     }
     preload() {
         this.load.setPath("./assets/");
-        this.load.bitmapFont('pi', 'fonts/pi_0.png', 'fonts/pi.fnt');
     }
     create() {
 

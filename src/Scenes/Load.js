@@ -5,6 +5,7 @@ class Load extends Phaser.Scene {
 
     preload() {
         this.load.setPath("./assets/");
+        this.load.bitmapFont('pi', 'fonts/pi_0.png', 'fonts/pi.fnt');
 
         // Load tilemap information
         this.load.image("tilemap_tiles", "kenney_1-bit-platformer-pack/Tilemap/monochrome_tilemap_packed.png");                         // Packed tilemap
