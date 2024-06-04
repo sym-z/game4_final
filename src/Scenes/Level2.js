@@ -43,6 +43,9 @@ class Level2 extends Phaser.Scene {
         this.money_text.visible = false;
         this.life_text = this.add.bitmapText(0, 0, 'pi', 'You Win!', this.globals.HUD_FONT_SIZE).setOrigin(0.5);
         this.life_text.visible = false;
+        this.message_text = this.add.bitmapText(0, 0, 'pi', 'You Win!', this.globals.HUD_FONT_SIZE).setOrigin(0.5);
+        this.message_text.visible = false;
+
     }
 
     update(delta) {
@@ -136,16 +139,35 @@ class Level2 extends Phaser.Scene {
         if (tile.index != -1) {
             switch (tile.layer.name) {
                 case "Coins":
-                    this.globals.money += tile.properties.value;
-                    console.log('Picked up coin at:', tile.x, tile.y, " now holding ", this.globals.money);
-                    this.coinLayer.removeTileAt(tile.x, tile.y);
-                    break;
+                    case "Coins":
+                        this.globals.money += tile.properties.value;
+                        let value = tile.properties.value;
+                        console.log('Picked up coin at:', tile.x, tile.y, " now holding ", this.globals.money);
+                        this.coinLayer.removeTileAt(tile.x, tile.y);
+                        this.message_text.visible = true;
+                        this.message_text.text = "+ " + value
+                        this.message_text.x = this.player.x;
+                        this.message_text.y = this.player.y;
+                        this.time.delayedCall(1000, () => {
+                            this.message_text.visible = false;
+                        },[],this);
+                        break;
                 case "Doors":
                     console.log("Door Touch")
                     break;
                 case "Checkpoint":
                     console.log("Checkpoint Touch")
-                    this.checkpointCleared = true;
+                    if(!this.checkpointCleared)
+                    {
+                        this.checkpointCleared = true;
+                        this.message_text.visible = true;
+                        this.message_text.text = "Checkpoint!"
+                        this.message_text.x = this.player.x;
+                        this.message_text.y = this.player.y;
+                        this.time.delayedCall(1000, () => {
+                            this.message_text.visible = false;
+                        },[],this);
+                    }
                     break;
                 case "Kill":
                     if (!this.playerDeath) {
