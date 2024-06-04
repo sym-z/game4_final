@@ -176,6 +176,7 @@ class Level3 extends Phaser.Scene {
                         if (this.globals.lives <= 0) {
                             this.globals.lives = this.globals.STARTING_LIVES;
                             this.time.delayedCall(this.globals.SHAKE_DURATION, () => {
+                            this.globals.gameWinKey = false;
                             this.scene.start("Hub");
                             }, [], this);
                         }
