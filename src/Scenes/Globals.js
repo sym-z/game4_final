@@ -25,6 +25,7 @@ class Globals extends Phaser.Scene {
         this.HUD_FONT_SIZE = 15
         this.lives = this.STARTING_LIVES 
         this.scene.start("Load")
+        this.SHAKE_DURATION = 250
 
     }
     

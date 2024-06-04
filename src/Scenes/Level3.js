@@ -147,15 +147,14 @@ class Level3 extends Phaser.Scene {
                     this.message_text.y = this.player.y;
                     this.time.delayedCall(1000, () => {
                         this.message_text.visible = false;
-                    },[],this);
+                    }, [], this);
                     break;
                 case "Doors":
                     console.log("Door Touch")
                     break;
                 case "Checkpoint":
                     console.log("Checkpoint Touch")
-                    if(!this.checkpointCleared)
-                    {
+                    if (!this.checkpointCleared) {
                         this.checkpointCleared = true;
                         this.message_text.visible = true;
                         this.message_text.text = "Checkpoint!"
@@ -163,23 +162,29 @@ class Level3 extends Phaser.Scene {
                         this.message_text.y = this.player.y;
                         this.time.delayedCall(1000, () => {
                             this.message_text.visible = false;
-                        },[],this);
+                        }, [], this);
                     }
                     break;
                 case "Kill":
+
                     if (!this.playerDeath) {
+                    this.cameras.main.shake(this.globals.SHAKE_DURATION, 0.01);
                         this.playerDeath = true;
                         console.log("Kill Touch")
                         //this.scene.restart()
                         console.log('lives left: ', this.globals.lives)
                         if (this.globals.lives <= 0) {
                             this.globals.lives = this.globals.STARTING_LIVES;
+                            this.time.delayedCall(this.globals.SHAKE_DURATION, () => {
                             this.scene.start("Hub");
+                            }, [], this);
                         }
                         else if (this.checkpointCleared) {
                             this.globals.lives -= 1;
-                            this.player.x = this.checkX;
-                            this.player.y = this.checkY;
+                            this.time.delayedCall(this.globals.SHAKE_DURATION, () => {
+                                this.player.x = this.checkX;
+                                this.player.y = this.checkY;
+                            }, [], this);
                             this.time.delayedCall(1000, () => {
                                 this.playerDeath = false;
                             }, [], this);
@@ -187,8 +192,9 @@ class Level3 extends Phaser.Scene {
                         }
                         else {
                             this.globals.lives -= 1;
-
-                            this.scene.restart();
+                            this.time.delayedCall(this.globals.SHAKE_DURATION, () => {
+                                this.scene.restart();
+                            }, [], this);
                         }
                     }
                     break;
@@ -198,6 +204,13 @@ class Level3 extends Phaser.Scene {
                     // UNIQUE TO LEVEL
                     this.globals.gameWinKey = true;
                     console.log("Key obtained: ", this.globals.gameWinKey)
+                    this.message_text.visible = true;
+                    this.message_text.text = "Key Get!"
+                    this.message_text.x = this.player.x;
+                    this.message_text.y = this.player.y;
+                    this.time.delayedCall(1500, () => {
+                        this.message_text.visible = false;
+                    }, [], this);
                     break;
                 case "In":
                     console.log("In Touch")
@@ -206,7 +219,6 @@ class Level3 extends Phaser.Scene {
                     console.log("Out Touch")
                     // UNIQUE TO LEVEL
                     if (this.globals.gameWinKey && this.interact.isDown) {
-                        // Eventually change this to the game win condition
                         this.scene.start("Hub");
                     }
                     break;

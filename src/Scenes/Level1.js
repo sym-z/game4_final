@@ -39,7 +39,7 @@ class Level1 extends Phaser.Scene {
         this.checkpointCleared = false;
         // Location to spawn the player if they perish after capturing checkpoint
         this.playerDeath = false;
-        this.money_text = this.add.bitmapText(0,0, 'pi', '', this.globals.HUD_FONT_SIZE).setOrigin(0.5);
+        this.money_text = this.add.bitmapText(0, 0, 'pi', '', this.globals.HUD_FONT_SIZE).setOrigin(0.5);
         this.money_text.visible = false;
         this.life_text = this.add.bitmapText(0, 0, 'pi', '', this.globals.HUD_FONT_SIZE).setOrigin(0.5);
         this.life_text.visible = false;
@@ -67,13 +67,13 @@ class Level1 extends Phaser.Scene {
         // Every 2 pixels you add or remove to the hud, you need to add or remove 1 pixel to the offset
         this.hud.x = this.cameras.main.scrollX + this.cameras.main.displayWidth / 2 + this.globals.HUDX;
         this.hud.y = this.cameras.main.scrollY + this.cameras.main.displayHeight + this.globals.HUDY;
-        this.money_text.x = this.hud.x + this.globals.MONEY_OFFSET_X; 
+        this.money_text.x = this.hud.x + this.globals.MONEY_OFFSET_X;
         this.money_text.y = this.hud.y + this.globals.MONEY_OFFSET_Y;
-        this.money_text.text =  this.globals.money
+        this.money_text.text = this.globals.money
         this.money_text.visible = true;
-        this.life_text.x = this.hud.x + this.globals.LIFE_OFFSET_X; 
+        this.life_text.x = this.hud.x + this.globals.LIFE_OFFSET_X;
         this.life_text.y = this.hud.y + this.globals.LIFE_OFFSET_Y;
-        this.life_text.text =  this.globals.lives
+        this.life_text.text = this.globals.lives
         this.life_text.visible = true;
         // Align fonts from here using this.hud's coords
         console.log(this.hud.x, this.hud.y)
@@ -147,15 +147,14 @@ class Level1 extends Phaser.Scene {
                     this.message_text.y = this.player.y;
                     this.time.delayedCall(1000, () => {
                         this.message_text.visible = false;
-                    },[],this);
+                    }, [], this);
                     break;
                 case "Doors":
                     console.log("Door Touch")
                     break;
                 case "Checkpoint":
                     console.log("Checkpoint Touch")
-                    if(!this.checkpointCleared)
-                    {
+                    if (!this.checkpointCleared) {
                         this.checkpointCleared = true;
                         this.message_text.visible = true;
                         this.message_text.text = "Checkpoint!"
@@ -163,23 +162,29 @@ class Level1 extends Phaser.Scene {
                         this.message_text.y = this.player.y;
                         this.time.delayedCall(1000, () => {
                             this.message_text.visible = false;
-                        },[],this);
+                        }, [], this);
                     }
                     break;
                 case "Kill":
+
                     if (!this.playerDeath) {
+                    this.cameras.main.shake(this.globals.SHAKE_DURATION, 0.01);
                         this.playerDeath = true;
                         console.log("Kill Touch")
                         //this.scene.restart()
                         console.log('lives left: ', this.globals.lives)
                         if (this.globals.lives <= 0) {
                             this.globals.lives = this.globals.STARTING_LIVES;
+                            this.time.delayedCall(this.globals.SHAKE_DURATION, () => {
                             this.scene.start("Hub");
+                            }, [], this);
                         }
                         else if (this.checkpointCleared) {
                             this.globals.lives -= 1;
-                            this.player.x = this.checkX;
-                            this.player.y = this.checkY;
+                            this.time.delayedCall(this.globals.SHAKE_DURATION, () => {
+                                this.player.x = this.checkX;
+                                this.player.y = this.checkY;
+                            }, [], this);
                             this.time.delayedCall(1000, () => {
                                 this.playerDeath = false;
                             }, [], this);
@@ -187,8 +192,9 @@ class Level1 extends Phaser.Scene {
                         }
                         else {
                             this.globals.lives -= 1;
-
-                            this.scene.restart();
+                            this.time.delayedCall(this.globals.SHAKE_DURATION, () => {
+                                this.scene.restart();
+                            }, [], this);
                         }
                     }
                     break;
@@ -198,6 +204,13 @@ class Level1 extends Phaser.Scene {
                     // UNIQUE TO LEVEL
                     this.globals.level2Key = true;
                     console.log("Key obtained: ", this.globals.level2Key)
+                    this.message_text.visible = true;
+                    this.message_text.text = "Key Get!"
+                    this.message_text.x = this.player.x;
+                    this.message_text.y = this.player.y;
+                    this.time.delayedCall(1500, () => {
+                        this.message_text.visible = false;
+                    }, [], this);
                     break;
                 case "In":
                     console.log("In Touch")
