@@ -21,8 +21,8 @@ class Level2 extends Phaser.Scene {
         // UNIQUE TO LEVEL
         this.startX = 415;
         this.startY = 72
-        this.checkX = 415;
-        this.checkY = 72;
+        this.checkX = 594;
+        this.checkY = 272;
         this.globals = this.scene.get("Globals");
         // UNIQUE TO LEVEL
         this.level_scene = this.scene.get("Level2");
@@ -36,7 +36,7 @@ class Level2 extends Phaser.Scene {
         this.interact = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z);
         this.showHUD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TAB);
         this.hud = this.add.sprite(0, 0, 'hud')
-        this.checkpointCleared = true;
+        this.checkpointCleared = false;
         // Location to spawn the player if they perish after capturing checkpoint
         this.playerDeath = false;
         this.money_text = this.add.bitmapText(0, 0, 'pi', 'You Win!', this.globals.HUD_FONT_SIZE).setOrigin(0.5);
