@@ -18,6 +18,11 @@ class Level2 extends Phaser.Scene {
     }
 
     create() {
+        // UNIQUE TO LEVEL
+        this.startX = 415;
+        this.startY = 72
+        this.checkX = 415;
+        this.checkY = 72;
         this.globals = this.scene.get("Globals");
         // UNIQUE TO LEVEL
         this.level_scene = this.scene.get("Level2");
@@ -33,13 +38,10 @@ class Level2 extends Phaser.Scene {
         this.hud = this.add.sprite(0, 0, 'hud')
         this.checkpointCleared = true;
         // Location to spawn the player if they perish after capturing checkpoint
-        // UNIQUE TO LEVEL
-        this.checkX = 415;
-        this.checkY = 72;
         this.playerDeath = false;
-        this.money_text = this.add.bitmapText(400, 150, 'pi', 'You Win!', 15).setOrigin(0.5);
+        this.money_text = this.add.bitmapText(0, 0, 'pi', 'You Win!', this.globals.HUD_FONT_SIZE).setOrigin(0.5);
         this.money_text.visible = false;
-        this.life_text = this.add.bitmapText(400, 150, 'pi', 'You Win!', 15).setOrigin(0.5);
+        this.life_text = this.add.bitmapText(0, 0, 'pi', 'You Win!', this.globals.HUD_FONT_SIZE).setOrigin(0.5);
         this.life_text.visible = false;
     }
 
@@ -63,12 +65,12 @@ class Level2 extends Phaser.Scene {
         this.hud.x = this.cameras.main.scrollX + this.cameras.main.displayWidth / 2 + this.globals.HUDX;
         this.hud.y = this.cameras.main.scrollY + this.cameras.main.displayHeight + this.globals.HUDY;
 
-        this.money_text.x = this.hud.x - 66 
-        this.money_text.y = this.hud.y - 1 
+        this.money_text.x = this.hud.x + this.globals.MONEY_OFFSET_X; 
+        this.money_text.y = this.hud.y + this.globals.MONEY_OFFSET_Y;
         this.money_text.text =  this.globals.money
         this.money_text.visible = true;
-        this.life_text.x = this.hud.x + 92 
-        this.life_text.y = this.hud.y - 1
+        this.life_text.x = this.hud.x + this.globals.LIFE_OFFSET_X; 
+        this.life_text.y = this.hud.y + this.globals.LIFE_OFFSET_Y;
         this.life_text.text =  this.globals.lives
         this.life_text.visible = true;
         // Align fonts from here using this.hud's coords
@@ -100,7 +102,7 @@ class Level2 extends Phaser.Scene {
         scene.platformLayer.setCollisionByProperty({ collides: true });
 
         // UNIQUE TO LEVEL
-        scene.player = new Player(this, 415,72, 'idle1');
+        scene.player = new Player(this, this.startX,this.startY, 'idle1');
         scene.player.setCollideWorldBounds(true);
 
         // Setup overlap detection for coin tiles

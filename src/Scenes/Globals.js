@@ -16,7 +16,12 @@ class Globals extends Phaser.Scene {
         this.ZOOM = 2.75
         this.HUDX = 250
         this.HUDY = 190
+        this.MONEY_OFFSET_X = -66 
+        this.MONEY_OFFSET_Y = -1
+        this.LIFE_OFFSET_X = 92
+        this.LIFE_OFFSET_Y = -1
         this.STARTING_LIVES = 3;
+        this.HUD_FONT_SIZE = 15
         this.lives = this.STARTING_LIVES 
         this.scene.start("Load")
 

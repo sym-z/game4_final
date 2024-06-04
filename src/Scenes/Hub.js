@@ -17,6 +17,9 @@ class Hub extends Phaser.Scene {
     create() {
         this.hub_scene = this.scene.get("Hub");
         cursors = this.input.keyboard.createCursorKeys();
+        // UNIQUE TO LEVEL
+        this.startX = 100;
+        this.startY = 500
         this.init_map(this.hub_scene)
         this.animatedTiles.init(this.map);
         this.init_cam(this.hub_scene)
@@ -49,7 +52,7 @@ class Hub extends Phaser.Scene {
 
         scene.walkableLayer.setCollisionByProperty({ collides: true });
 
-        scene.player = new Player(this, 100, 500, 'idle1');
+        scene.player = new Player(this, this.startX, this.startY, 'idle1');
         scene.player.setCollideWorldBounds(true);
         scene.walkableLayer.forEachTile((tile) => {
             if (tile.properties.platform) {
