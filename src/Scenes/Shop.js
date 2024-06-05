@@ -47,6 +47,14 @@ class Shop extends Phaser.Scene {
         this.message_text.visible = false;
         // Prevents user from accidentally buying multiple items from holding down button
         this.shop_buffer = false;
+
+        // NEW
+        this.keyIcon1 = this.add.sprite(0, 0, 'keyIcon')
+        this.keyIcon1.visible = false;
+        this.keyIcon2 = this.add.sprite(0, 0, 'keyIcon')
+        this.keyIcon2.visible = false;
+        this.keyIcon3 = this.add.sprite(0, 0, 'keyIcon')
+        this.keyIcon3.visible = false;
     }
 
     update(delta) {
@@ -58,7 +66,9 @@ class Shop extends Phaser.Scene {
             this.hud.visible = false
             this.money_text.visible = false;
             this.life_text.visible = false;
-
+            this.keyIcon1.visible = false;
+            this.keyIcon2.visible = false;
+            this.keyIcon3.visible = false;
         }
         this.player.update();
         //console.log(this.player.x, this.player.y)
@@ -77,6 +87,17 @@ class Shop extends Phaser.Scene {
         this.life_text.text = this.globals.lives
         this.life_text.visible = true;
         // Align fonts from here using this.hud's coords
+         // NEW
+         this.keyIcon1.x = this.hud.x + this.globals.KEY1_OFFSET; 
+         this.keyIcon1.y = this.hud.y 
+         if(this.globals.level2Key)this.keyIcon1.visible = true;
+         this.keyIcon2.x = this.hud.x  + this.globals.KEY2_OFFSET; 
+         this.keyIcon2.y = this.hud.y
+         if(this.globals.level3Key)this.keyIcon2.visible = true;
+         this.keyIcon3.x = this.hud.x  + this.globals.KEY3_OFFSET; 
+         this.keyIcon3.y = this.hud.y
+         if(this.globals.gameWinKey)this.keyIcon3.visible = true;
+         
         console.log(this.player.x, this.player.y)
     }
     init_map(scene) {
@@ -126,7 +147,7 @@ class Shop extends Phaser.Scene {
                     this.message_text.x = this.player.x;
                     this.message_text.y = this.player.y + this.globals.SHOP_OFFSET;
                     this.message_text.visible = true;
-                    if(this.globals.money < 100 && this.interact.isDown && !this.shop_buffer) this.message_text.text = "Insufficient Funds!"
+                    if (this.globals.money < 100 && this.interact.isDown && !this.shop_buffer) this.message_text.text = "Insufficient Funds!"
                     if (this.globals.money >= 100 && this.interact.isDown && !this.shop_buffer) {
                         this.shop_buffer = true
                         this.globals.lives += 1;
@@ -143,7 +164,7 @@ class Shop extends Phaser.Scene {
                     this.message_text.x = this.player.x;
                     this.message_text.y = this.player.y + this.globals.SHOP_OFFSET;
                     this.message_text.visible = true;
-                    if(this.globals.money < 150 && this.interact.isDown && !this.shop_buffer) this.message_text.text = "Insufficient Funds!"
+                    if (this.globals.money < 150 && this.interact.isDown && !this.shop_buffer) this.message_text.text = "Insufficient Funds!"
                     if (this.globals.money >= 150 && this.interact.isDown && !this.shop_buffer) {
                         this.shop_buffer = true
                         this.globals.WALLET_LIMIT += 200;
@@ -159,7 +180,7 @@ class Shop extends Phaser.Scene {
                     this.message_text.x = this.player.x;
                     this.message_text.y = this.player.y + this.globals.SHOP_OFFSET;
                     this.message_text.visible = true;
-                    if(this.globals.money < 350 && this.interact.isDown && !this.shop_buffer) this.message_text.text = "Insufficient Funds!"
+                    if (this.globals.money < 350 && this.interact.isDown && !this.shop_buffer) this.message_text.text = "Insufficient Funds!"
                     if (this.globals.money >= 350 && this.interact.isDown && !this.shop_buffer) {
                         this.shop_buffer = true
                         this.globals.MAX_JUMPS += 1;
@@ -177,7 +198,7 @@ class Shop extends Phaser.Scene {
                     }
                     break;
                 default:
-                        this.message_text.visible = false;
+                    this.message_text.visible = false;
                     break;
             }
         }

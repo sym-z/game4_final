@@ -33,6 +33,13 @@ class Hub extends Phaser.Scene {
         this.life_text.visible = false;
         this.message_text = this.add.bitmapText(0, 0, 'pi', '', this.globals.HUD_FONT_SIZE).setOrigin(0.5);
         this.message_text.visible = false;
+        // NEW
+        this.keyIcon1 = this.add.sprite(0,0,'keyIcon')
+        this.keyIcon1.visible = false;
+        this.keyIcon2 = this.add.sprite(0,0,'keyIcon')
+        this.keyIcon2.visible = false;
+        this.keyIcon3 = this.add.sprite(0,0,'keyIcon')
+        this.keyIcon3.visible = false;
     }
     update(delta)
     {
@@ -44,6 +51,9 @@ class Hub extends Phaser.Scene {
             this.hud.visible = false
             this.money_text.visible = false;
             this.life_text.visible = false;
+            this.keyIcon1.visible = false;
+            this.keyIcon2.visible = false;
+            this.keyIcon3.visible = false;
         }
         //console.log(this.player.x, this.player.y)
         this.player.update()
@@ -62,6 +72,18 @@ class Hub extends Phaser.Scene {
         this.life_text.y = this.hud.y + this.globals.LIFE_OFFSET_Y;
         this.life_text.text =  this.globals.lives
         this.life_text.visible = true;
+        
+        // NEW
+        this.keyIcon1.x = this.hud.x + this.globals.KEY1_OFFSET; 
+        this.keyIcon1.y = this.hud.y 
+        if(this.globals.level2Key)this.keyIcon1.visible = true;
+        this.keyIcon2.x = this.hud.x  + this.globals.KEY2_OFFSET; 
+        this.keyIcon2.y = this.hud.y
+        if(this.globals.level3Key)this.keyIcon2.visible = true;
+        this.keyIcon3.x = this.hud.x  + this.globals.KEY3_OFFSET; 
+        this.keyIcon3.y = this.hud.y
+        if(this.globals.gameWinKey)this.keyIcon3.visible = true;
+        
         // Align fonts from here using this.hud's coords
         // Align fonts from here using this.hud's coords
         console.log(this.player.x, this.player.y)

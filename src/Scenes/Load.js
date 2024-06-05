@@ -21,6 +21,7 @@ class Load extends Phaser.Scene {
         this.load.image("controls", "menus/controls.png");
         this.load.image('hud', 'menus/hud.png')
         this.load.image('credits', 'menus/credits.png')
+        this.load.image('keyIcon', 'menus/keyIcon.png')
 
         //Load in animation frames
         this.load.image("death", "player-anims/death.png");

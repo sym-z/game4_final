@@ -46,6 +46,13 @@ class Level2 extends Phaser.Scene {
         this.message_text = this.add.bitmapText(0, 0, 'pi', 'You Win!', this.globals.HUD_FONT_SIZE).setOrigin(0.5);
         this.message_text.visible = false;
         this.place_enemies(this.map);
+        // NEW
+        this.keyIcon1 = this.add.sprite(0, 0, 'keyIcon')
+        this.keyIcon1.visible = false;
+        this.keyIcon2 = this.add.sprite(0, 0, 'keyIcon')
+        this.keyIcon2.visible = false;
+        this.keyIcon3 = this.add.sprite(0, 0, 'keyIcon')
+        this.keyIcon3.visible = false;
 
     }
 
@@ -58,17 +65,20 @@ class Level2 extends Phaser.Scene {
             this.hud.visible = false
             this.money_text.visible = false;
             this.life_text.visible = false;
+            this.keyIcon1.visible = false;
+            this.keyIcon2.visible = false;
+            this.keyIcon3.visible = false;
         }
         this.player.update();
         console.log(this.playerDeath)
         //console.log(this.player.x, this.player.y)
     }
-       // NEW
-       place_enemies(map) {
+    // NEW
+    place_enemies(map) {
         // Eventually this is going to loop through all tiles in an "enemy" layer, and place enemies on those tiles.
         this.enemyLayer.forEachTile((tile) => {
             if (tile.properties.isSpawn) {
-                this.tileLoc = map.tileToWorldXY(tile.x,tile.y)
+                this.tileLoc = map.tileToWorldXY(tile.x, tile.y)
                 console.log(this.tileLoc.x)
                 // Random enemies
                 this.index = Math.floor(Math.random() * this.globals.enemy_names.length)
@@ -136,16 +146,27 @@ class Level2 extends Phaser.Scene {
         this.hud.x = this.cameras.main.scrollX + this.cameras.main.displayWidth / 2 + this.globals.HUDX;
         this.hud.y = this.cameras.main.scrollY + this.cameras.main.displayHeight + this.globals.HUDY;
 
-        this.money_text.x = this.hud.x + this.globals.MONEY_OFFSET_X; 
+        this.money_text.x = this.hud.x + this.globals.MONEY_OFFSET_X;
         this.money_text.y = this.hud.y + this.globals.MONEY_OFFSET_Y;
-        this.money_text.text =  this.globals.money
+        this.money_text.text = this.globals.money
         this.money_text.visible = true;
-        this.life_text.x = this.hud.x + this.globals.LIFE_OFFSET_X; 
+        this.life_text.x = this.hud.x + this.globals.LIFE_OFFSET_X;
         this.life_text.y = this.hud.y + this.globals.LIFE_OFFSET_Y;
-        this.life_text.text =  this.globals.lives
+        this.life_text.text = this.globals.lives
         this.life_text.visible = true;
         // Align fonts from here using this.hud's coords
         // Align fonts from here using this.hud's coords
+         // NEW
+         this.keyIcon1.x = this.hud.x + this.globals.KEY1_OFFSET; 
+         this.keyIcon1.y = this.hud.y 
+         if(this.globals.level2Key)this.keyIcon1.visible = true;
+         this.keyIcon2.x = this.hud.x  + this.globals.KEY2_OFFSET; 
+         this.keyIcon2.y = this.hud.y
+         if(this.globals.level3Key)this.keyIcon2.visible = true;
+         this.keyIcon3.x = this.hud.x  + this.globals.KEY3_OFFSET; 
+         this.keyIcon3.y = this.hud.y
+         if(this.globals.gameWinKey)this.keyIcon3.visible = true;
+         
         console.log(this.player.x, this.player.y)
     }
     init_map(scene) {
@@ -174,7 +195,7 @@ class Level2 extends Phaser.Scene {
         scene.platformLayer.setCollisionByProperty({ collides: true });
 
         // UNIQUE TO LEVEL
-        scene.player = new Player(this, this.startX,this.startY, 'idle1', this.globals);
+        scene.player = new Player(this, this.startX, this.startY, 'idle1', this.globals);
         scene.player.setCollideWorldBounds(true);
 
         // Setup overlap detection for coin tiles
@@ -209,7 +230,7 @@ class Level2 extends Phaser.Scene {
             switch (tile.layer.name) {
                 case "Coins":
                     this.globals.money += tile.properties.value;
-                    if(this.globals.money > this.globals.WALLET_LIMIT) this.globals.money = this.globals.WALLET_LIMIT;
+                    if (this.globals.money > this.globals.WALLET_LIMIT) this.globals.money = this.globals.WALLET_LIMIT;
                     let value = tile.properties.value;
                     console.log('Picked up coin at:', tile.x, tile.y, " now holding ", this.globals.money);
                     this.coinLayer.removeTileAt(tile.x, tile.y);
@@ -240,7 +261,7 @@ class Level2 extends Phaser.Scene {
                 case "Kill":
 
                     if (!this.playerDeath) {
-                    this.cameras.main.shake(this.globals.SHAKE_DURATION, 0.01);
+                        this.cameras.main.shake(this.globals.SHAKE_DURATION, 0.01);
                         this.playerDeath = true;
                         console.log("Kill Touch")
                         //this.scene.restart()
@@ -248,8 +269,8 @@ class Level2 extends Phaser.Scene {
                         if (this.globals.lives <= 0) {
                             this.globals.lives = this.globals.STARTING_LIVES;
                             this.time.delayedCall(this.globals.SHAKE_DURATION, () => {
-                            this.globals.level3Key = false;
-                            this.scene.start("Hub");
+                                this.globals.level3Key = false;
+                                this.scene.start("Hub");
                             }, [], this);
                         }
                         else if (this.checkpointCleared) {

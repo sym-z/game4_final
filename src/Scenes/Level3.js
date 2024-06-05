@@ -46,6 +46,13 @@ class Level3 extends Phaser.Scene {
         this.message_text = this.add.bitmapText(0, 0, 'pi', 'You Win!', this.globals.HUD_FONT_SIZE).setOrigin(0.5);
         this.message_text.visible = false;
         this.place_enemies(this.map);
+        // NEW
+        this.keyIcon1 = this.add.sprite(0, 0, 'keyIcon')
+        this.keyIcon1.visible = false;
+        this.keyIcon2 = this.add.sprite(0, 0, 'keyIcon')
+        this.keyIcon2.visible = false;
+        this.keyIcon3 = this.add.sprite(0, 0, 'keyIcon')
+        this.keyIcon3.visible = false;
     }
 
     update(delta) {
@@ -56,15 +63,18 @@ class Level3 extends Phaser.Scene {
             this.hud.visible = false
             this.money_text.visible = false;
             this.life_text.visible = false;
+            this.keyIcon1.visible = false;
+            this.keyIcon2.visible = false;
+            this.keyIcon3.visible = false;
         }
         this.player.update();
     }
-       // NEW
-       place_enemies(map) {
+    // NEW
+    place_enemies(map) {
         // Eventually this is going to loop through all tiles in an "enemy" layer, and place enemies on those tiles.
         this.enemyLayer.forEachTile((tile) => {
             if (tile.properties.isSpawn) {
-                this.tileLoc = map.tileToWorldXY(tile.x,tile.y)
+                this.tileLoc = map.tileToWorldXY(tile.x, tile.y)
                 console.log(this.tileLoc.x)
                 // Random Enemy
                 this.index = Math.floor(Math.random() * this.globals.enemy_names.length)
@@ -141,6 +151,17 @@ class Level3 extends Phaser.Scene {
         this.life_text.text = this.globals.lives
         this.life_text.visible = true;
         // Align fonts from here using this.hud's coords
+         // NEW
+         this.keyIcon1.x = this.hud.x + this.globals.KEY1_OFFSET; 
+         this.keyIcon1.y = this.hud.y 
+         if(this.globals.level2Key)this.keyIcon1.visible = true;
+         this.keyIcon2.x = this.hud.x  + this.globals.KEY2_OFFSET; 
+         this.keyIcon2.y = this.hud.y
+         if(this.globals.level3Key)this.keyIcon2.visible = true;
+         this.keyIcon3.x = this.hud.x  + this.globals.KEY3_OFFSET; 
+         this.keyIcon3.y = this.hud.y
+         if(this.globals.gameWinKey)this.keyIcon3.visible = true;
+         
         console.log(this.player.x, this.player.y)
     }
     init_map(scene) {
@@ -203,7 +224,7 @@ class Level3 extends Phaser.Scene {
             switch (tile.layer.name) {
                 case "Coins":
                     this.globals.money += tile.properties.value;
-                    if(this.globals.money > this.globals.WALLET_LIMIT) this.globals.money = this.globals.WALLET_LIMIT;
+                    if (this.globals.money > this.globals.WALLET_LIMIT) this.globals.money = this.globals.WALLET_LIMIT;
                     let value = tile.properties.value;
                     console.log('Picked up coin at:', tile.x, tile.y, " now holding ", this.globals.money);
                     this.coinLayer.removeTileAt(tile.x, tile.y);
