@@ -31,6 +31,8 @@ class Hub extends Phaser.Scene {
         this.money_text.visible = false;
         this.life_text = this.add.bitmapText(0, 0, 'pi', '', this.globals.HUD_FONT_SIZE).setOrigin(0.5);
         this.life_text.visible = false;
+        this.message_text = this.add.bitmapText(0, 0, 'pi', '', this.globals.HUD_FONT_SIZE).setOrigin(0.5);
+        this.message_text.visible = false;
     }
     update(delta)
     {
@@ -86,7 +88,7 @@ class Hub extends Phaser.Scene {
 
         scene.walkableLayer.setCollisionByProperty({ collides: true });
 
-        scene.player = new Player(this, this.startX, this.startY, 'idle1');
+        scene.player = new Player(this, this.startX, this.startY, 'idle1', this.globals);
         scene.player.setCollideWorldBounds(true);
         scene.walkableLayer.forEachTile((tile) => {
             if (tile.properties.platform) {
@@ -131,6 +133,10 @@ function handleItemOverlap(player, tile) {
     {
         case "Door1":
             console.log('Door1', tile.x, tile.y);
+            this.message_text.text = "Level 1"
+            this.message_text.x = this.player.x;
+            this.message_text.y = this.player.y + this.globals.SHOP_OFFSET; 
+            this.message_text.visible = true;
             if(this.interact.isDown)
                 {
                     this.scene.start("Level1")
@@ -138,6 +144,11 @@ function handleItemOverlap(player, tile) {
             break;
         case "Door2":
             console.log('Door2', tile.x, tile.y);
+            this.message_text.text = "Level 2"
+            this.message_text.x = this.player.x;
+            this.message_text.y = this.player.y + this.globals.SHOP_OFFSET; 
+            if(!this.globals.level2Key) this.message_text.text = "Complete Level 1 to Unlock!"
+            this.message_text.visible = true;
             if(this.interact.isDown && this.globals.level2Key)
                 {
                     this.scene.start("Level2")
@@ -145,7 +156,11 @@ function handleItemOverlap(player, tile) {
             break;
         case "Door3":
             console.log('Door3', tile.x, tile.y);
-
+            this.message_text.text = "Level 2"
+            this.message_text.x = this.player.x;
+            this.message_text.y = this.player.y + this.globals.SHOP_OFFSET; 
+            if(!this.globals.level2Key) this.message_text.text = "Complete Level 2 to Unlock!"
+            this.message_text.visible = true;
             if(this.interact.isDown && this.globals.level3Key)
                 {
                     this.scene.start("Level3")

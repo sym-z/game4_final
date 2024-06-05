@@ -45,6 +45,8 @@ class Shop extends Phaser.Scene {
         this.life_text.visible = false;
         this.message_text = this.add.bitmapText(0, 0, 'pi', '', this.globals.HUD_FONT_SIZE).setOrigin(0.5);
         this.message_text.visible = false;
+        // Prevents user from accidentally buying multiple items from holding down button
+        this.shop_buffer = false;
     }
 
     update(delta) {
@@ -96,7 +98,7 @@ class Shop extends Phaser.Scene {
 
         scene.walkableLayer.setCollisionByProperty({ collides: true });
 
-        scene.player = new Player(this, this.startX, this.startY, 'idle1');
+        scene.player = new Player(this, this.startX, this.startY, 'idle1', this.globals);
         scene.player.setCollideWorldBounds(true);
 
         // Setup overlap detection for coin tiles
@@ -120,17 +122,44 @@ class Shop extends Phaser.Scene {
             switch (tile.layer.name) {
                 case "Item1":
                     console.log("Item1 Touch")
-                    if(this.globals.money >= 100 && this.interact.isDown)
-                        {
-                            this.globals.lives += 1;
-                            this.globals.money -= 100;
-                        }
+                    this.message_text.text = "Extra Lives: $100"
+                    this.message_text.x = this.player.x;
+                    this.message_text.y = this.player.y + this.globals.SHOP_OFFSET;
+                    this.message_text.visible = true;
+                    if(this.globals.money < 100 && this.interact.isDown && !this.shop_buffer) this.message_text.text = "Insufficient Funds!"
+                    if (this.globals.money >= 100 && this.interact.isDown && !this.shop_buffer) {
+                        this.shop_buffer = true
+                        this.globals.lives += 1;
+                        this.globals.money -= 100;
+                        this.time.delayedCall(this.globals.BUY_CD, () => {
+                            this.shop_buffer = false;
+                        }, [], this);
+                    }
+
                     break;
                 case "Item2":
                     console.log("Item2 Touch")
+                    this.message_text.text = "Wallet Upgrade: $150"
+                    this.message_text.x = this.player.x;
+                    this.message_text.y = this.player.y + this.globals.SHOP_OFFSET;
+                    this.message_text.visible = true;
+                    if(this.globals.money < 150 && this.interact.isDown && !this.shop_buffer) this.message_text.text = "Insufficient Funds!"
                     break;
                 case "Item3":
                     console.log("Item3 Touch")
+                    this.message_text.text = "Extra Jump: $350"
+                    this.message_text.x = this.player.x;
+                    this.message_text.y = this.player.y + this.globals.SHOP_OFFSET;
+                    this.message_text.visible = true;
+                    if(this.globals.money < 350 && this.interact.isDown && !this.shop_buffer) this.message_text.text = "Insufficient Funds!"
+                    if (this.globals.money >= 350 && this.interact.isDown && !this.shop_buffer) {
+                        this.shop_buffer = true
+                        this.globals.MAX_JUMPS += 1;
+                        this.globals.money -= 350;
+                        this.time.delayedCall(this.globals.BUY_CD, () => {
+                            this.shop_buffer = false;
+                        }, [], this);
+                    }
                     break;
                 case "Door":
                     console.log("Door Touch")
@@ -138,6 +167,9 @@ class Shop extends Phaser.Scene {
                     if (this.interact.isDown) {
                         this.scene.start("Hub");
                     }
+                    break;
+                default:
+                        this.message_text.visible = false;
                     break;
             }
         }

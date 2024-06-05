@@ -1,9 +1,8 @@
 class Player extends Phaser.Physics.Arcade.Sprite {
-    constructor(scene, x, y, texture) {
+    constructor(scene, x, y, texture, globals) {
         super(scene, x, y, texture);
         scene.add.existing(this)
         scene.physics.add.existing(this)
-
         this.parent = scene
         // 1 for +x -1 for -x
         this.facing = 1;
@@ -11,6 +10,8 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.alive = true;
         this.anims.play('idle');
         this.money = 0;
+        this.jumps = 2;
+        this.globals = globals
     }
     update() {
         this.isMoving = false;
@@ -50,8 +51,16 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         if (!this.body.blocked.down) {
             this.anims.play('jump', true);
         }
-        if (this.body.blocked.down && Phaser.Input.Keyboard.JustDown(cursors.up)) {
-            this.body.setVelocityY(this.parent.JUMP_VELOCITY);
+        else
+        {
+            this.jumps = this.globals.MAX_JUMPS;
+        }
+        if(Phaser.Input.Keyboard.JustDown(cursors.up))
+        {
+            if (this.body.blocked.down || this.jumps > 0) {
+                this.jumps -= 1;
+                this.body.setVelocityY(this.parent.JUMP_VELOCITY);
+            }
         }
     }
 

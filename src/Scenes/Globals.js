@@ -13,7 +13,7 @@ class Globals extends Phaser.Scene {
         this.level2Key = false;
         this.level3Key = false;
         this.gameWinKey = false;
-        this.money = 0;
+        this.money = 1000;
         this.ZOOM = 2.75
         this.HUDX = 250
         this.HUDY = 190
@@ -27,6 +27,9 @@ class Globals extends Phaser.Scene {
         this.scene.start("Load")
         this.SHAKE_DURATION = 250
         this.ENEMY_BOUNCE = -500;
+        this.MAX_JUMPS = 2;
+        this.BUY_CD = 1000;
+        this.SHOP_OFFSET = -30;
 
     }
     

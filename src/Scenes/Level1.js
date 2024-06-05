@@ -23,6 +23,7 @@ class Level1 extends Phaser.Scene {
         this.startY = 584
         this.checkX = 216;
         this.checkY = 344;
+
         this.globals = this.scene.get("Globals");
         // UNIQUE TO LEVEL
         this.level_scene = this.scene.get("Level1");
@@ -45,7 +46,8 @@ class Level1 extends Phaser.Scene {
         this.life_text.visible = false;
         this.message_text = this.add.bitmapText(0, 0, 'pi', 'You Win!', this.globals.HUD_FONT_SIZE).setOrigin(0.5);
         this.message_text.visible = false;
-        this.place_enemies();
+        // NEW
+        this.place_enemies(this.map);
         this.coolDown = false;
     }
 
@@ -58,20 +60,33 @@ class Level1 extends Phaser.Scene {
             this.hud.visible = false
             this.money_text.visible = false;
             this.life_text.visible = false;
+            // TODO: ADD KEY TEXT TO HUD
 
         }
         this.player.update();
         console.log(this.coolDown)
         //console.log(this.player.x, this.player.y)
     }
-    place_enemies() {
+    // NEW
+    place_enemies(map) {
         // Eventually this is going to loop through all tiles in an "enemy" layer, and place enemies on those tiles.
-        this.enemy = new Enemy(this, 10, 590, 'horn')
-        this.physics.add.collider(this.enemy, this.walkableLayer);
-        this.physics.add.collider(this.enemy, this.platformLayer);
-        this.physics.add.collider(this.player, this.enemy, this.battle_touch, null, this);
-        this.enemy.setCollideWorldBounds(true);
+        this.enemyLayer.forEachTile((tile) => {
+            if (tile.properties.isSpawn) {
+                this.tileLoc = map.tileToWorldXY(tile.x,tile.y)
+                console.log(this.tileLoc.x)
+                // TODO: Random enemies
+                // TODO: Use tile property "Range" to set the individual walking cycles of the enemies, and use it as a parameter in this constructor
+                // TODO: Pass in type for unique behavior
+                this.enemy = new Enemy(this, this.tileLoc.x, this.tileLoc.y, 'horn')
+                this.physics.add.collider(this.enemy, this.walkableLayer);
+                this.physics.add.collider(this.enemy, this.platformLayer);
+                this.physics.add.collider(this.player, this.enemy, this.battle_touch, null, this);
+                this.enemy.setCollideWorldBounds(true);
+                tile.visible = false;
+            }
+        });
     }
+    // NEW
     battle_touch(player, enemy) {
         if (!this.coolDown) {
             if (player.body.bottom <= enemy.body.top + 10) {
@@ -143,6 +158,9 @@ class Level1 extends Phaser.Scene {
 
         scene.backdropLayer = scene.map.createLayer("Backdrop", scene.black_tileset, 0, 0);
         scene.backgroundLayer = scene.map.createLayer("Background", scene.black_tileset, 0, 0);
+        // NEW
+        scene.enemyLayer = scene.map.createLayer("Enemy", scene.black_tileset, 0, 0);
+        
         scene.midgroundLayer = scene.map.createLayer("Midground", scene.black_tileset, 0, 0);
         scene.killLayer = scene.map.createLayer("Kill", scene.black_tileset, 0, 0);
         scene.walkableLayer = scene.map.createLayer("Walkable", scene.black_tileset, 0, 0);
@@ -159,7 +177,7 @@ class Level1 extends Phaser.Scene {
         scene.platformLayer.setCollisionByProperty({ collides: true });
 
         // UNIQUE TO LEVEL
-        scene.player = new Player(this, this.startX, this.startY, 'idle1');
+        scene.player = new Player(this, this.startX, this.startY, 'idle1', this.globals);
         scene.player.setCollideWorldBounds(true);
 
         // Setup overlap detection for coin tiles

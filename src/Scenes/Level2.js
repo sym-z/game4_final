@@ -45,6 +45,7 @@ class Level2 extends Phaser.Scene {
         this.life_text.visible = false;
         this.message_text = this.add.bitmapText(0, 0, 'pi', 'You Win!', this.globals.HUD_FONT_SIZE).setOrigin(0.5);
         this.message_text.visible = false;
+        this.place_enemies(this.map);
 
     }
 
@@ -61,6 +62,72 @@ class Level2 extends Phaser.Scene {
         this.player.update();
         console.log(this.playerDeath)
         //console.log(this.player.x, this.player.y)
+    }
+       // NEW
+       place_enemies(map) {
+        // Eventually this is going to loop through all tiles in an "enemy" layer, and place enemies on those tiles.
+        this.enemyLayer.forEachTile((tile) => {
+            if (tile.properties.isSpawn) {
+                this.tileLoc = map.tileToWorldXY(tile.x,tile.y)
+                console.log(this.tileLoc.x)
+                // TODO: Random enemies
+                // TODO: Use tile property "Range" to set the individual walking cycles of the enemies, and use it as a parameter in this constructor
+                // TODO: Pass in type for unique behavior
+                this.enemy = new Enemy(this, this.tileLoc.x, this.tileLoc.y, 'horn')
+                this.physics.add.collider(this.enemy, this.walkableLayer);
+                this.physics.add.collider(this.enemy, this.platformLayer);
+                this.physics.add.collider(this.player, this.enemy, this.battle_touch, null, this);
+                this.enemy.setCollideWorldBounds(true);
+                tile.visible = false;
+            }
+        });
+    }
+    // NEW
+    battle_touch(player, enemy) {
+        if (!this.coolDown) {
+            if (player.body.bottom <= enemy.body.top + 10) {
+                console.log('Enemy touched from the top');
+                player.body.velocity.y = this.globals.ENEMY_BOUNCE;
+                enemy.destroy();
+                this.coolDown = true;
+                this.time.delayedCall(1000, () => {
+                    this.coolDown = false;
+                }, [], this);
+            } else {
+                console.log('Enemy touched from the side or bottom');
+
+                if (!this.playerDeath) {
+                    this.cameras.main.shake(this.globals.SHAKE_DURATION, 0.01);
+                    this.playerDeath = true;
+                    console.log('lives left: ', this.globals.lives)
+                    if (this.globals.lives <= 0) {
+                        this.globals.lives = this.globals.STARTING_LIVES;
+                        this.time.delayedCall(this.globals.SHAKE_DURATION, () => {
+                            // UNIQUE TO LEVEL
+                            this.globals.level2Key = false;
+                            this.scene.start("Hub");
+                        }, [], this);
+                    }
+                    else if (this.checkpointCleared) {
+                        this.globals.lives -= 1;
+                        this.time.delayedCall(this.globals.SHAKE_DURATION, () => {
+                            this.player.x = this.checkX;
+                            this.player.y = this.checkY;
+                        }, [], this);
+                        this.time.delayedCall(1000, () => {
+                            this.playerDeath = false;
+                        }, [], this);
+
+                    }
+                    else {
+                        this.globals.lives -= 1;
+                        this.time.delayedCall(this.globals.SHAKE_DURATION, () => {
+                            this.scene.restart();
+                        }, [], this);
+                    }
+                }
+            }
+        }
     }
     HUDPopUp() {
         this.hud.visible = true
@@ -89,6 +156,7 @@ class Level2 extends Phaser.Scene {
 
         scene.backdropLayer = scene.map.createLayer("Backdrop", scene.black_tileset, 0, 0);
         scene.backgroundLayer = scene.map.createLayer("Background", scene.black_tileset, 0, 0);
+        scene.enemyLayer = scene.map.createLayer("Enemy", scene.black_tileset, 0, 0);
         scene.midgroundLayer = scene.map.createLayer("Midground", scene.black_tileset, 0, 0);
         scene.killLayer = scene.map.createLayer("Kill", scene.black_tileset, 0, 0);
         scene.walkableLayer = scene.map.createLayer("Walkable", scene.black_tileset, 0, 0);
@@ -105,7 +173,7 @@ class Level2 extends Phaser.Scene {
         scene.platformLayer.setCollisionByProperty({ collides: true });
 
         // UNIQUE TO LEVEL
-        scene.player = new Player(this, this.startX,this.startY, 'idle1');
+        scene.player = new Player(this, this.startX,this.startY, 'idle1', this.globals);
         scene.player.setCollideWorldBounds(true);
 
         // Setup overlap detection for coin tiles

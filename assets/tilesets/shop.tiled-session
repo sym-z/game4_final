@@ -8,23 +8,34 @@
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
+        "level1.tmx": {
+            "scale": 1.6921875,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 400.3693444136658,
+                "y": 319.7045244690674
+            }
+        },
+        "level1.tmx#base_black": {
+            "scaleInDock": 2
+        },
         "level2.tmx": {
             "scale": 1.5496875,
-            "selectedLayer": 6,
+            "selectedLayer": 2,
             "viewCenter": {
                 "x": 400.40330711837066,
-                "y": 320.06452913893935
+                "y": 319.4192377495463
             }
         },
         "level2.tmx#base_black": {
-            "scaleInDock": 1
+            "scaleInDock": 2
         },
         "level3.tmx": {
             "scale": 1.5496875,
-            "selectedLayer": 0,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 315.2248437184916,
-                "y": 346.52147610405325
+                "x": 314.57955232909865,
+                "y": 346.5214761040532
             }
         },
         "level3.tmx#base_black": {
