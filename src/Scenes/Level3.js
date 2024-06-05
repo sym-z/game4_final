@@ -49,7 +49,6 @@ class Level3 extends Phaser.Scene {
 
     update(delta) {
         if (this.showHUD.isDown) {
-            console.log("down")
             this.HUDPopUp();
         }
         else {
@@ -58,8 +57,6 @@ class Level3 extends Phaser.Scene {
             this.life_text.visible = false;
         }
         this.player.update();
-        console.log(this.playerDeath)
-        //console.log(this.player.x, this.player.y)
     }
     HUDPopUp() {
         this.hud.visible = true
@@ -75,7 +72,6 @@ class Level3 extends Phaser.Scene {
         this.life_text.y = this.hud.y + this.globals.LIFE_OFFSET_Y;
         this.life_text.text = this.globals.lives
         this.life_text.visible = true;
-        // Align fonts from here using this.hud's coords
         // Align fonts from here using this.hud's coords
         console.log(this.player.x, this.player.y)
     }
@@ -173,7 +169,6 @@ class Level3 extends Phaser.Scene {
                         this.cameras.main.shake(this.globals.SHAKE_DURATION, 0.01);
                         this.playerDeath = true;
                         console.log("Kill Touch")
-                        //this.scene.restart()
                         console.log('lives left: ', this.globals.lives)
                         if (this.globals.lives <= 0) {
                             this.globals.lives = this.globals.STARTING_LIVES;

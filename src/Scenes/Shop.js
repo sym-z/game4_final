@@ -120,6 +120,11 @@ class Shop extends Phaser.Scene {
             switch (tile.layer.name) {
                 case "Item1":
                     console.log("Item1 Touch")
+                    if(this.globals.money >= 100 && this.interact.isDown)
+                        {
+                            this.globals.lives += 1;
+                            this.globals.money -= 100;
+                        }
                     break;
                 case "Item2":
                     console.log("Item2 Touch")
