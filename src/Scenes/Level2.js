@@ -70,10 +70,11 @@ class Level2 extends Phaser.Scene {
             if (tile.properties.isSpawn) {
                 this.tileLoc = map.tileToWorldXY(tile.x,tile.y)
                 console.log(this.tileLoc.x)
-                // TODO: Random enemies
+                // Random enemies
+                this.index = Math.floor(Math.random() * this.globals.enemy_names.length)
                 // TODO: Use tile property "Range" to set the individual walking cycles of the enemies, and use it as a parameter in this constructor
                 // TODO: Pass in type for unique behavior
-                this.enemy = new Enemy(this, this.tileLoc.x, this.tileLoc.y, 'horn')
+                this.enemy = new Enemy(this, this.tileLoc.x, this.tileLoc.y, this.globals.enemy_names[this.index])
                 this.physics.add.collider(this.enemy, this.walkableLayer);
                 this.physics.add.collider(this.enemy, this.platformLayer);
                 this.physics.add.collider(this.player, this.enemy, this.battle_touch, null, this);
@@ -208,6 +209,7 @@ class Level2 extends Phaser.Scene {
             switch (tile.layer.name) {
                 case "Coins":
                     this.globals.money += tile.properties.value;
+                    if(this.globals.money > this.globals.WALLET_LIMIT) this.globals.money = this.globals.WALLET_LIMIT;
                     let value = tile.properties.value;
                     console.log('Picked up coin at:', tile.x, tile.y, " now holding ", this.globals.money);
                     this.coinLayer.removeTileAt(tile.x, tile.y);

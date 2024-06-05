@@ -30,6 +30,8 @@ class Globals extends Phaser.Scene {
         this.MAX_JUMPS = 2;
         this.BUY_CD = 1000;
         this.SHOP_OFFSET = -30;
+        this.enemy_names = ['horn', 'heli', 'turt', 'wing', 'round']
+        this.WALLET_LIMIT = 400;
 
     }
     

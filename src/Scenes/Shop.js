@@ -144,6 +144,14 @@ class Shop extends Phaser.Scene {
                     this.message_text.y = this.player.y + this.globals.SHOP_OFFSET;
                     this.message_text.visible = true;
                     if(this.globals.money < 150 && this.interact.isDown && !this.shop_buffer) this.message_text.text = "Insufficient Funds!"
+                    if (this.globals.money >= 150 && this.interact.isDown && !this.shop_buffer) {
+                        this.shop_buffer = true
+                        this.globals.WALLET_LIMIT += 200;
+                        this.globals.money -= 150;
+                        this.time.delayedCall(this.globals.BUY_CD, () => {
+                            this.shop_buffer = false;
+                        }, [], this);
+                    }
                     break;
                 case "Item3":
                     console.log("Item3 Touch")
