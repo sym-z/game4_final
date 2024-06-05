@@ -168,6 +168,10 @@ function handleItemOverlap(player, tile) {
             break;
         case "DoorShop":
             console.log('DoorShop', tile.x, tile.y);
+            this.message_text.text = "Shop"
+            this.message_text.x = this.player.x;
+            this.message_text.y = this.player.y + this.globals.SHOP_OFFSET; 
+            this.message_text.visible = true;
             if(this.interact.isDown)
                 {
                     this.scene.start("Shop")
