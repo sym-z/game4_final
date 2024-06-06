@@ -210,6 +210,7 @@ class Level3 extends Phaser.Scene {
 
         scene.physics.add.collider(scene.player, scene.walkableLayer);
         scene.physics.add.collider(scene.player, scene.platformLayer);
+        this.backgroundLayer.setScrollFactor(0.2)
     }
 
     init_cam(scene) {

@@ -19,11 +19,17 @@ class Start extends Phaser.Scene {
 
         this.controls = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z);
 
+        this.how = this.add.sprite(400,320,'howTo');
+        this.how.visible = false;
     }
     update(delta) {
 
         if (this.enter.isDown) {
-            this.scene.start("Hub")
+            this.how.visible = true;
+            this.time.delayedCall(3000, () => {
+                this.how.visible = false;
+                this.scene.start("Hub")
+            }, [], this);
         }
 
         if (this.credits.isDown) {

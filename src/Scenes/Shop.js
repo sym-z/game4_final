@@ -129,6 +129,7 @@ class Shop extends Phaser.Scene {
         scene.physics.add.overlap(scene.player, scene.doorsLayer, this.handleItemOverlap, checkIsDoor, this);
 
         scene.physics.add.collider(scene.player, scene.walkableLayer);
+        this.backgroundLayer.setScrollFactor(0.2)
     }
 
     init_cam(scene) {

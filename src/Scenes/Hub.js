@@ -33,6 +33,7 @@ class Hub extends Phaser.Scene {
         this.life_text.visible = false;
         this.message_text = this.add.bitmapText(0, 0, 'pi', '', this.globals.HUD_FONT_SIZE).setOrigin(0.5);
         this.message_text.visible = false;
+        this.message_text.setDepth(14)
         // NEW
         this.keyIcon1 = this.add.sprite(0,0,'keyIcon')
         this.keyIcon1.visible = false;
@@ -57,6 +58,9 @@ class Hub extends Phaser.Scene {
         }
         //console.log(this.player.x, this.player.y)
         this.player.update()
+
+        //this.midgroundLayer.setScrollFactor(0.5)
+        //this.foregroundLayer.setScrollFactor(1.0)
     }
     HUDPopUp() {
         this.hud.visible = true
@@ -91,7 +95,7 @@ class Hub extends Phaser.Scene {
     init_map(scene)
     {
         scene.map = scene.make.tilemap({ key: 'hub' });
-        
+
         scene.black_tileset = scene.map.addTilesetImage("base_black", "tilemap_tiles")
 
         scene.backdropLayer = scene.map.createLayer("Backdrop", scene.black_tileset, 0, 0);
@@ -108,9 +112,23 @@ class Hub extends Phaser.Scene {
         scene.door3Layer = scene.map.createLayer("Door3", scene.black_tileset, 0, 0);
         scene.doorShopLayer = scene.map.createLayer("DoorShop", scene.black_tileset, 0, 0);
 
+        scene.backdropLayer.setDepth(0)
+        scene.backgroundLayer.setDepth(1)
+        scene.midgroundLayer.setDepth(2)
+        scene.treeBorderLayer.setDepth(3)
+        scene.walkableLayer.setDepth(4)
+        scene.shopLayer.setDepth(5)
+        scene.oneLayer.setDepth(6)
+        scene.twoLayer.setDepth(7)
+        scene.threeLayer.setDepth(8)
+        scene.door1Layer.setDepth(9)
+        scene.door2Layer.setDepth(10)
+        scene.door3Layer.setDepth(11)
+        scene.doorShopLayer.setDepth(12)
         scene.walkableLayer.setCollisionByProperty({ collides: true });
 
         scene.player = new Player(this, this.startX, this.startY, 'idle1', this.globals);
+        scene.player.setDepth(13)
         scene.player.setCollideWorldBounds(true);
         scene.walkableLayer.forEachTile((tile) => {
             if (tile.properties.platform) {
@@ -128,6 +146,9 @@ class Hub extends Phaser.Scene {
         scene.physics.add.overlap(scene.player, scene.doorShopLayer, handleItemOverlap, checkIsDoor, this);
         scene.physics.add.collider(scene.player, scene.walkableLayer);
         scene.physics.add.collider(scene.player, scene.oneLayer);
+
+
+        this.backgroundLayer.setScrollFactor(0.2)
     }
     init_cam(scene)
     {
