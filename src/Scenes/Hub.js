@@ -178,10 +178,10 @@ function handleItemOverlap(player, tile) {
             break;
         case "Door3":
             console.log('Door3', tile.x, tile.y);
-            this.message_text.text = "Level 2"
+            this.message_text.text = "Level 3"
             this.message_text.x = this.player.x;
             this.message_text.y = this.player.y + this.globals.SHOP_OFFSET; 
-            if(!this.globals.level2Key) this.message_text.text = "Complete Level 2 to Unlock!"
+            if(!this.globals.level3Key) this.message_text.text = "Complete Level 2 to Unlock!"
             this.message_text.visible = true;
             if(this.interact.isDown && this.globals.level3Key)
                 {

@@ -115,7 +115,7 @@ class Level2 extends Phaser.Scene {
                         this.globals.lives = this.globals.STARTING_LIVES;
                         this.time.delayedCall(this.globals.SHAKE_DURATION, () => {
                             // UNIQUE TO LEVEL
-                            this.globals.level2Key = false;
+                            this.globals.level3Key = false;
                             this.scene.start("Hub");
                         }, [], this);
                     }
