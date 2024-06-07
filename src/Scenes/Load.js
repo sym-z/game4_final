@@ -23,6 +23,7 @@ class Load extends Phaser.Scene {
         this.load.image('credits', 'menus/credits.png')
         this.load.image('keyIcon', 'menus/keyIcon.png')
         this.load.image('howTo', 'menus/howto.png')
+        this.load.image('win', 'menus/win.png')
         
 
         //Load in animation frames
@@ -84,7 +85,7 @@ class Load extends Phaser.Scene {
             });
             this.tileData = this.cache.xml.get('num_xml');
             
-        this.scene.start("Start")
+        this.scene.start("Level1")
 
     }
 

@@ -53,6 +53,9 @@ class Level3 extends Phaser.Scene {
         this.keyIcon2.visible = false;
         this.keyIcon3 = this.add.sprite(0, 0, 'keyIcon')
         this.keyIcon3.visible = false;
+
+        this.winScreen = this.add.sprite(400,320,'win')
+        this.winScreen.visible = false;
     }
 
     update(delta) {
@@ -210,7 +213,7 @@ class Level3 extends Phaser.Scene {
 
         scene.physics.add.collider(scene.player, scene.walkableLayer);
         scene.physics.add.collider(scene.player, scene.platformLayer);
-        this.backgroundLayer.setScrollFactor(0.2)
+        this.backdropLayer.setScrollFactor(0.2)
     }
 
     init_cam(scene) {
@@ -309,7 +312,11 @@ class Level3 extends Phaser.Scene {
                     console.log("Out Touch")
                     // UNIQUE TO LEVEL
                     if (this.globals.gameWinKey && this.interact.isDown) {
-                        this.scene.start("Hub");
+                        this.winScreen.visible = true;
+                        this.time.delayedCall(3000, () => {
+                            this.winScreen.visible = false;
+                            this.scene.start("Hub");
+                        }, [], this);
                     }
                     break;
             }

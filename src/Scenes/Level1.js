@@ -46,6 +46,11 @@ class Level1 extends Phaser.Scene {
         this.life_text.visible = false;
         this.message_text = this.add.bitmapText(0, 0, 'pi', 'You Win!', this.globals.HUD_FONT_SIZE).setOrigin(0.5);
         this.message_text.visible = false;
+
+        // NEW ENEMY CODE
+        this.enemyList = [];
+        this.refreshEnemies = false;
+
         // NEW
         this.place_enemies(this.map);
         this.coolDown = false;
@@ -56,11 +61,12 @@ class Level1 extends Phaser.Scene {
         this.keyIcon2.visible = false;
         this.keyIcon3 = this.add.sprite(0, 0, 'keyIcon')
         this.keyIcon3.visible = false;
+
     }
 
-    update(delta) {
+    update(time,delta) {
         if (this.showHUD.isDown) {
-            console.log("down")
+            //console.log("down")
             this.HUDPopUp();
         }
         else {
@@ -74,8 +80,11 @@ class Level1 extends Phaser.Scene {
 
         }
         this.player.update();
-        console.log(this.coolDown)
+        //console.log(this.coolDown)
         //console.log(this.player.x, this.player.y)
+
+        // NEW ENEMY CODE
+        for (let e of this.enemyList) e.update(time,delta)
     }
     // NEW
     place_enemies(map) {
@@ -83,17 +92,33 @@ class Level1 extends Phaser.Scene {
         this.enemyLayer.forEachTile((tile) => {
             if (tile.properties.isSpawn) {
                 this.tileLoc = map.tileToWorldXY(tile.x, tile.y)
-                console.log(this.tileLoc.x)
+                //console.log(this.tileLoc.x)
                 // Random enemies
                 this.index = Math.floor(Math.random() * this.globals.enemy_names.length)
                 // TODO: Use tile property "Range" to set the individual walking cycles of the enemies, and use it as a parameter in this constructor
+                
+                // NEW ENEMY CODE                
+                this.range = tile.properties.range;
+                this.direction = tile.properties.direction;
+
+                //console.log(this.range)
+                ////console.log(this.direction)
+
                 // TODO: Pass in type for unique behavior
-                this.enemy = new Enemy(this, this.tileLoc.x, this.tileLoc.y, this.globals.enemy_names[this.index])
+
+
+                // NEW ENEMY CODE
+                this.enemy = new Enemy(this, this.tileLoc.x, this.tileLoc.y, this.globals.enemy_names[this.index], this.range, this.direction)
+                
+                
                 this.physics.add.collider(this.enemy, this.walkableLayer);
                 this.physics.add.collider(this.enemy, this.platformLayer);
                 this.physics.add.collider(this.player, this.enemy, this.battle_touch, null, this);
                 this.enemy.setCollideWorldBounds(true);
                 tile.visible = false;
+
+                // NEW ENEMY CODE
+                this.enemyList.push(this.enemy)
             }
         });
     }
@@ -101,7 +126,7 @@ class Level1 extends Phaser.Scene {
     battle_touch(player, enemy) {
         if (!this.coolDown) {
             if (player.body.bottom <= enemy.body.top + 10) {
-                console.log('Enemy touched from the top');
+                //console.log('Enemy touched from the top');
                 player.body.velocity.y = this.globals.ENEMY_BOUNCE;
                 enemy.destroy();
                 this.coolDown = true;
@@ -109,12 +134,12 @@ class Level1 extends Phaser.Scene {
                     this.coolDown = false;
                 }, [], this);
             } else {
-                console.log('Enemy touched from the side or bottom');
+                //console.log('Enemy touched from the side or bottom');
 
                 if (!this.playerDeath) {
                     this.cameras.main.shake(this.globals.SHAKE_DURATION, 0.01);
                     this.playerDeath = true;
-                    console.log('lives left: ', this.globals.lives)
+                    //console.log('lives left: ', this.globals.lives)
                     if (this.globals.lives <= 0) {
                         this.globals.lives = this.globals.STARTING_LIVES;
                         this.time.delayedCall(this.globals.SHAKE_DURATION, () => {
@@ -169,7 +194,7 @@ class Level1 extends Phaser.Scene {
          this.keyIcon3.y = this.hud.y
          if(this.globals.gameWinKey)this.keyIcon3.visible = true;
          
-        console.log(this.hud.x, this.hud.y)
+        //console.log(this.hud.x, this.hud.y)
     }
     init_map(scene) {
         // UNIQUE TO LEVEL
@@ -237,7 +262,7 @@ class Level1 extends Phaser.Scene {
                     this.globals.money += tile.properties.value;
                     if (this.globals.money > this.globals.WALLET_LIMIT) this.globals.money = this.globals.WALLET_LIMIT;
                     let value = tile.properties.value;
-                    console.log('Picked up coin at:', tile.x, tile.y, " now holding ", this.globals.money);
+                    //console.log('Picked up coin at:', tile.x, tile.y, " now holding ", this.globals.money);
                     this.coinLayer.removeTileAt(tile.x, tile.y);
                     this.message_text.visible = true;
                     this.message_text.text = "+ " + value
@@ -248,10 +273,10 @@ class Level1 extends Phaser.Scene {
                     }, [], this);
                     break;
                 case "Doors":
-                    console.log("Door Touch")
+                    //console.log("Door Touch")
                     break;
                 case "Checkpoint":
-                    console.log("Checkpoint Touch")
+                    //console.log("Checkpoint Touch")
                     if (!this.checkpointCleared) {
                         this.checkpointCleared = true;
                         this.message_text.visible = true;
@@ -268,9 +293,9 @@ class Level1 extends Phaser.Scene {
                     if (!this.playerDeath) {
                         this.cameras.main.shake(this.globals.SHAKE_DURATION, 0.01);
                         this.playerDeath = true;
-                        console.log("Kill Touch")
+                        //console.log("Kill Touch")
                         //this.scene.restart()
-                        console.log('lives left: ', this.globals.lives)
+                        //console.log('lives left: ', this.globals.lives)
                         if (this.globals.lives <= 0) {
                             this.globals.lives = this.globals.STARTING_LIVES;
                             this.time.delayedCall(this.globals.SHAKE_DURATION, () => {
@@ -298,11 +323,11 @@ class Level1 extends Phaser.Scene {
                     }
                     break;
                 case "Key":
-                    console.log("Key Touch")
+                    //console.log("Key Touch")
                     this.keyLayer.removeTileAt(tile.x, tile.y);
                     // UNIQUE TO LEVEL
                     this.globals.level2Key = true;
-                    console.log("Key obtained: ", this.globals.level2Key)
+                    //console.log("Key obtained: ", this.globals.level2Key)
                     this.message_text.visible = true;
                     this.message_text.text = "Key Get!"
                     this.message_text.x = this.player.x;
@@ -312,10 +337,10 @@ class Level1 extends Phaser.Scene {
                     }, [], this);
                     break;
                 case "In":
-                    console.log("In Touch")
+                    //console.log("In Touch")
                     break;
                 case "Out":
-                    console.log("Out Touch")
+                    //console.log("Out Touch")
                     // UNIQUE TO LEVEL
                     if (this.globals.level2Key && this.interact.isDown) {
                         this.scene.start("Hub");

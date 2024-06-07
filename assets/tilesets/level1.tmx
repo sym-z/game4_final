@@ -204,8 +204,10 @@
   <tile id="203">
    <properties>
     <property name="collides" type="bool" value="true"/>
+    <property name="direction" type="int" value="1"/>
     <property name="isKill" type="bool" value="true"/>
     <property name="isSpawn" type="bool" value="true"/>
+    <property name="range" type="int" value="1"/>
    </properties>
   </tile>
   <tile id="259" probability="0.05"/>

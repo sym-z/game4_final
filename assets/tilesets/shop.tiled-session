@@ -79,7 +79,7 @@
     "openFiles": [
     ],
     "project": "shop.tiled-project",
-    "property.type": "int",
+    "property.type": "bool",
     "recentFiles": [
     ],
     "tileset.embedInMap": true,
