@@ -45,7 +45,6 @@ class Level3 extends Phaser.Scene {
         this.life_text.visible = false;
         this.message_text = this.add.bitmapText(0, 0, 'pi', 'You Win!', this.globals.HUD_FONT_SIZE).setOrigin(0.5);
         this.message_text.visible = false;
-        this.place_enemies(this.map);
         // NEW
         this.keyIcon1 = this.add.sprite(0, 0, 'keyIcon')
         this.keyIcon1.visible = false;
@@ -54,11 +53,28 @@ class Level3 extends Phaser.Scene {
         this.keyIcon3 = this.add.sprite(0, 0, 'keyIcon')
         this.keyIcon3.visible = false;
 
-        this.winScreen = this.add.sprite(400,320,'win')
+        // NEW HUD CODE
+        this.hud.setDepth(50);
+        this.money_text.setDepth(51);
+        this.life_text.setDepth(52);
+        this.message_text.setDepth(53);
+        this.keyIcon1.setDepth(54);
+        this.keyIcon2.setDepth(55);
+        this.keyIcon3.setDepth(56);
+
+
+        // NEW ENEMY CODE
+        this.enemyList = [];
+        this.refreshEnemies = false;
+
+
+        this.place_enemies(this.map);
+
+        this.winScreen = this.add.sprite(400, 320, 'win')
         this.winScreen.visible = false;
     }
 
-    update(delta) {
+    update(time,delta) {
         if (this.showHUD.isDown) {
             this.HUDPopUp();
         }
@@ -71,6 +87,11 @@ class Level3 extends Phaser.Scene {
             this.keyIcon3.visible = false;
         }
         this.player.update();
+
+        // NEW ENEMY CODE
+        for (let e of this.enemyList) e.update(time, delta)
+
+
     }
     // NEW
     place_enemies(map) {
@@ -81,14 +102,27 @@ class Level3 extends Phaser.Scene {
                 console.log(this.tileLoc.x)
                 // Random Enemy
                 this.index = Math.floor(Math.random() * this.globals.enemy_names.length)
-                // TODO: Use tile property "Range" to set the individual walking cycles of the enemies, and use it as a parameter in this constructor
+
+                // NEW ENEMY CODE                
+                this.range = tile.properties.range;
+                this.direction = tile.properties.direction;
+
+
                 // TODO: Pass in type for unique behavior
-                this.enemy = new Enemy(this, this.tileLoc.x, this.tileLoc.y, this.globals.enemy_names[this.index])
+
+
+                // NEW ENEMY CODE
+                this.enemy = new Enemy(this, this.tileLoc.x, this.tileLoc.y, this.globals.enemy_names[this.index], this.range, this.direction)
+
+
                 this.physics.add.collider(this.enemy, this.walkableLayer);
                 this.physics.add.collider(this.enemy, this.platformLayer);
                 this.physics.add.collider(this.player, this.enemy, this.battle_touch, null, this);
                 this.enemy.setCollideWorldBounds(true);
                 tile.visible = false;
+                
+                // NEW ENEMY CODE
+                this.enemyList.push(this.enemy)
             }
         });
     }
@@ -98,6 +132,11 @@ class Level3 extends Phaser.Scene {
             if (player.body.bottom <= enemy.body.top + 10) {
                 console.log('Enemy touched from the top');
                 player.body.velocity.y = this.globals.ENEMY_BOUNCE;
+                                
+                // NEW ENEMY CODE
+                enemy.alive = false;
+
+
                 enemy.destroy();
                 this.coolDown = true;
                 this.time.delayedCall(1000, () => {
@@ -154,17 +193,17 @@ class Level3 extends Phaser.Scene {
         this.life_text.text = this.globals.lives
         this.life_text.visible = true;
         // Align fonts from here using this.hud's coords
-         // NEW
-         this.keyIcon1.x = this.hud.x + this.globals.KEY1_OFFSET; 
-         this.keyIcon1.y = this.hud.y 
-         if(this.globals.level2Key)this.keyIcon1.visible = true;
-         this.keyIcon2.x = this.hud.x  + this.globals.KEY2_OFFSET; 
-         this.keyIcon2.y = this.hud.y
-         if(this.globals.level3Key)this.keyIcon2.visible = true;
-         this.keyIcon3.x = this.hud.x  + this.globals.KEY3_OFFSET; 
-         this.keyIcon3.y = this.hud.y
-         if(this.globals.gameWinKey)this.keyIcon3.visible = true;
-         
+        // NEW
+        this.keyIcon1.x = this.hud.x + this.globals.KEY1_OFFSET;
+        this.keyIcon1.y = this.hud.y
+        if (this.globals.level2Key) this.keyIcon1.visible = true;
+        this.keyIcon2.x = this.hud.x + this.globals.KEY2_OFFSET;
+        this.keyIcon2.y = this.hud.y
+        if (this.globals.level3Key) this.keyIcon2.visible = true;
+        this.keyIcon3.x = this.hud.x + this.globals.KEY3_OFFSET;
+        this.keyIcon3.y = this.hud.y
+        if (this.globals.gameWinKey) this.keyIcon3.visible = true;
+
         console.log(this.player.x, this.player.y)
     }
     init_map(scene) {
@@ -313,9 +352,10 @@ class Level3 extends Phaser.Scene {
                     // UNIQUE TO LEVEL
                     if (this.globals.gameWinKey && this.interact.isDown) {
                         this.winScreen.visible = true;
+                        this.cameras.main.setZoom(1.0)
                         this.time.delayedCall(3000, () => {
                             this.winScreen.visible = false;
-                            this.scene.start("Hub");
+                            this.scene.start("Start");
                         }, [], this);
                     }
                     break;

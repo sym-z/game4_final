@@ -64,6 +64,7 @@ class Hub extends Phaser.Scene {
     }
     HUDPopUp() {
         this.hud.visible = true
+        console.log("heelllooo")
         // Every 2 pixels you add or remove to the hud, you need to add or remove 1 pixel to the offset
         this.hud.x = this.cameras.main.scrollX + this.cameras.main.displayWidth / 2 + this.globals.HUDX;
         this.hud.y = this.cameras.main.scrollY + this.cameras.main.displayHeight + this.globals.HUDY;
@@ -91,6 +92,15 @@ class Hub extends Phaser.Scene {
         // Align fonts from here using this.hud's coords
         // Align fonts from here using this.hud's coords
         console.log(this.player.x, this.player.y)
+
+        // NEW HUD CODE
+        this.hud.setDepth(50);
+        this.money_text.setDepth(51);
+        this.life_text.setDepth(52);
+        this.message_text.setDepth(53);
+        this.keyIcon1.setDepth(54);
+        this.keyIcon2.setDepth(55);
+        this.keyIcon3.setDepth(56);
     }
     init_map(scene)
     {

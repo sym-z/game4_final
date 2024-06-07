@@ -47,14 +47,6 @@ class Level1 extends Phaser.Scene {
         this.message_text = this.add.bitmapText(0, 0, 'pi', 'You Win!', this.globals.HUD_FONT_SIZE).setOrigin(0.5);
         this.message_text.visible = false;
 
-        // NEW ENEMY CODE
-        this.enemyList = [];
-        this.refreshEnemies = false;
-
-        // NEW
-        this.place_enemies(this.map);
-        this.coolDown = false;
-        // NEW
         this.keyIcon1 = this.add.sprite(0, 0, 'keyIcon')
         this.keyIcon1.visible = false;
         this.keyIcon2 = this.add.sprite(0, 0, 'keyIcon')
@@ -62,11 +54,26 @@ class Level1 extends Phaser.Scene {
         this.keyIcon3 = this.add.sprite(0, 0, 'keyIcon')
         this.keyIcon3.visible = false;
 
+        // NEW HUD CODE
+        this.hud.setDepth(50);
+        this.money_text.setDepth(51);
+        this.life_text.setDepth(52);
+        this.message_text.setDepth(53);
+        this.keyIcon1.setDepth(54);
+        this.keyIcon2.setDepth(55);
+        this.keyIcon3.setDepth(56);
+
+        // NEW ENEMY CODE
+        this.enemyList = [];
+        this.refreshEnemies = false;
+
+        this.place_enemies(this.map);
+        this.coolDown = false;
+
     }
 
     update(time,delta) {
         if (this.showHUD.isDown) {
-            //console.log("down")
             this.HUDPopUp();
         }
         else {
@@ -76,33 +83,26 @@ class Level1 extends Phaser.Scene {
             this.keyIcon1.visible = false;
             this.keyIcon2.visible = false;
             this.keyIcon3.visible = false;
-            // TODO: ADD KEY TEXT TO HUD
 
         }
         this.player.update();
-        //console.log(this.coolDown)
-        //console.log(this.player.x, this.player.y)
 
         // NEW ENEMY CODE
         for (let e of this.enemyList) e.update(time,delta)
+
     }
     // NEW
     place_enemies(map) {
-        // Eventually this is going to loop through all tiles in an "enemy" layer, and place enemies on those tiles.
         this.enemyLayer.forEachTile((tile) => {
             if (tile.properties.isSpawn) {
                 this.tileLoc = map.tileToWorldXY(tile.x, tile.y)
-                //console.log(this.tileLoc.x)
                 // Random enemies
                 this.index = Math.floor(Math.random() * this.globals.enemy_names.length)
-                // TODO: Use tile property "Range" to set the individual walking cycles of the enemies, and use it as a parameter in this constructor
                 
                 // NEW ENEMY CODE                
                 this.range = tile.properties.range;
                 this.direction = tile.properties.direction;
 
-                //console.log(this.range)
-                ////console.log(this.direction)
 
                 // TODO: Pass in type for unique behavior
 
@@ -126,20 +126,22 @@ class Level1 extends Phaser.Scene {
     battle_touch(player, enemy) {
         if (!this.coolDown) {
             if (player.body.bottom <= enemy.body.top + 10) {
-                //console.log('Enemy touched from the top');
                 player.body.velocity.y = this.globals.ENEMY_BOUNCE;
+                
+                // NEW ENEMY CODE
+                enemy.alive = false;
+
+
                 enemy.destroy();
                 this.coolDown = true;
                 this.time.delayedCall(1000, () => {
                     this.coolDown = false;
                 }, [], this);
             } else {
-                //console.log('Enemy touched from the side or bottom');
 
                 if (!this.playerDeath) {
                     this.cameras.main.shake(this.globals.SHAKE_DURATION, 0.01);
                     this.playerDeath = true;
-                    //console.log('lives left: ', this.globals.lives)
                     if (this.globals.lives <= 0) {
                         this.globals.lives = this.globals.STARTING_LIVES;
                         this.time.delayedCall(this.globals.SHAKE_DURATION, () => {
@@ -183,7 +185,6 @@ class Level1 extends Phaser.Scene {
         this.life_text.text = this.globals.lives
         this.life_text.visible = true;
         // Align fonts from here using this.hud's coords
-         // NEW
          this.keyIcon1.x = this.hud.x + this.globals.KEY1_OFFSET; 
          this.keyIcon1.y = this.hud.y 
          if(this.globals.level2Key)this.keyIcon1.visible = true;
@@ -194,18 +195,19 @@ class Level1 extends Phaser.Scene {
          this.keyIcon3.y = this.hud.y
          if(this.globals.gameWinKey)this.keyIcon3.visible = true;
          
-        //console.log(this.hud.x, this.hud.y)
     }
     init_map(scene) {
         // UNIQUE TO LEVEL
         scene.map = scene.make.tilemap({ key: 'level1' });
+
+
+
         this.physics.world.setBounds(0, 0, scene.map.widthInPixels, scene.map.heightInPixels);
 
         scene.black_tileset = scene.map.addTilesetImage("base_black", "tilemap_tiles");
 
         scene.backdropLayer = scene.map.createLayer("Backdrop", scene.black_tileset, 0, 0);
         scene.backgroundLayer = scene.map.createLayer("Background", scene.black_tileset, 0, 0);
-        // NEW
         scene.enemyLayer = scene.map.createLayer("Enemy", scene.black_tileset, 0, 0);
 
         scene.midgroundLayer = scene.map.createLayer("Midground", scene.black_tileset, 0, 0);
@@ -262,7 +264,6 @@ class Level1 extends Phaser.Scene {
                     this.globals.money += tile.properties.value;
                     if (this.globals.money > this.globals.WALLET_LIMIT) this.globals.money = this.globals.WALLET_LIMIT;
                     let value = tile.properties.value;
-                    //console.log('Picked up coin at:', tile.x, tile.y, " now holding ", this.globals.money);
                     this.coinLayer.removeTileAt(tile.x, tile.y);
                     this.message_text.visible = true;
                     this.message_text.text = "+ " + value

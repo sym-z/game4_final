@@ -3,6 +3,7 @@ class Globals extends Phaser.Scene {
         super("Globals");
     }
     create() {
+        this.debugMode = true;
         this.score = 0;
         this.ACCELERATION = 3000;
         this.MAX_SPEED = 200;
@@ -35,7 +36,15 @@ class Globals extends Phaser.Scene {
         this.KEY1_OFFSET = -20;
         this.KEY2_OFFSET = 0;
         this.KEY3_OFFSET = 20;
-
+        if(this.debugMode)
+            {
+                this.level2Key = true
+                this.level3Key = true;
+                this.gameWinKey = true;
+                this.money = 1000;
+                this.lives = 100;
+                this.MAX_JUMPS = 3;
+            }
     }
     
 

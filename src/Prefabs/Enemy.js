@@ -11,15 +11,17 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
         this.tex = texture
         this.duration = 0;
     }
-    update(time,delta) {
-        this.duration += delta
-        let seconds = Math.floor(this.duration/1000)
-        if(seconds > this.range)
-            { 
+    update(time, delta) {
+        if (this.alive) {
+            this.duration += delta
+            let seconds = Math.floor(this.duration / 1000)
+            if (seconds > this.range) {
                 this.direction *= -1;
                 this.duration = 0;
                 seconds = 0;
             }
-        this.body.setVelocityX(10 * this.direction);
-    } 
+            this.body.setVelocityX(10 * this.direction);
+        }
+    }
+
 }

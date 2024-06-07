@@ -85,7 +85,7 @@ class Load extends Phaser.Scene {
             });
             this.tileData = this.cache.xml.get('num_xml');
             
-        this.scene.start("Level1")
+        this.scene.start("Start")
 
     }
 
