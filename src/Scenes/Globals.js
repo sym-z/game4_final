@@ -76,6 +76,10 @@ class Globals extends Phaser.Scene {
                 this.WALLET_LIMIT = gameData.wallet;
             }
     }
+    erase_game()
+    {
+        localStorage.removeItem('data');
+    }
     
 
 }
