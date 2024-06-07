@@ -15,6 +15,7 @@ class Hub extends Phaser.Scene {
         this.load.scenePlugin('AnimatedTiles', './lib/AnimatedTiles.js', 'animatedTiles', 'animatedTiles');
     }
     create() {
+        game.sound.stopAll();
         this.hub_scene = this.scene.get("Hub");
         cursors = this.input.keyboard.createCursorKeys();
         // UNIQUE TO LEVEL
@@ -26,6 +27,17 @@ class Hub extends Phaser.Scene {
         game.sound.stopAll();
         this.interact = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z);
         this.showHUD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TAB);
+        
+        // TODO: NEW LISTENER SOUND CODE
+        this.showHUD.on('down', (key,event) => {
+            this.sound.play('ui')
+
+        })
+        this.showHUD.on('up', (key,event) => {
+            this.sound.play('ui')
+
+        }) 
+
         this.hud = this.add.sprite(0, 0, 'hud')
         this.money_text = this.add.bitmapText(0,0, 'pi', '', this.globals.HUD_FONT_SIZE).setOrigin(0.5);
         this.money_text.visible = false;

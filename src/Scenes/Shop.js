@@ -18,6 +18,7 @@ class Shop extends Phaser.Scene {
     }
 
     create() {
+        game.sound.stopAll();
         // UNIQUE TO LEVEL
         this.startX = 107
         this.startY = 152
@@ -35,6 +36,17 @@ class Shop extends Phaser.Scene {
         game.sound.stopAll();
         this.interact = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z);
         this.showHUD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TAB);
+        
+        // TODO: NEW LISTENER SOUND CODE
+        this.showHUD.on('down', (key,event) => {
+            this.sound.play('ui')
+
+        })
+        this.showHUD.on('up', (key,event) => {
+            this.sound.play('ui')
+
+        }) 
+
         this.hud = this.add.sprite(0, 0, 'hud')
         this.checkpointCleared = false;
         // Location to spawn the player if they perish after capturing checkpoint

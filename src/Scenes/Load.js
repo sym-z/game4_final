@@ -45,12 +45,16 @@ class Load extends Phaser.Scene {
         this.load.image("horn", "enemy-anims/horn_guy.png");
         this.load.image("heli", "enemy-anims/heli.png");
 
-        this.load.audio("jump", "audio/pop.mp3")
-        this.load.audio("ui", "audio/choice.mp3")
-        this.load.audio("death", "audio/death.mp3")
-        this.load.audio("footfall", "audio/footfall.mp3")
-        this.load.audio("coin", "audio/jump.mp3")
-        this.load.audio("key", "audio/key.mp3")
+        this.load.audio("jump", "audio/pop.mp3") // Done
+        this.load.audio("ui", "audio/choice.mp3") // Done 
+        this.load.audio("death", "audio/death.mp3") // Done, but needs new source
+        this.load.audio("footfall", "audio/footfall.mp3") // Done
+        this.load.audio("coin", "audio/jump.mp3") // Done
+        this.load.audio("key", "audio/key.mp3") // Done
+        //TODO: Checkpoint Audio
+        //TODO: Enemy Kill Audio
+        //TODO: Game Win Audio
+        //TODO: Game Over Audio
 
         // Load frames to be used by the particle systems
         this.load.image("coinSys", "particles/coin_pickup.png");

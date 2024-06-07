@@ -18,6 +18,7 @@ class Level3 extends Phaser.Scene {
     }
 
     create() {
+        game.sound.stopAll();
         // UNIQUE TO LEVEL
         this.startX = 134;
         this.startY = 595;
@@ -35,6 +36,17 @@ class Level3 extends Phaser.Scene {
         game.sound.stopAll();
         this.interact = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z);
         this.showHUD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TAB);
+        
+        // TODO: NEW LISTENER SOUND CODE
+        this.showHUD.on('down', (key,event) => {
+            this.sound.play('ui')
+
+        })
+        this.showHUD.on('up', (key,event) => {
+            this.sound.play('ui')
+
+        }) 
+
         this.hud = this.add.sprite(0, 0, 'hud')
         this.checkpointCleared = false;
         // Location to spawn the player if they perish after capturing checkpoint
@@ -146,6 +158,7 @@ class Level3 extends Phaser.Scene {
                 console.log('Enemy touched from the side or bottom');
 
                 if (!this.playerDeath) {
+                    this.sound.play('death');
                     this.cameras.main.shake(this.globals.SHAKE_DURATION, 0.01);
                     this.playerDeath = true;
                     console.log('lives left: ', this.globals.lives)
@@ -271,6 +284,7 @@ class Level3 extends Phaser.Scene {
                     let value = tile.properties.value;
                     console.log('Picked up coin at:', tile.x, tile.y, " now holding ", this.globals.money);
                     this.coinLayer.removeTileAt(tile.x, tile.y);
+                    this.sound.play('coin')
                     if (this.message_text !== undefined) {
                         this.message_text.visible = true;
                         this.message_text.text = "+ " + value
@@ -302,6 +316,7 @@ class Level3 extends Phaser.Scene {
                     if (!this.playerDeath) {
                         this.cameras.main.shake(this.globals.SHAKE_DURATION, 0.01);
                         this.playerDeath = true;
+                        this.sound.play('death');
                         console.log("Kill Touch")
                         console.log('lives left: ', this.globals.lives)
                         if (this.globals.lives <= 0) {
@@ -336,6 +351,7 @@ class Level3 extends Phaser.Scene {
                     // UNIQUE TO LEVEL
                     this.globals.gameWinKey = true;
                     console.log("Key obtained: ", this.globals.gameWinKey)
+                    this.sound.play('key');
                     this.message_text.visible = true;
                     this.message_text.text = "Key Get!"
                     this.message_text.x = this.player.x;
