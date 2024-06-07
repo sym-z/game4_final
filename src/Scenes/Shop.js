@@ -216,6 +216,7 @@ class Shop extends Phaser.Scene {
                     console.log("Door Touch")
                     // UNIQUE TO LEVEL
                     if (this.interact.isDown) {
+                        this.globals.save_game();
                         this.scene.start("Hub");
                     }
                     break;

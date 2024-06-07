@@ -368,6 +368,7 @@ class Level1 extends Phaser.Scene {
                     //console.log("Out Touch")
                     // UNIQUE TO LEVEL
                     if (this.globals.level2Key && this.interact.isDown) {
+                        this.globals.save_game();
                         this.scene.start("Hub");
                     }
                     break;

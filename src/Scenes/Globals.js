@@ -3,7 +3,7 @@ class Globals extends Phaser.Scene {
         super("Globals");
     }
     create() {
-        this.debugMode = true;
+        this.debugMode = false;
         this.score = 0;
         this.ACCELERATION = 3000;
         this.MAX_SPEED = 200;
@@ -44,6 +44,36 @@ class Globals extends Phaser.Scene {
                 this.money = 1000;
                 this.lives = 100;
                 this.MAX_JUMPS = 3;
+            }
+        this.load_game()
+    }
+    save_game()
+    {
+        let data = 
+        {
+            money: this.money,
+            lives: this.lives,
+            lvl2k: this.level2Key,
+            lvl3k: this.level3Key,
+            gwk:   this.gameWinKey,
+            jumps: this.MAX_JUMPS,
+            wallet:this.WALLET_LIMIT
+        }
+        localStorage.setItem('data', JSON.stringify(data))
+    }
+    load_game()
+    {
+        let save = localStorage.getItem('data')
+        if(save)
+            {
+                let gameData = JSON.parse(save)
+                this.money = gameData.money;
+                this.lives = gameData.lives;
+                this.level2Key = gameData.lvl2k;
+                this.level3Key = gameData.lvl3k;
+                this.gameWinKey = gameData.gwk;
+                this.MAX_JUMPS = gameData.jumps;
+                this.WALLET_LIMIT = gameData.wallet;
             }
     }
     

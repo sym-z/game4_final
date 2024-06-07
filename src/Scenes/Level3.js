@@ -376,6 +376,7 @@ class Level3 extends Phaser.Scene {
                     console.log("Out Touch")
                     // UNIQUE TO LEVEL
                     if (this.globals.gameWinKey && this.interact.isDown) {
+                        this.globals.save_game();
                         this.winScreen.visible = true;
                         this.cameras.main.setZoom(1.0)
                         this.time.delayedCall(3000, () => {
