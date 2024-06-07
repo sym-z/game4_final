@@ -21,6 +21,12 @@ class Hub extends Phaser.Scene {
         // UNIQUE TO LEVEL
         this.startX = 714;
         this.startY = 504
+
+        this.uiSound = this.sound.add('ui')
+        this.deathSound = this.sound.add('death')
+        this.coinSound = this.sound.add('coin')
+        this.keySound = this.sound.add('key')
+
         this.init_map(this.hub_scene)
         this.animatedTiles.init(this.map);
         this.init_cam(this.hub_scene)
@@ -30,11 +36,11 @@ class Hub extends Phaser.Scene {
         
         // TODO: NEW LISTENER SOUND CODE
         this.showHUD.on('down', (key,event) => {
-            this.sound.play('ui')
+            this.uiSound.play({volume:0.35})
 
         })
         this.showHUD.on('up', (key,event) => {
-            this.sound.play('ui')
+            this.uiSound.play({volume:0.35})
 
         }) 
 
@@ -53,6 +59,9 @@ class Hub extends Phaser.Scene {
         this.keyIcon2.visible = false;
         this.keyIcon3 = this.add.sprite(0,0,'keyIcon')
         this.keyIcon3.visible = false;
+        
+        this.music = this.sound.add('hubMusic');
+        this.music.play({loop: true, volume: 0.35});
     }
     update(delta)
     {

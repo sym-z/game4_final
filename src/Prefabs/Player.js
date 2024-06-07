@@ -13,6 +13,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.jumps = 2;
         this.globals = globals
         this.step = this.parent.sound.add('footfall');
+        this.hop = this.parent.sound.add('jump');
     }
     update() {
         this.isMoving = false;
@@ -59,14 +60,14 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         if(Phaser.Input.Keyboard.JustDown(cursors.up))
         {
             if (this.body.blocked.down || this.jumps > 0) {
-                this.parent.sound.play('jump')
+                this.hop.play({volume:0.05})
                 this.jumps -= 1;
                 this.body.setVelocityY(this.parent.JUMP_VELOCITY);
             }
         }
 
         if (this.isMoving && !this.step.isPlaying && this.body.velocity.y == 0) {
-            this.step.play({ loop: true });
+            this.step.play({ loop: true , volume: 0.05});
         }
         else if (!this.isMoving && this.step.isPlaying || this.body.velocity.y) {
             this.step.stop();

@@ -51,10 +51,18 @@ class Load extends Phaser.Scene {
         this.load.audio("footfall", "audio/footfall.mp3") // Done
         this.load.audio("coin", "audio/jump.mp3") // Done
         this.load.audio("key", "audio/key.mp3") // Done
+        this.load.audio("shopMusic", "audio/shop.mp3") // Done
+        this.load.audio("hubMusic", "audio/hub.mp3") // Done
+        this.load.audio("level1Music", "audio/level1.mp3") // Done
+        this.load.audio("level2Music", "audio/level2.mp3") // Done
+        this.load.audio("level3Music", "audio/level3.mp3") // Done
+
         //TODO: Checkpoint Audio
         //TODO: Enemy Kill Audio
         //TODO: Game Win Audio
         //TODO: Game Over Audio
+        // TODO: LEVEL 1 MUSIC
+        // TODO: HUB MUSIC
 
         // Load frames to be used by the particle systems
         this.load.image("coinSys", "particles/coin_pickup.png");

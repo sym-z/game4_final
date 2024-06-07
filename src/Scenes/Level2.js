@@ -24,6 +24,12 @@ class Level2 extends Phaser.Scene {
         this.startY = 72
         this.checkX = 594;
         this.checkY = 272;
+
+        this.uiSound = this.sound.add('ui')
+        this.deathSound = this.sound.add('death')
+        this.coinSound = this.sound.add('coin')
+        this.keySound = this.sound.add('key')
+
         this.globals = this.scene.get("Globals");
         // UNIQUE TO LEVEL
         this.level_scene = this.scene.get("Level2");
@@ -39,11 +45,11 @@ class Level2 extends Phaser.Scene {
         
         // TODO: NEW LISTENER SOUND CODE
         this.showHUD.on('down', (key,event) => {
-            this.sound.play('ui')
+            this.uiSound.play({volume:0.35})
 
         })
         this.showHUD.on('up', (key,event) => {
-            this.sound.play('ui')
+            this.uiSound.play({volume:0.35})
 
         }) 
 
@@ -82,6 +88,9 @@ class Level2 extends Phaser.Scene {
 
         this.place_enemies(this.map);
 
+        
+        this.music = this.sound.add('level2Music');
+        this.music.play({loop: true, volume: 0.35});
     }
 
     update(time,delta) {
@@ -159,7 +168,7 @@ class Level2 extends Phaser.Scene {
                 console.log('Enemy touched from the side or bottom');
 
                 if (!this.playerDeath) {
-                    this.sound.play('death');
+                    this.deathSound.play({volume: 0.35})
                     this.cameras.main.shake(this.globals.SHAKE_DURATION, 0.01);
                     this.playerDeath = true;
                     console.log('lives left: ', this.globals.lives)
@@ -287,7 +296,7 @@ class Level2 extends Phaser.Scene {
                     let value = tile.properties.value;
                     console.log('Picked up coin at:', tile.x, tile.y, " now holding ", this.globals.money);
                     this.coinLayer.removeTileAt(tile.x, tile.y);
-                    this.sound.play('coin')
+                    this.coinSound.play({volume:0.35})
                     this.message_text.visible = true;
                     this.message_text.text = "+ " + value
                     this.message_text.x = this.player.x;
@@ -317,7 +326,7 @@ class Level2 extends Phaser.Scene {
                     if (!this.playerDeath) {
                         this.cameras.main.shake(this.globals.SHAKE_DURATION, 0.01);
                         this.playerDeath = true;
-                        this.sound.play('death');
+                        this.deathSound.play({volume:0.35})
                         console.log("Kill Touch")
                         //this.scene.restart()
                         console.log('lives left: ', this.globals.lives)
@@ -353,7 +362,7 @@ class Level2 extends Phaser.Scene {
                     // UNIQUE TO LEVEL
                     this.globals.level3Key = true;
                     console.log("Key obtained: ", this.globals.level3Key)
-                    this.sound.play('key');
+                    this.keySound.play({volume:0.35})
                     this.message_text.visible = true;
                     this.message_text.text = "Key Get!"
                     this.message_text.x = this.player.x;

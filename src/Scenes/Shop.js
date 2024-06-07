@@ -24,6 +24,12 @@ class Shop extends Phaser.Scene {
         this.startY = 152
         this.checkX = 216;
         this.checkY = 344;
+
+        this.uiSound = this.sound.add('ui')
+        this.deathSound = this.sound.add('death')
+        this.coinSound = this.sound.add('coin')
+        this.keySound = this.sound.add('key')
+
         this.globals = this.scene.get("Globals");
         // UNIQUE TO LEVEL
         this.level_scene = this.scene.get("Shop");
@@ -39,11 +45,11 @@ class Shop extends Phaser.Scene {
         
         // TODO: NEW LISTENER SOUND CODE
         this.showHUD.on('down', (key,event) => {
-            this.sound.play('ui')
+            this.uiSound.play({volume:0.35})
 
         })
         this.showHUD.on('up', (key,event) => {
-            this.sound.play('ui')
+            this.uiSound.play({volume:0.35})
 
         }) 
 
@@ -67,6 +73,9 @@ class Shop extends Phaser.Scene {
         this.keyIcon2.visible = false;
         this.keyIcon3 = this.add.sprite(0, 0, 'keyIcon')
         this.keyIcon3.visible = false;
+        
+        this.music = this.sound.add('shopMusic');
+        this.music.play({loop: true, volume: 0.08});
     }
 
     update(delta) {
