@@ -222,7 +222,7 @@ class Shop extends Phaser.Scene {
                     break;
                 case "Item3":
                     console.log("Item3 Touch")
-                    this.message_text.text = "Extra Jump: $350"
+                    this.message_text.text = "Additional Jump: $350"
                     this.message_text.x = this.player.x;
                     this.message_text.y = this.player.y + this.globals.SHOP_OFFSET;
                     this.message_text.visible = true;

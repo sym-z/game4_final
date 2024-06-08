@@ -320,8 +320,8 @@ class Level2 extends Phaser.Scene {
                     let yLoc = coinLoc.y + 16
                     this.coinSystem = this.add.particles(0, 0, 'coinSys',
                         {
-                            x: xLoc ,
-                            y: yLoc, 
+                            x: {min:xLoc - 5 , max: xLoc + 5},
+                            y: {min: yLoc - 5, max: yLoc + 5}, 
                             scale: { start: this.globals.ps_size, end: 0 },
                             rotate: { start: 0, end: 360 },
                             lifespan: 350,

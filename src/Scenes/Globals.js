@@ -92,6 +92,7 @@ class Globals extends Phaser.Scene {
     }
     erase_game() {
         localStorage.removeItem('data');
+        // TODO: RESET TO DEFAULT
     }
 
 

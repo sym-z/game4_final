@@ -32,12 +32,12 @@ class Start extends Phaser.Scene {
             }, [], this);
         }
 
-        if (this.credits.isDown) {
+        if (this.credits.isDown && !this.how.visible) {
             this.scene.start("Cred")
             console.log("hello")
         }
 
-        if (this.controls.isDown) {
+        if (this.controls.isDown && !this.how.visible) {
             this.scene.start("Controls")
         }
 
