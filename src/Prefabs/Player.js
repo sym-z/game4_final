@@ -30,7 +30,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         }
         // Move the player.
         if (cursors.left.isDown) {
-            this.parent.walkingSystem.startFollow(this, this.displayWidth / 2, this.displayHeight / 2 - 10, false);
+            this.parent.walkingSystem.startFollow(this, this.displayWidth / 2, this.displayHeight / 2 + this.globals.ps_y, false);
             if (this.body.blocked.down) {
                 console.log("startingggggg")
                 this.parent.walkingSystem.start();
@@ -42,7 +42,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             this.facing = -1;
 
         } else if (cursors.right.isDown) {
-            this.parent.walkingSystem.startFollow(this, this.displayWidth / 2 - 32, this.displayHeight / 2 - 10, false);
+            this.parent.walkingSystem.startFollow(this, this.displayWidth / 2 - 14, this.displayHeight / 2 + this.globals.ps_y, false);
             if (this.body.blocked.down) {
                 this.parent.walkingSystem.start();
             }
@@ -60,8 +60,8 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             this.isMoving = false;
         }
 
-        if (!this.body.blocked.down) {
-            this.parent.jumpSystem.startFollow(this, this.displayWidth / 2, this.displayHeight / 2 - 10, false);
+        if (!this.body.blocked.down && this.body.velocity.y < 0) {
+            this.parent.jumpSystem.startFollow(this, this.displayWidth / 2 - 7, this.displayHeight / 2 + this.globals.ps_y, false);
             this.parent.jumpSystem.start();
             console.log("pop")
             this.anims.play('jump', true);

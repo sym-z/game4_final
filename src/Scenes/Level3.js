@@ -97,7 +97,7 @@ class Level3 extends Phaser.Scene {
         this.bounceSound = this.sound.add('bounce');
         this.walkingSystem = this.add.particles(0, 0, 'runSys',
             {
-                scale: { start: 0.1, end: 0 },
+                scale: { start: this.globals.ps_size, end: 0 },
                 rotate: { start: 0, end: 360 },
                 lifespan: 350,
                 duration: 200
@@ -107,7 +107,7 @@ class Level3 extends Phaser.Scene {
         this.walkingSystem.setDepth(15);
         this.jumpSystem = this.add.particles(0, 0, 'jumpSys',
             {
-                scale: { start: 0.1, end: 0 },
+                scale: { start: this.globals.ps_size, end: 0 },
                 rotate: { start: 0, end: 360 },
                 lifespan: 350,
                 duration: 200
@@ -317,7 +317,7 @@ class Level3 extends Phaser.Scene {
                         {
                             x: xLoc ,
                             y: yLoc, 
-                            scale: { start: 0.1, end: 0 },
+                            scale: { start: this.globals.ps_size, end: 0 },
                             rotate: { start: 0, end: 360 },
                             lifespan: 350,
                             duration: 200
@@ -414,6 +414,7 @@ class Level3 extends Phaser.Scene {
                     console.log("Out Touch")
                     // UNIQUE TO LEVEL
                     if (this.globals.gameWinKey && this.interact.isDown) {
+                        this.globals.lvl_3_cmp = true;
                         this.globals.erase_game();
                         this.winScreen.visible = true;
                         this.cameras.main.setZoom(1.0)

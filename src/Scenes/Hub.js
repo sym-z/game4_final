@@ -65,7 +65,7 @@ class Hub extends Phaser.Scene {
 
         this.walkingSystem = this.add.particles(0, 0, 'runSys',
             {
-                scale: { start: 0.1, end: 0 },
+                scale: { start: this.globals.ps_size, end: 0 },
                 rotate: { start: 0, end: 360 },
                 lifespan: 350,
                 duration: 200
@@ -75,7 +75,7 @@ class Hub extends Phaser.Scene {
         this.walkingSystem.stop();
         this.jumpSystem = this.add.particles(0, 0, 'jumpSys',
             {
-                scale: { start: 0.1, end: 0 },
+                scale: { start: this.globals.ps_size, end: 0 },
                 rotate: { start: 0, end: 360 },
                 lifespan: 350,
                 duration: 200
@@ -85,12 +85,13 @@ class Hub extends Phaser.Scene {
         this.jumpSystem.setDepth(16);
         this.coinSystem = this.add.particles(0, 0, 'coinSys',
             {
-                scale: { start: 0.1, end: 0 },
+                scale: { start: this.globals.ps_size, end: 0 },
                 rotate: { start: 0, end: 360 },
                 lifespan: 350,
                 duration: 200
             }
         );
+
         this.coinSystem.stop();
         this.coinSystem.setDepth(17);
     }
@@ -252,9 +253,9 @@ function handleItemOverlap(player, tile) {
             this.message_text.text = "Level 2"
             this.message_text.x = this.player.x;
             this.message_text.y = this.player.y + this.globals.SHOP_OFFSET; 
-            if(!this.globals.level2Key) this.message_text.text = "Complete Level 1 to Unlock!"
+            if(!this.globals.lvl_1_cmp) this.message_text.text = "Complete Level 1 to Unlock!"
             this.message_text.visible = true;
-            if(this.interact.isDown && this.globals.level2Key)
+            if(this.interact.isDown && this.globals.lvl_1_cmp)
                 {
                     this.scene.start("Level2")
                 }
@@ -264,9 +265,9 @@ function handleItemOverlap(player, tile) {
             this.message_text.text = "Level 3"
             this.message_text.x = this.player.x;
             this.message_text.y = this.player.y + this.globals.SHOP_OFFSET; 
-            if(!this.globals.level3Key) this.message_text.text = "Complete Level 2 to Unlock!"
+            if(!this.globals.lvl_2_cmp) this.message_text.text = "Complete Level 2 to Unlock!"
             this.message_text.visible = true;
-            if(this.interact.isDown && this.globals.level3Key)
+            if(this.interact.isDown && this.globals.lvl_2_cmp)
                 {
                     this.scene.start("Level3")
                 }

@@ -80,7 +80,7 @@ class Shop extends Phaser.Scene {
         this.noBuySound = this.sound.add('noBuy');
         this.walkingSystem = this.add.particles(0, 0, 'runSys',
             {
-                scale: { start: 0.1, end: 0 },
+                scale: { start: this.globals.ps_size, end: 0 },
                 rotate: { start: 0, end: 360 },
                 lifespan: 350,
                 duration: 200
@@ -90,7 +90,7 @@ class Shop extends Phaser.Scene {
         this.walkingSystem.setDepth(15);
         this.jumpSystem = this.add.particles(0, 0, 'jumpSys',
             {
-                scale: { start: 0.1, end: 0 },
+                scale: { start: this.globals.ps_size, end: 0 },
                 rotate: { start: 0, end: 360 },
                 lifespan: 350,
                 duration: 200
