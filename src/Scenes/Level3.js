@@ -92,7 +92,7 @@ class Level3 extends Phaser.Scene {
         this.winScreen.visible = false;
         
         this.music = this.sound.add('level3Music');
-        this.music.play({loop: true, volume: 0.45});
+        this.music.play({loop: true, volume: 0.35});
         this.checkSound = this.sound.add('check');
         this.bounceSound = this.sound.add('bounce');
     }
@@ -295,7 +295,7 @@ class Level3 extends Phaser.Scene {
                     let value = tile.properties.value;
                     console.log('Picked up coin at:', tile.x, tile.y, " now holding ", this.globals.money);
                     this.coinLayer.removeTileAt(tile.x, tile.y);
-                    this.coinSound.play({volume:0.35})
+                    this.coinSound.play({volume:this.globals.coinVolume})
                     if (this.message_text !== undefined) {
                         this.message_text.visible = true;
                         this.message_text.text = "+ " + value

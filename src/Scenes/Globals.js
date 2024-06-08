@@ -36,6 +36,7 @@ class Globals extends Phaser.Scene {
         this.KEY1_OFFSET = -20;
         this.KEY2_OFFSET = 0;
         this.KEY3_OFFSET = 20;
+        this.coinVolume = 0.15;
         if(this.debugMode)
             {
                 this.level2Key = true

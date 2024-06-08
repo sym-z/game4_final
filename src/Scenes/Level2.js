@@ -299,7 +299,7 @@ class Level2 extends Phaser.Scene {
                     let value = tile.properties.value;
                     console.log('Picked up coin at:', tile.x, tile.y, " now holding ", this.globals.money);
                     this.coinLayer.removeTileAt(tile.x, tile.y);
-                    this.coinSound.play({volume:0.35})
+                    this.coinSound.play({volume:this.globals.coinVolume})
                     this.message_text.visible = true;
                     this.message_text.text = "+ " + value
                     this.message_text.x = this.player.x;
