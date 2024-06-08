@@ -15,6 +15,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.step = this.parent.sound.add('footfall');
         this.hop = this.parent.sound.add('jump');
         this.wSys = scene.walkingSystem
+        this.setDepth(100)
     }
     update() {
         this.isMoving = false;
@@ -61,7 +62,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         }
 
         if (!this.body.blocked.down && this.body.velocity.y < 0) {
-            this.parent.jumpSystem.startFollow(this, this.displayWidth / 2 - 7, this.displayHeight / 2 + this.globals.ps_y, false);
+            this.parent.jumpSystem.startFollow(this, this.displayWidth / 2 - 9, this.displayHeight / 2 + 3, false);
             this.parent.jumpSystem.start();
             console.log("pop")
             this.anims.play('jump', true);

@@ -53,7 +53,7 @@ class Globals extends Phaser.Scene {
             this.MAX_JUMPS = 3;
         }
         // Particle systems
-        this.ps_size = 0.048;
+        this.ps_size = 0.042;
         this.ps_x = 0;
         this.ps_y = 0;
         this.load_game()
