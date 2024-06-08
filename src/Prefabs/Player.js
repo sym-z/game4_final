@@ -14,6 +14,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.globals = globals
         this.step = this.parent.sound.add('footfall');
         this.hop = this.parent.sound.add('jump');
+        this.wSys = scene.walkingSystem
     }
     update() {
         this.isMoving = false;
@@ -29,6 +30,11 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         }
         // Move the player.
         if (cursors.left.isDown) {
+            this.parent.walkingSystem.startFollow(this, this.displayWidth / 2, this.displayHeight / 2 - 10, false);
+            if (this.body.blocked.down) {
+                console.log("startingggggg")
+                this.parent.walkingSystem.start();
+            }
             this.body.setAccelerationX(-this.parent.ACCELERATION);
             this.setFlip(true, false);
             this.anims.play('walk', true);
@@ -36,7 +42,10 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             this.facing = -1;
 
         } else if (cursors.right.isDown) {
-
+            this.parent.walkingSystem.startFollow(this, this.displayWidth / 2 - 32, this.displayHeight / 2 - 10, false);
+            if (this.body.blocked.down) {
+                this.parent.walkingSystem.start();
+            }
             this.body.setAccelerationX(this.parent.ACCELERATION);
             this.resetFlip();
             this.anims.play('walk', true);
@@ -44,6 +53,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             this.facing = 1;
 
         } else {
+            this.parent.walkingSystem.stop();
             this.body.setAccelerationX(0);
             this.body.setDragX(this.parent.DRAG);
             this.anims.play('idle', true);
@@ -51,10 +61,14 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         }
 
         if (!this.body.blocked.down) {
+            this.parent.jumpSystem.startFollow(this, this.displayWidth / 2, this.displayHeight / 2 - 10, false);
+            this.parent.jumpSystem.start();
+            console.log("pop")
             this.anims.play('jump', true);
         }
         else
         {
+            this.parent.jumpSystem.stop();
             this.jumps = this.globals.MAX_JUMPS;
         }
         if(Phaser.Input.Keyboard.JustDown(cursors.up))

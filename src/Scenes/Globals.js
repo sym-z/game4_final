@@ -14,6 +14,10 @@ class Globals extends Phaser.Scene {
         this.level2Key = false;
         this.level3Key = false;
         this.gameWinKey = false;
+        // TODO: USE THESE TO FIX BUG WITH KEY AND GETTING GAME OVER BEFORE FINISHING THE LEVEL
+        this.lvl_1_cmp = false;
+        this.lvl_2_cmp = false;
+        this.lvl_3_cmp = false;
         this.money = 0;
         this.ZOOM = 2.75
         this.HUDX = 250

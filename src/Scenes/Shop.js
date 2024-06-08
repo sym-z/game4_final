@@ -78,6 +78,26 @@ class Shop extends Phaser.Scene {
         this.music.play({loop: true, volume: 0.08});
         this.buySound = this.sound.add('buy');
         this.noBuySound = this.sound.add('noBuy');
+        this.walkingSystem = this.add.particles(0, 0, 'runSys',
+            {
+                scale: { start: 0.1, end: 0 },
+                rotate: { start: 0, end: 360 },
+                lifespan: 350,
+                duration: 200
+            }
+        );
+        this.walkingSystem.stop();
+        this.walkingSystem.setDepth(15);
+        this.jumpSystem = this.add.particles(0, 0, 'jumpSys',
+            {
+                scale: { start: 0.1, end: 0 },
+                rotate: { start: 0, end: 360 },
+                lifespan: 350,
+                duration: 200
+            }
+        );
+        this.jumpSystem.stop();
+        this.jumpSystem.setDepth(16);
     }
 
     update(delta) {
@@ -171,24 +191,17 @@ class Shop extends Phaser.Scene {
                     this.message_text.x = this.player.x;
                     this.message_text.y = this.player.y + this.globals.SHOP_OFFSET;
                     this.message_text.visible = true;
-                    this.interact.on('down', (key,event) => 
-                    {
-                        if(this.globals.money < 100)
-                        {
-                            this.noBuySound.play({ volume: 0.35 })
-                        }
-                        else if (!this.shop_buffer && this.globals.money >= 100)
-                        {
-                            this.buySound.play({ volume: 0.35 })
-                            this.shop_buffer = true
-                            this.globals.lives += 1;
-                            this.globals.money -= 100;
-                            this.time.delayedCall(this.globals.BUY_CD, () => {
-                                this.shop_buffer = false;
-                            }, [], this);
+                    if (this.globals.money < 100 && this.interact.isDown && !this.shop_buffer) this.message_text.text = "Insufficient Funds!"
+                    if (this.globals.money >= 100 && this.interact.isDown && !this.shop_buffer) {
+                        this.shop_buffer = true
+                        this.buySound.play({volume:0.35})
+                        this.globals.lives += 1;
+                        this.globals.money -= 100;
+                        this.time.delayedCall(this.globals.BUY_CD, () => {
+                            this.shop_buffer = false;
+                        }, [], this);
+                    }
 
-                        }
-                    })
                     break;
                 case "Item2":
                     console.log("Item2 Touch")
@@ -196,27 +209,16 @@ class Shop extends Phaser.Scene {
                     this.message_text.x = this.player.x;
                     this.message_text.y = this.player.y + this.globals.SHOP_OFFSET;
                     this.message_text.visible = true;
-                    this.interact.on('up', (key,event) => 
-                    {
-                        console.log("hello")
-                        if(this.globals.money < 150)
-                        {
-                            console.log("playing sound")
-                            this.noBuySound.play({ volume: 0.35 })
-                        }
-                        else if (!this.shop_buffer && this.globals.money >= 150)
-                        {
-                            console.log('buying')
-                            this.buySound.play({ volume: 0.35 })
-                            this.shop_buffer = true
-                            this.globals.WALLET_LIMIT += 200;
-                            this.globals.money -= 150;
-                            this.time.delayedCall(this.globals.BUY_CD, () => {
-                                this.shop_buffer = false;
-                            }, [], this);
-
-                        }
-                    })
+                    if (this.globals.money < 150 && this.interact.isDown && !this.shop_buffer) this.message_text.text = "Insufficient Funds!"
+                    if (this.globals.money >= 150 && this.interact.isDown && !this.shop_buffer) {
+                        this.shop_buffer = true
+                        this.buySound.play({volume:0.35})
+                        this.globals.WALLET_LIMIT += 200;
+                        this.globals.money -= 150;
+                        this.time.delayedCall(this.globals.BUY_CD, () => {
+                            this.shop_buffer = false;
+                        }, [], this);
+                    }
                     break;
                 case "Item3":
                     console.log("Item3 Touch")
@@ -224,24 +226,16 @@ class Shop extends Phaser.Scene {
                     this.message_text.x = this.player.x;
                     this.message_text.y = this.player.y + this.globals.SHOP_OFFSET;
                     this.message_text.visible = true;
-                    this.interact.on('down', (key,event) => 
-                    {
-                        if(this.globals.money < 350)
-                        {
-                            this.noBuySound.play({ volume: 0.35 })
-                        }
-                        else if (!this.shop_buffer && this.globals.money >= 350)
-                        {
-                            this.buySound.play({ volume: 0.35 })
-                            this.shop_buffer = true
-                            this.globals.MAX_JUMPS += 1;
-                            this.globals.money -= 350;
-                            this.time.delayedCall(this.globals.BUY_CD, () => {
-                                this.shop_buffer = false;
-                            }, [], this);
-
-                        }
-                    })
+                    if (this.globals.money < 350 && this.interact.isDown && !this.shop_buffer) this.message_text.text = "Insufficient Funds!"
+                    if (this.globals.money >= 350 && this.interact.isDown && !this.shop_buffer) {
+                        this.shop_buffer = true
+                        this.buySound.play({volume:0.35})
+                        this.globals.MAX_JUMPS += 1;
+                        this.globals.money -= 350;
+                        this.time.delayedCall(this.globals.BUY_CD, () => {
+                            this.shop_buffer = false;
+                        }, [], this);
+                    }
                     break;
                 case "Door":
                     console.log("Door Touch")

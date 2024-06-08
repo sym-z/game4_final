@@ -62,6 +62,37 @@ class Hub extends Phaser.Scene {
         
         this.music = this.sound.add('hubMusic');
         this.music.play({loop: true, volume: 0.35});
+
+        this.walkingSystem = this.add.particles(0, 0, 'runSys',
+            {
+                scale: { start: 0.1, end: 0 },
+                rotate: { start: 0, end: 360 },
+                lifespan: 350,
+                duration: 200
+            }
+        );
+        this.walkingSystem.setDepth(15);
+        this.walkingSystem.stop();
+        this.jumpSystem = this.add.particles(0, 0, 'jumpSys',
+            {
+                scale: { start: 0.1, end: 0 },
+                rotate: { start: 0, end: 360 },
+                lifespan: 350,
+                duration: 200
+            }
+        );
+        this.jumpSystem.stop();
+        this.jumpSystem.setDepth(16);
+        this.coinSystem = this.add.particles(0, 0, 'coinSys',
+            {
+                scale: { start: 0.1, end: 0 },
+                rotate: { start: 0, end: 360 },
+                lifespan: 350,
+                duration: 200
+            }
+        );
+        this.coinSystem.stop();
+        this.coinSystem.setDepth(17);
     }
     update(delta)
     {

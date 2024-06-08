@@ -95,6 +95,26 @@ class Level3 extends Phaser.Scene {
         this.music.play({loop: true, volume: 0.35});
         this.checkSound = this.sound.add('check');
         this.bounceSound = this.sound.add('bounce');
+        this.walkingSystem = this.add.particles(0, 0, 'runSys',
+            {
+                scale: { start: 0.1, end: 0 },
+                rotate: { start: 0, end: 360 },
+                lifespan: 350,
+                duration: 200
+            }
+        );
+        this.walkingSystem.stop();
+        this.walkingSystem.setDepth(15);
+        this.jumpSystem = this.add.particles(0, 0, 'jumpSys',
+            {
+                scale: { start: 0.1, end: 0 },
+                rotate: { start: 0, end: 360 },
+                lifespan: 350,
+                duration: 200
+            }
+        );
+        this.jumpSystem.stop();
+        this.jumpSystem.setDepth(16);
     }
 
     update(time,delta) {
@@ -290,6 +310,21 @@ class Level3 extends Phaser.Scene {
         if (tile.index != -1) {
             switch (tile.layer.name) {
                 case "Coins":
+                    let coinLoc = this.map.tileToWorldXY(tile.x,tile.y)
+                    let xLoc = coinLoc.x + 16
+                    let yLoc = coinLoc.y + 16
+                    this.coinSystem = this.add.particles(0, 0, 'coinSys',
+                        {
+                            x: xLoc ,
+                            y: yLoc, 
+                            scale: { start: 0.1, end: 0 },
+                            rotate: { start: 0, end: 360 },
+                            lifespan: 350,
+                            duration: 200
+                        }
+                    );
+                    this.coinSystem.setDepth(17);
+                    this.coinSystem.start();
                     this.globals.money += tile.properties.value;
                     if (this.globals.money > this.globals.WALLET_LIMIT) this.globals.money = this.globals.WALLET_LIMIT;
                     let value = tile.properties.value;
