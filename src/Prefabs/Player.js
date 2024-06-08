@@ -69,7 +69,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         else
         {
             this.parent.jumpSystem.stop();
-            this.jumps = this.globals.MAX_JUMPS;
+            if(this.body.blocked.down && this.body.velocity.y == 0) this.jumps = this.globals.MAX_JUMPS;
         }
         if(Phaser.Input.Keyboard.JustDown(cursors.up))
         {

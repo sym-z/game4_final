@@ -162,7 +162,7 @@ class Level2 extends Phaser.Scene {
 
                 this.physics.add.collider(this.enemy, this.walkableLayer);
                 this.physics.add.collider(this.enemy, this.platformLayer);
-                this.physics.add.collider(this.player, this.enemy, this.battle_touch, null, this);
+                this.physics.add.collider(this.player, this.enemy, this.battle_touch, () => {console.log('jumanji')}, this);
                 this.enemy.setCollideWorldBounds(true);
                 tile.visible = false;
                 

@@ -91,8 +91,18 @@ class Globals extends Phaser.Scene {
         }
     }
     erase_game() {
-        localStorage.removeItem('data');
         // TODO: RESET TO DEFAULT
+            this.money = 0;
+            this.lives = 3;
+            this.level2Key = false;
+            this.level3Key = false;
+            this.lvl_1_cmp = false;
+            this.lvl_2_cmp = false;
+            this.lvl_3_cmp = false;
+            this.gameWinKey = false;
+            this.MAX_JUMPS = 1;
+            this.WALLET_LIMIT = 400;
+            this.save_game()
     }
 
 
