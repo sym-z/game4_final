@@ -90,7 +90,9 @@ class Level2 extends Phaser.Scene {
 
         
         this.music = this.sound.add('level2Music');
-        this.music.play({loop: true, volume: 0.35});
+        this.music.play({loop: true, volume: 0.15});
+        this.checkSound = this.sound.add('check');
+        this.bounceSound = this.sound.add('bounce');
     }
 
     update(time,delta) {
@@ -154,6 +156,7 @@ class Level2 extends Phaser.Scene {
             if (player.body.bottom <= enemy.body.top + 10) {
                 console.log('Enemy touched from the top');
                 player.body.velocity.y = this.globals.ENEMY_BOUNCE;
+                this.bounceSound.play({volume:0.35}) 
                                 
                 // NEW ENEMY CODE
                 enemy.alive = false;
@@ -314,6 +317,7 @@ class Level2 extends Phaser.Scene {
                         this.checkpointCleared = true;
                         this.message_text.visible = true;
                         this.message_text.text = "Checkpoint!"
+                        this.checkSound.play({volume:0.35})
                         this.message_text.x = this.player.x;
                         this.message_text.y = this.player.y;
                         this.time.delayedCall(1000, () => {
