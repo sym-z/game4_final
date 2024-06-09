@@ -16,6 +16,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.hop = this.parent.sound.add('jump');
         this.wSys = scene.walkingSystem
         this.setDepth(100)
+        this.active = true;
     }
     update() {
         this.isMoving = false;
@@ -30,64 +31,64 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             }
         }
         // Move the player.
-        if (cursors.left.isDown) {
-            this.parent.walkingSystem.startFollow(this, this.displayWidth / 2, this.displayHeight / 2 + this.globals.ps_y, false);
-            if (this.body.blocked.down) {
-                console.log("startingggggg")
-                this.parent.walkingSystem.start();
-            }
-            this.body.setAccelerationX(-this.parent.ACCELERATION);
-            this.setFlip(true, false);
-            this.anims.play('walk', true);
-            this.isMoving = true;
-            this.facing = -1;
-
-        } else if (cursors.right.isDown) {
-            this.parent.walkingSystem.startFollow(this, this.displayWidth / 2 - 14, this.displayHeight / 2 + this.globals.ps_y, false);
-            if (this.body.blocked.down) {
-                this.parent.walkingSystem.start();
-            }
-            this.body.setAccelerationX(this.parent.ACCELERATION);
-            this.resetFlip();
-            this.anims.play('walk', true);
-            this.isMoving = true;
-            this.facing = 1;
-
-        } else {
-            this.parent.walkingSystem.stop();
-            this.body.setAccelerationX(0);
-            this.body.setDragX(this.parent.DRAG);
-            this.anims.play('idle', true);
-            this.isMoving = false;
-        }
-
-        if (!this.body.blocked.down && this.body.velocity.y < 0) {
-            this.parent.jumpSystem.startFollow(this, this.displayWidth / 2 - 9, this.displayHeight / 2 + 3, false);
-            this.parent.jumpSystem.start();
-            console.log("pop")
-            this.anims.play('jump', true);
-        }
-        else
+        if(this.active)
         {
-            this.parent.jumpSystem.stop();
-            if(this.body.blocked.down && this.body.velocity.y == 0) this.jumps = this.globals.MAX_JUMPS;
-        }
-        if(Phaser.Input.Keyboard.JustDown(cursors.up))
-        {
-            if (this.body.blocked.down || this.jumps > 0) {
-                this.hop.play({volume:0.05})
-                this.jumps -= 1;
-                this.body.setVelocityY(this.parent.JUMP_VELOCITY);
+            if (cursors.left.isDown) {
+                this.parent.walkingSystem.startFollow(this, this.displayWidth / 2, this.displayHeight / 2 + this.globals.ps_y, false);
+                if (this.body.blocked.down) {
+                    console.log("startingggggg")
+                    this.parent.walkingSystem.start();
+                }
+                this.body.setAccelerationX(-this.parent.ACCELERATION);
+                this.setFlip(true, false);
+                this.anims.play('walk', true);
+                this.isMoving = true;
+                this.facing = -1;
+
+            } else if (cursors.right.isDown) {
+                this.parent.walkingSystem.startFollow(this, this.displayWidth / 2 - 14, this.displayHeight / 2 + this.globals.ps_y, false);
+                if (this.body.blocked.down) {
+                    this.parent.walkingSystem.start();
+                }
+                this.body.setAccelerationX(this.parent.ACCELERATION);
+                this.resetFlip();
+                this.anims.play('walk', true);
+                this.isMoving = true;
+                this.facing = 1;
+
+            } else {
+                this.parent.walkingSystem.stop();
+                this.body.setAccelerationX(0);
+                this.body.setDragX(this.parent.DRAG);
+                this.anims.play('idle', true);
+                this.isMoving = false;
+            }
+
+            if (!this.body.blocked.down && this.body.velocity.y < 0) {
+                this.parent.jumpSystem.startFollow(this, this.displayWidth / 2 - 9, this.displayHeight / 2 + 3, false);
+                this.parent.jumpSystem.start();
+                console.log("pop")
+                this.anims.play('jump', true);
+            }
+            else {
+                this.parent.jumpSystem.stop();
+                if (this.body.blocked.down && this.body.velocity.y == 0) this.jumps = this.globals.MAX_JUMPS;
+            }
+            if (Phaser.Input.Keyboard.JustDown(cursors.up)) {
+                if (this.body.blocked.down || this.jumps > 0) {
+                    this.hop.play({ volume: 0.05 })
+                    this.jumps -= 1;
+                    this.body.setVelocityY(this.parent.JUMP_VELOCITY);
+                }
+            }
+
+            if (this.isMoving && !this.step.isPlaying && this.body.velocity.y == 0) {
+                this.step.play({ loop: true, volume: 0.05 });
+            }
+            else if (!this.isMoving && this.step.isPlaying || this.body.velocity.y) {
+                this.step.stop();
             }
         }
-
-        if (this.isMoving && !this.step.isPlaying && this.body.velocity.y == 0) {
-            this.step.play({ loop: true , volume: 0.05});
-        }
-        else if (!this.isMoving && this.step.isPlaying || this.body.velocity.y) {
-            this.step.stop();
-        }
-
 
     }
 

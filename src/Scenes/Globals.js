@@ -3,7 +3,7 @@ class Globals extends Phaser.Scene {
         super("Globals");
     }
     create() {
-        this.debugMode = false;
+        this.debugMode = true;
         this.score = 0;
         this.ACCELERATION = 3000;
         this.MAX_SPEED = 200;
@@ -41,22 +41,23 @@ class Globals extends Phaser.Scene {
         this.KEY2_OFFSET = 0;
         this.KEY3_OFFSET = 20;
         this.coinVolume = 0.15;
-        if (this.debugMode) {
-            this.level2Key = true
-            this.level3Key = true;
-            this.gameWinKey = true;
-            this.lvl_1_cmp = false;
-            this.lvl_2_cmp = false;
-            this.lvl_3_cmp = false;
-            this.money = 1000;
-            this.lives = 100;
-            this.MAX_JUMPS = 3;
-        }
+        
         // Particle systems
         this.ps_size = 0.042;
         this.ps_x = 0;
         this.ps_y = 0;
         this.load_game()
+        if (this.debugMode) {
+            this.level2Key = true
+            this.level3Key = true;
+            this.gameWinKey = true;
+            this.lvl_1_cmp = true;
+            this.lvl_2_cmp = true;
+            this.lvl_3_cmp = true;
+            this.money = 1000;
+            this.lives = 100;
+            this.MAX_JUMPS = 3;
+        }
     }
     save_game() {
         let data =
