@@ -3,7 +3,7 @@ class Globals extends Phaser.Scene {
         super("Globals");
     }
     create() {
-        this.debugMode = true;
+        this.debugMode = false;
         this.score = 0;
         this.ACCELERATION = 3000;
         this.MAX_SPEED = 200;
